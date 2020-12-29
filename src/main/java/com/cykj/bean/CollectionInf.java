@@ -1,6 +1,6 @@
 package com.cykj.bean;
 
-public class Collection {
+public class CollectionInf {
     private Integer collectionId;
 
     private String time;
@@ -9,7 +9,7 @@ public class Collection {
 
     private String endSite;
 
-    public Collection() {
+    public CollectionInf() {
     }
 
     public Integer getCollectionId() {

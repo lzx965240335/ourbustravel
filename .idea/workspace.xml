@@ -3,23 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Admin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AdminInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AdminInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Advert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Dic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Dic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/GoodsInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/GoodsInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/History.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/LogInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/LogInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/MenuInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/MenuInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Opinion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Opinion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Power.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/billInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/billInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/newsInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/newsInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/CollectionInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CollectionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CollectionInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/CollectionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/CollectionInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/OurbustravelApplication.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +54,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -234,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609232123242</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="last">
+      <created>1609233253048</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1609233253048</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +255,8 @@
     <MESSAGE value="框架" />
     <MESSAGE value="原始" />
     <MESSAGE value="yuanshi" />
-    <option name="LAST_COMMIT_MESSAGE" value="yuanshi" />
+    <MESSAGE value="last" />
+    <option name="LAST_COMMIT_MESSAGE" value="last" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="186" key="#Notifications" timestamp="1609207667060">
@@ -279,14 +279,14 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1609233229836" />
-    <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609232012508">
+    <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609234360489">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609232012508" />
-    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609232122710">
+    <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609234360489" />
+    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609233252483">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609232122710" />
+    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609233252483" />
     <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1609123076320">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -295,38 +295,38 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="823" y="423" key="Github.ShareDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609226115676" />
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.0.bottom" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.0.center" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.0.left" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.0.right" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.1.bottom" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.1.bottom" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.1.center" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.1.center" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.1.left" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.1.left" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
-    <state width="1877" height="285" key="GridCell.Tab.1.right" timestamp="1609231603690">
+    <state width="1877" height="318" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
+    <state width="1877" height="318" key="GridCell.Tab.1.right" timestamp="1609234418066">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1609231603690" />
+    <state width="1877" height="318" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1609234418066" />
     <state x="679" y="237" key="RollbackChangesDialog" timestamp="1609228123425">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -335,10 +335,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1609225549216" />
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609232197083">
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609233265894">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609232197083" />
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609233265894" />
     <state x="754" y="443" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609226129565">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
