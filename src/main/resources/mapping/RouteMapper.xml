@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.RouteMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.Route" >
+    <id column="routeId" property="routeid" jdbcType="INTEGER" />
+    <result column="routeName" property="routename" jdbcType="VARCHAR" />
+    <result column="bulidTime" property="bulidtime" jdbcType="VARCHAR" />
+    <result column="routeInf" property="routeinf" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    routeId, routeName, bulidTime, routeInf, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_route
+    where routeId = #{routeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_route
+    where routeId = #{routeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.Route" >
+    insert into t_route (routeId, routeName, bulidTime, 
+      routeInf, updateTime)
+    values (#{routeid,jdbcType=INTEGER}, #{routename,jdbcType=VARCHAR}, #{bulidtime,jdbcType=VARCHAR}, 
+      #{routeinf,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.Route" >
+    insert into t_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeid != null" >
+        routeId,
+      </if>
+      <if test="routename != null" >
+        routeName,
+      </if>
+      <if test="bulidtime != null" >
+        bulidTime,
+      </if>
+      <if test="routeinf != null" >
+        routeInf,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeid != null" >
+        #{routeid,jdbcType=INTEGER},
+      </if>
+      <if test="routename != null" >
+        #{routename,jdbcType=VARCHAR},
+      </if>
+      <if test="bulidtime != null" >
+        #{bulidtime,jdbcType=VARCHAR},
+      </if>
+      <if test="routeinf != null" >
+        #{routeinf,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.Route" >
+    update t_route
+    <set >
+      <if test="routename != null" >
+        routeName = #{routename,jdbcType=VARCHAR},
+      </if>
+      <if test="bulidtime != null" >
+        bulidTime = #{bulidtime,jdbcType=VARCHAR},
+      </if>
+      <if test="routeinf != null" >
+        routeInf = #{routeinf,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where routeId = #{routeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.Route" >
+    update t_route
+    set routeName = #{routename,jdbcType=VARCHAR},
+      bulidTime = #{bulidtime,jdbcType=VARCHAR},
+      routeInf = #{routeinf,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR}
+    where routeId = #{routeid,jdbcType=INTEGER}
+  </update>
+</mapper>

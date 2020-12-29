@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.billInfMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.billInf" >
+    <id column="billId" property="billid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="billType" property="billtype" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="DOUBLE" />
+    <result column="billTime" property="billtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    billId, userId, billType, cost, billTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bill
+    where billId = #{billid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bill
+    where billId = #{billid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.billInf" >
+    insert into t_bill (billId, userId, billType, 
+      cost, billTime)
+    values (#{billid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{billtype,jdbcType=INTEGER}, 
+      #{cost,jdbcType=DOUBLE}, #{billtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.billInf" >
+    insert into t_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billid != null" >
+        billId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="billtype != null" >
+        billType,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="billtime != null" >
+        billTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billid != null" >
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="billtype != null" >
+        #{billtype,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="billtime != null" >
+        #{billtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.billInf" >
+    update t_bill
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="billtype != null" >
+        billType = #{billtype,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="billtime != null" >
+        billTime = #{billtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where billId = #{billid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.billInf" >
+    update t_bill
+    set userId = #{userid,jdbcType=INTEGER},
+      billType = #{billtype,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=DOUBLE},
+      billTime = #{billtime,jdbcType=VARCHAR}
+    where billId = #{billid,jdbcType=INTEGER}
+  </update>
+</mapper>
