@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Route;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RouteMapper {
     int deleteByPrimaryKey(Integer routeid);
 

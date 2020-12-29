@@ -2,61 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AdminInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Advert.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Dic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/GoodsInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/History.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/LogInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/MenuInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Opinion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Power.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Route.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/billInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/newsInf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/GetPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdminInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdvertMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/BusInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CollectionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DicMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DriverMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/GoodsInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/HistoryMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/LogInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/MenuInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/OpinionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/PowerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/UserInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/billInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/newsInfMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/LayuiJson.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/AdminInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/AdvertMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/BusInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/CollectionMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/DicMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/DriverMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/GoodsInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/HistoryMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/LogInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/MenuInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/OpinionMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/PowerMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/RouteMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/SiteMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/UserInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/billInfMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/newsInfMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/OurbustravelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/OurbustravelApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdminInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdminInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdvertMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/AdvertMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/BusInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/BusInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CollectionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CollectionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DicMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DicMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DriverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DriverMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/GoodsInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/GoodsInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/HistoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/HistoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/LogInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/LogInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/MenuInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/MenuInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/OpinionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/OpinionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/PowerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/PowerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/UserInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/UserInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/billInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/billInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/newsInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/newsInfMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +216,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="框架" />
-    <option name="LAST_COMMIT_MESSAGE" value="框架" />
+    <MESSAGE value="原始" />
+    <option name="LAST_COMMIT_MESSAGE" value="原始" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="186" key="#Notifications" timestamp="1609207667060">

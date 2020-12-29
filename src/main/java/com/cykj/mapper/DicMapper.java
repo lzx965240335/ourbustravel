@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Dic;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DicMapper {
     int deleteByPrimaryKey(Integer dicid);
 

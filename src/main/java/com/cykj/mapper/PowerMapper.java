@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Power;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PowerMapper {
     int deleteByPrimaryKey(Integer powerid);
 

@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.AdminInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminInfMapper {
     int deleteByPrimaryKey(Integer adminid);
 

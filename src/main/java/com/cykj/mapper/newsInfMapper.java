@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.newsInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface newsInfMapper {
     int deleteByPrimaryKey(Integer newsid);
 

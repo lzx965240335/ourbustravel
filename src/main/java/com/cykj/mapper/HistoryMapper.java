@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.History;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface HistoryMapper {
     int deleteByPrimaryKey(Integer historyid);
 

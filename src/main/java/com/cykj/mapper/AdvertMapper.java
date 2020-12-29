@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Advert;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdvertMapper {
     int deleteByPrimaryKey(Integer advertid);
 

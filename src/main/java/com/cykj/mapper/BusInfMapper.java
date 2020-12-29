@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.BusInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BusInfMapper {
     int deleteByPrimaryKey(Integer busid);
 

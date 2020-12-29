@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.MenuInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MenuInfMapper {
     int deleteByPrimaryKey(Integer menuid);
 

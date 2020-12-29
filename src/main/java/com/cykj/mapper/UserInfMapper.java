@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.UserInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserInfMapper {
     int deleteByPrimaryKey(Integer userid);
 

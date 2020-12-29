@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.billInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface billInfMapper {
     int deleteByPrimaryKey(Integer billid);
 

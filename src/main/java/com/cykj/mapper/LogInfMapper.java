@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.LogInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LogInfMapper {
     int deleteByPrimaryKey(Integer logid);
 

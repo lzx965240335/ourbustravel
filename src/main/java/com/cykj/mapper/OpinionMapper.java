@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.Opinion;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OpinionMapper {
     int deleteByPrimaryKey(Integer opinoinid);
 

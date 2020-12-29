@@ -1,7 +1,9 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.GoodsInf;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface GoodsInfMapper {
     int deleteByPrimaryKey(Integer goodsid);
 
