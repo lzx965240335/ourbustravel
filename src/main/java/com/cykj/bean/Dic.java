@@ -1,20 +1,23 @@
 package com.cykj.bean;
 
 public class Dic {
-    private Integer dicid;
+    private Integer dicId;
 
     private String dickey;
 
-    private String dicvalue;
+    private String dicValue;
 
-    private String dictype;
+    private String dicType;
 
-    public Integer getDicid() {
-        return dicid;
+    public Dic() {
     }
 
-    public void setDicid(Integer dicid) {
-        this.dicid = dicid;
+    public Integer getDicId() {
+        return dicId;
+    }
+
+    public void setDicId(Integer dicId) {
+        this.dicId = dicId;
     }
 
     public String getDickey() {
@@ -22,22 +25,22 @@ public class Dic {
     }
 
     public void setDickey(String dickey) {
-        this.dickey = dickey == null ? null : dickey.trim();
+        this.dickey = dickey;
     }
 
-    public String getDicvalue() {
-        return dicvalue;
+    public String getDicValue() {
+        return dicValue;
     }
 
-    public void setDicvalue(String dicvalue) {
-        this.dicvalue = dicvalue == null ? null : dicvalue.trim();
+    public void setDicValue(String dicValue) {
+        this.dicValue = dicValue;
     }
 
-    public String getDictype() {
-        return dictype;
+    public String getDicType() {
+        return dicType;
     }
 
-    public void setDictype(String dictype) {
-        this.dictype = dictype == null ? null : dictype.trim();
+    public void setDicType(String dicType) {
+        this.dicType = dicType;
     }
 }

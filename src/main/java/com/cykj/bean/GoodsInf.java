@@ -1,43 +1,46 @@
 package com.cykj.bean;
 
 public class GoodsInf {
-    private Integer goodsid;
+    private Integer goodsId;
 
-    private String goodsname;
+    private String goodsName;
 
-    private String goodsimg;
+    private String goodsImg;
 
-    private Integer goodspoint;
+    private Integer goodsPoint;
 
-    public Integer getGoodsid() {
-        return goodsid;
+    public GoodsInf() {
     }
 
-    public void setGoodsid(Integer goodsid) {
-        this.goodsid = goodsid;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public String getGoodsname() {
-        return goodsname;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public void setGoodsname(String goodsname) {
-        this.goodsname = goodsname == null ? null : goodsname.trim();
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public String getGoodsimg() {
-        return goodsimg;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public void setGoodsimg(String goodsimg) {
-        this.goodsimg = goodsimg == null ? null : goodsimg.trim();
+    public String getGoodsImg() {
+        return goodsImg;
     }
 
-    public Integer getGoodspoint() {
-        return goodspoint;
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
     }
 
-    public void setGoodspoint(Integer goodspoint) {
-        this.goodspoint = goodspoint;
+    public Integer getGoodsPoint() {
+        return goodsPoint;
+    }
+
+    public void setGoodsPoint(Integer goodsPoint) {
+        this.goodsPoint = goodsPoint;
     }
 }

@@ -1,30 +1,33 @@
 package com.cykj.bean;
 
 public class AdminInf {
-    private Integer adminid;
+    private Integer adminId;
 
     private String account;
 
     private String password;
 
-    private Integer roleid;
+    private Integer roleId;
 
-    private Integer adminstate;
+    private Integer adminState;
 
-    private String regtime;
+    private String regTime;
 
     private String avatar;
 
-    private String updatetime;
+    private String updateTime;
 
-    private String adminname;
+    private String adminName;
 
-    public Integer getAdminid() {
-        return adminid;
+    public AdminInf() {
     }
 
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
     public String getAccount() {
@@ -32,7 +35,7 @@ public class AdminInf {
     }
 
     public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+        this.account = account;
     }
 
     public String getPassword() {
@@ -40,31 +43,31 @@ public class AdminInf {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getAdminstate() {
-        return adminstate;
+    public Integer getAdminState() {
+        return adminState;
     }
 
-    public void setAdminstate(Integer adminstate) {
-        this.adminstate = adminstate;
+    public void setAdminState(Integer adminState) {
+        this.adminState = adminState;
     }
 
-    public String getRegtime() {
-        return regtime;
+    public String getRegTime() {
+        return regTime;
     }
 
-    public void setRegtime(String regtime) {
-        this.regtime = regtime == null ? null : regtime.trim();
+    public void setRegTime(String regTime) {
+        this.regTime = regTime;
     }
 
     public String getAvatar() {
@@ -72,22 +75,22 @@ public class AdminInf {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar == null ? null : avatar.trim();
+        this.avatar = avatar;
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public String getAdminname() {
-        return adminname;
+    public String getAdminName() {
+        return adminName;
     }
 
-    public void setAdminname(String adminname) {
-        this.adminname = adminname == null ? null : adminname.trim();
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 }

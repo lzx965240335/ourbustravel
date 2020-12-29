@@ -1,63 +1,66 @@
 package com.cykj.bean;
 
 public class Site {
-    private Integer siteid;
+    private Integer siteId;
 
-    private String sitex;
+    private String siteX;
 
-    private String sitey;
+    private String siteY;
 
-    private String sitename;
+    private String siteName;
 
-    private String settime;
+    private String setTime;
 
-    private Integer peoplenum;
+    private Integer peopleNum;
 
-    public Integer getSiteid() {
-        return siteid;
+    public Site() {
     }
 
-    public void setSiteid(Integer siteid) {
-        this.siteid = siteid;
+    public Integer getSiteId() {
+        return siteId;
     }
 
-    public String getSitex() {
-        return sitex;
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
     }
 
-    public void setSitex(String sitex) {
-        this.sitex = sitex == null ? null : sitex.trim();
+    public String getSiteX() {
+        return siteX;
     }
 
-    public String getSitey() {
-        return sitey;
+    public void setSiteX(String siteX) {
+        this.siteX = siteX;
     }
 
-    public void setSitey(String sitey) {
-        this.sitey = sitey == null ? null : sitey.trim();
+    public String getSiteY() {
+        return siteY;
     }
 
-    public String getSitename() {
-        return sitename;
+    public void setSiteY(String siteY) {
+        this.siteY = siteY;
     }
 
-    public void setSitename(String sitename) {
-        this.sitename = sitename == null ? null : sitename.trim();
+    public String getSiteName() {
+        return siteName;
     }
 
-    public String getSettime() {
-        return settime;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
-    public void setSettime(String settime) {
-        this.settime = settime == null ? null : settime.trim();
+    public String getSetTime() {
+        return setTime;
     }
 
-    public Integer getPeoplenum() {
-        return peoplenum;
+    public void setSetTime(String setTime) {
+        this.setTime = setTime;
     }
 
-    public void setPeoplenum(Integer peoplenum) {
-        this.peoplenum = peoplenum;
+    public Integer getPeopleNum() {
+        return peopleNum;
+    }
+
+    public void setPeopleNum(Integer peopleNum) {
+        this.peopleNum = peopleNum;
     }
 }

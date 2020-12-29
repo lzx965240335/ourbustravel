@@ -1,53 +1,56 @@
 package com.cykj.bean;
 
 public class BusInf {
-    private Integer busid;
+    private Integer busId;
 
-    private String carnum;
+    private String carNum;
 
-    private String importtime;
+    private String importTime;
 
-    private Integer busstate;
+    private Integer busState;
 
-    private Integer onloadstate;
+    private Integer onloadState;
 
-    public Integer getBusid() {
-        return busid;
+    public BusInf() {
     }
 
-    public void setBusid(Integer busid) {
-        this.busid = busid;
+    public Integer getBusId() {
+        return busId;
     }
 
-    public String getCarnum() {
-        return carnum;
+    public void setBusId(Integer busId) {
+        this.busId = busId;
     }
 
-    public void setCarnum(String carnum) {
-        this.carnum = carnum == null ? null : carnum.trim();
+    public String getCarNum() {
+        return carNum;
     }
 
-    public String getImporttime() {
-        return importtime;
+    public void setCarNum(String carNum) {
+        this.carNum = carNum;
     }
 
-    public void setImporttime(String importtime) {
-        this.importtime = importtime == null ? null : importtime.trim();
+    public String getImportTime() {
+        return importTime;
     }
 
-    public Integer getBusstate() {
-        return busstate;
+    public void setImportTime(String importTime) {
+        this.importTime = importTime;
     }
 
-    public void setBusstate(Integer busstate) {
-        this.busstate = busstate;
+    public Integer getBusState() {
+        return busState;
     }
 
-    public Integer getOnloadstate() {
-        return onloadstate;
+    public void setBusState(Integer busState) {
+        this.busState = busState;
     }
 
-    public void setOnloadstate(Integer onloadstate) {
-        this.onloadstate = onloadstate;
+    public Integer getOnloadState() {
+        return onloadState;
+    }
+
+    public void setOnloadState(Integer onloadState) {
+        this.onloadState = onloadState;
     }
 }

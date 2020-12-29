@@ -1,43 +1,46 @@
 package com.cykj.bean;
 
 public class Driver {
-    private Integer drivid;
+    private Integer drivId;
 
-    private String drivaccount;
+    private String drivAccount;
 
-    private String drivpassword;
+    private String drivPassword;
 
-    private String drivname;
+    private String drivName;
 
-    public Integer getDrivid() {
-        return drivid;
+    public Driver() {
     }
 
-    public void setDrivid(Integer drivid) {
-        this.drivid = drivid;
+    public Integer getDrivId() {
+        return drivId;
     }
 
-    public String getDrivaccount() {
-        return drivaccount;
+    public void setDrivId(Integer drivId) {
+        this.drivId = drivId;
     }
 
-    public void setDrivaccount(String drivaccount) {
-        this.drivaccount = drivaccount == null ? null : drivaccount.trim();
+    public String getDrivAccount() {
+        return drivAccount;
     }
 
-    public String getDrivpassword() {
-        return drivpassword;
+    public void setDrivAccount(String drivAccount) {
+        this.drivAccount = drivAccount;
     }
 
-    public void setDrivpassword(String drivpassword) {
-        this.drivpassword = drivpassword == null ? null : drivpassword.trim();
+    public String getDrivPassword() {
+        return drivPassword;
     }
 
-    public String getDrivname() {
-        return drivname;
+    public void setDrivPassword(String drivPassword) {
+        this.drivPassword = drivPassword;
     }
 
-    public void setDrivname(String drivname) {
-        this.drivname = drivname == null ? null : drivname.trim();
+    public String getDrivName() {
+        return drivName;
+    }
+
+    public void setDrivName(String drivName) {
+        this.drivName = drivName;
     }
 }

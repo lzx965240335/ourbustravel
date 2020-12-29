@@ -1,36 +1,39 @@
 package com.cykj.bean;
 
 public class Power {
-    private Integer powerid;
+    private Integer powerId;
 
-    private Integer roleid;
+    private Integer roleId;
 
-    private Integer menuid;
+    private Integer menuId;
 
     private Integer state;
 
-    public Integer getPowerid() {
-        return powerid;
+    public Power() {
     }
 
-    public void setPowerid(Integer powerid) {
-        this.powerid = powerid;
+    public Integer getPowerId() {
+        return powerId;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public void setPowerId(Integer powerId) {
+        this.powerId = powerId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public Integer getMenuid() {
-        return menuid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public void setMenuid(Integer menuid) {
-        this.menuid = menuid;
+    public Integer getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
     public Integer getState() {

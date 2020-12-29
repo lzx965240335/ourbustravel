@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="原始">
+    <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Admin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AdminInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AdminInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Advert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Advert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Collection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Dic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Dic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/GoodsInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/GoodsInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/History.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/LogInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/LogInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/MenuInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/MenuInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Opinion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Opinion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Power.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/billInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/billInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/newsInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/newsInf.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609231598480</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="yuanshi">
+      <created>1609232123242</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609232123242</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +255,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="框架" />
     <MESSAGE value="原始" />
-    <option name="LAST_COMMIT_MESSAGE" value="原始" />
+    <MESSAGE value="yuanshi" />
+    <option name="LAST_COMMIT_MESSAGE" value="yuanshi" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="186" key="#Notifications" timestamp="1609207667060">
@@ -250,14 +275,18 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="717" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1609125818888" />
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser" timestamp="1609233229836">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1609233229836" />
     <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1609232012508">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609232012508" />
-    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609231627415">
+    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609232122710">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609231627415" />
+    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609232122710" />
     <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1609123076320">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -306,10 +335,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1609225549216" />
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609229152364">
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609232197083">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609229152364" />
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609232197083" />
     <state x="754" y="443" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609226129565">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

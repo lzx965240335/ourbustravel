@@ -1,20 +1,23 @@
 package com.cykj.bean;
 
 public class Collection {
-    private Integer collectionid;
+    private Integer collectionId;
 
     private String time;
 
-    private String begsite;
+    private String begSite;
 
-    private String endsite;
+    private String endSite;
 
-    public Integer getCollectionid() {
-        return collectionid;
+    public Collection() {
     }
 
-    public void setCollectionid(Integer collectionid) {
-        this.collectionid = collectionid;
+    public Integer getCollectionId() {
+        return collectionId;
+    }
+
+    public void setCollectionId(Integer collectionId) {
+        this.collectionId = collectionId;
     }
 
     public String getTime() {
@@ -22,22 +25,22 @@ public class Collection {
     }
 
     public void setTime(String time) {
-        this.time = time == null ? null : time.trim();
+        this.time = time;
     }
 
-    public String getBegsite() {
-        return begsite;
+    public String getBegSite() {
+        return begSite;
     }
 
-    public void setBegsite(String begsite) {
-        this.begsite = begsite == null ? null : begsite.trim();
+    public void setBegSite(String begSite) {
+        this.begSite = begSite;
     }
 
-    public String getEndsite() {
-        return endsite;
+    public String getEndSite() {
+        return endSite;
     }
 
-    public void setEndsite(String endsite) {
-        this.endsite = endsite == null ? null : endsite.trim();
+    public void setEndSite(String endSite) {
+        this.endSite = endSite;
     }
 }

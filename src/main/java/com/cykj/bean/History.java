@@ -1,43 +1,46 @@
 package com.cykj.bean;
 
 public class History {
-    private Integer historyid;
+    private Integer historyId;
 
-    private String historyinf;
+    private String historyInf;
 
-    private String seachtime;
+    private String seachTime;
 
-    private Integer userid;
+    private Integer userId;
 
-    public Integer getHistoryid() {
-        return historyid;
+    public History() {
     }
 
-    public void setHistoryid(Integer historyid) {
-        this.historyid = historyid;
+    public Integer getHistoryId() {
+        return historyId;
     }
 
-    public String getHistoryinf() {
-        return historyinf;
+    public void setHistoryId(Integer historyId) {
+        this.historyId = historyId;
     }
 
-    public void setHistoryinf(String historyinf) {
-        this.historyinf = historyinf == null ? null : historyinf.trim();
+    public String getHistoryInf() {
+        return historyInf;
     }
 
-    public String getSeachtime() {
-        return seachtime;
+    public void setHistoryInf(String historyInf) {
+        this.historyInf = historyInf;
     }
 
-    public void setSeachtime(String seachtime) {
-        this.seachtime = seachtime == null ? null : seachtime.trim();
+    public String getSeachTime() {
+        return seachTime;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public void setSeachTime(String seachTime) {
+        this.seachTime = seachTime;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

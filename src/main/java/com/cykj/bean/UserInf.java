@@ -1,38 +1,41 @@
 package com.cykj.bean;
 
 public class UserInf {
-    private Integer userid;
+    private Integer userId;
 
     private String account;
 
     private String password;
 
-    private String username;
+    private String userName;
 
-    private String usersex;
+    private String userSex;
 
-    private Integer userage;
+    private Integer userAge;
 
     private String avatar;
 
-    private String idcardnum;
+    private String idCardNum;
 
-    private String regtime;
+    private String regTime;
 
-    private String phonenum;
+    private String phoneNum;
 
-    private String updatetime;
+    private String updateTime;
 
     private Double money;
 
     private Integer point;
 
-    public Integer getUserid() {
-        return userid;
+    public UserInf() {
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getAccount() {
@@ -40,7 +43,7 @@ public class UserInf {
     }
 
     public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+        this.account = account;
     }
 
     public String getPassword() {
@@ -48,31 +51,31 @@ public class UserInf {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUsersex() {
-        return usersex;
+    public String getUserSex() {
+        return userSex;
     }
 
-    public void setUsersex(String usersex) {
-        this.usersex = usersex == null ? null : usersex.trim();
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 
-    public Integer getUserage() {
-        return userage;
+    public Integer getUserAge() {
+        return userAge;
     }
 
-    public void setUserage(Integer userage) {
-        this.userage = userage;
+    public void setUserAge(Integer userAge) {
+        this.userAge = userAge;
     }
 
     public String getAvatar() {
@@ -80,39 +83,39 @@ public class UserInf {
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar == null ? null : avatar.trim();
+        this.avatar = avatar;
     }
 
-    public String getIdcardnum() {
-        return idcardnum;
+    public String getIdCardNum() {
+        return idCardNum;
     }
 
-    public void setIdcardnum(String idcardnum) {
-        this.idcardnum = idcardnum == null ? null : idcardnum.trim();
+    public void setIdCardNum(String idCardNum) {
+        this.idCardNum = idCardNum;
     }
 
-    public String getRegtime() {
-        return regtime;
+    public String getRegTime() {
+        return regTime;
     }
 
-    public void setRegtime(String regtime) {
-        this.regtime = regtime == null ? null : regtime.trim();
+    public void setRegTime(String regTime) {
+        this.regTime = regTime;
     }
 
-    public String getPhonenum() {
-        return phonenum;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum == null ? null : phonenum.trim();
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Double getMoney() {

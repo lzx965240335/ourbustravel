@@ -1,53 +1,56 @@
 package com.cykj.bean;
 
 public class Opinion {
-    private Integer opinoinid;
+    private Integer opinoinId;
 
-    private String opinioninf;
+    private String opinionInf;
 
-    private Integer userid;
+    private Integer userId;
 
-    private Integer opiniontype;
+    private Integer opinionType;
 
-    private String updatetime;
+    private String updateTime;
 
-    public Integer getOpinoinid() {
-        return opinoinid;
+    public Opinion() {
     }
 
-    public void setOpinoinid(Integer opinoinid) {
-        this.opinoinid = opinoinid;
+    public Integer getOpinoinId() {
+        return opinoinId;
     }
 
-    public String getOpinioninf() {
-        return opinioninf;
+    public void setOpinoinId(Integer opinoinId) {
+        this.opinoinId = opinoinId;
     }
 
-    public void setOpinioninf(String opinioninf) {
-        this.opinioninf = opinioninf == null ? null : opinioninf.trim();
+    public String getOpinionInf() {
+        return opinionInf;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public void setOpinionInf(String opinionInf) {
+        this.opinionInf = opinionInf;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public Integer getOpiniontype() {
-        return opiniontype;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setOpiniontype(Integer opiniontype) {
-        this.opiniontype = opiniontype;
+    public Integer getOpinionType() {
+        return opinionType;
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public void setOpinionType(Integer opinionType) {
+        this.opinionType = opinionType;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

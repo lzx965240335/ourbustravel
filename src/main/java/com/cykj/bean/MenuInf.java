@@ -1,28 +1,31 @@
 package com.cykj.bean;
 
 public class MenuInf {
-    private Integer menuid;
+    private Integer menuId;
 
-    private String menuname;
+    private String menuName;
 
     private Integer pid;
 
     private String url;
 
-    public Integer getMenuid() {
-        return menuid;
+    public MenuInf() {
     }
 
-    public void setMenuid(Integer menuid) {
-        this.menuid = menuid;
+    public Integer getMenuId() {
+        return menuId;
     }
 
-    public String getMenuname() {
-        return menuname;
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
-    public void setMenuname(String menuname) {
-        this.menuname = menuname == null ? null : menuname.trim();
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
     }
 
     public Integer getPid() {
@@ -38,6 +41,6 @@ public class MenuInf {
     }
 
     public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+        this.url = url;
     }
 }

@@ -1,76 +1,79 @@
 package com.cykj.bean;
 
 public class Advert {
-    private Integer advertid;
+    private Integer advertId;
 
-    private String advertimg;
+    private String advertImg;
 
-    private String adverturl;
+    private String advertUrl;
 
-    private String begtime;
+    private String begTime;
 
-    private String endtime;
+    private String endTIme;
 
-    private Integer advertmoney;
+    private Integer advertMoney;
 
-    private String adverttitle;
+    private String advertTitle;
 
     private String company;
 
-    public Integer getAdvertid() {
-        return advertid;
+    public Advert() {
     }
 
-    public void setAdvertid(Integer advertid) {
-        this.advertid = advertid;
+    public Integer getAdvertId() {
+        return advertId;
     }
 
-    public String getAdvertimg() {
-        return advertimg;
+    public void setAdvertId(Integer advertId) {
+        this.advertId = advertId;
     }
 
-    public void setAdvertimg(String advertimg) {
-        this.advertimg = advertimg == null ? null : advertimg.trim();
+    public String getAdvertImg() {
+        return advertImg;
     }
 
-    public String getAdverturl() {
-        return adverturl;
+    public void setAdvertImg(String advertImg) {
+        this.advertImg = advertImg;
     }
 
-    public void setAdverturl(String adverturl) {
-        this.adverturl = adverturl == null ? null : adverturl.trim();
+    public String getAdvertUrl() {
+        return advertUrl;
     }
 
-    public String getBegtime() {
-        return begtime;
+    public void setAdvertUrl(String advertUrl) {
+        this.advertUrl = advertUrl;
     }
 
-    public void setBegtime(String begtime) {
-        this.begtime = begtime == null ? null : begtime.trim();
+    public String getBegTime() {
+        return begTime;
     }
 
-    public String getEndtime() {
-        return endtime;
+    public void setBegTime(String begTime) {
+        this.begTime = begTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime == null ? null : endtime.trim();
+    public String getEndTIme() {
+        return endTIme;
     }
 
-    public Integer getAdvertmoney() {
-        return advertmoney;
+    public void setEndTIme(String endTIme) {
+        this.endTIme = endTIme;
     }
 
-    public void setAdvertmoney(Integer advertmoney) {
-        this.advertmoney = advertmoney;
+    public Integer getAdvertMoney() {
+        return advertMoney;
     }
 
-    public String getAdverttitle() {
-        return adverttitle;
+    public void setAdvertMoney(Integer advertMoney) {
+        this.advertMoney = advertMoney;
     }
 
-    public void setAdverttitle(String adverttitle) {
-        this.adverttitle = adverttitle == null ? null : adverttitle.trim();
+    public String getAdvertTitle() {
+        return advertTitle;
+    }
+
+    public void setAdvertTitle(String advertTitle) {
+        this.advertTitle = advertTitle;
     }
 
     public String getCompany() {

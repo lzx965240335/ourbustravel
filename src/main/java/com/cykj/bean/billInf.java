@@ -1,38 +1,41 @@
 package com.cykj.bean;
 
 public class billInf {
-    private Integer billid;
+    private Integer billId;
 
-    private Integer userid;
+    private Integer userId;
 
-    private Integer billtype;
+    private Integer billType;
 
     private Double cost;
 
-    private String billtime;
+    private String billTime;
 
-    public Integer getBillid() {
-        return billid;
+    public billInf() {
     }
 
-    public void setBillid(Integer billid) {
-        this.billid = billid;
+    public Integer getBillId() {
+        return billId;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public void setBillId(Integer billId) {
+        this.billId = billId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public Integer getBilltype() {
-        return billtype;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setBilltype(Integer billtype) {
-        this.billtype = billtype;
+    public Integer getBillType() {
+        return billType;
+    }
+
+    public void setBillType(Integer billType) {
+        this.billType = billType;
     }
 
     public Double getCost() {
@@ -43,11 +46,11 @@ public class billInf {
         this.cost = cost;
     }
 
-    public String getBilltime() {
-        return billtime;
+    public String getBillTime() {
+        return billTime;
     }
 
-    public void setBilltime(String billtime) {
-        this.billtime = billtime == null ? null : billtime.trim();
+    public void setBillTime(String billTime) {
+        this.billTime = billTime;
     }
 }

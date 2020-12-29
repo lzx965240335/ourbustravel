@@ -1,43 +1,46 @@
 package com.cykj.bean;
 
 public class newsInf {
-    private Integer newsid;
+    private Integer newsId;
 
-    private String newstime;
+    private String newsTime;
 
-    private String newtitle;
+    private String newTitle;
 
-    private String newsurl;
+    private String newsUrl;
 
-    public Integer getNewsid() {
-        return newsid;
+    public newsInf() {
     }
 
-    public void setNewsid(Integer newsid) {
-        this.newsid = newsid;
+    public Integer getNewsId() {
+        return newsId;
     }
 
-    public String getNewstime() {
-        return newstime;
+    public void setNewsId(Integer newsId) {
+        this.newsId = newsId;
     }
 
-    public void setNewstime(String newstime) {
-        this.newstime = newstime == null ? null : newstime.trim();
+    public String getNewsTime() {
+        return newsTime;
     }
 
-    public String getNewtitle() {
-        return newtitle;
+    public void setNewsTime(String newsTime) {
+        this.newsTime = newsTime;
     }
 
-    public void setNewtitle(String newtitle) {
-        this.newtitle = newtitle == null ? null : newtitle.trim();
+    public String getNewTitle() {
+        return newTitle;
     }
 
-    public String getNewsurl() {
-        return newsurl;
+    public void setNewTitle(String newTitle) {
+        this.newTitle = newTitle;
     }
 
-    public void setNewsurl(String newsurl) {
-        this.newsurl = newsurl == null ? null : newsurl.trim();
+    public String getNewsUrl() {
+        return newsUrl;
+    }
+
+    public void setNewsUrl(String newsUrl) {
+        this.newsUrl = newsUrl;
     }
 }

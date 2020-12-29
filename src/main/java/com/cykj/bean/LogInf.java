@@ -1,7 +1,7 @@
 package com.cykj.bean;
 
 public class LogInf {
-    private Integer logid;
+    private Integer logId;
 
     private String logmodule;
 
@@ -15,12 +15,15 @@ public class LogInf {
 
     private Integer peopleid;
 
-    public Integer getLogid() {
-        return logid;
+    public LogInf() {
     }
 
-    public void setLogid(Integer logid) {
-        this.logid = logid;
+    public Integer getLogId() {
+        return logId;
+    }
+
+    public void setLogId(Integer logId) {
+        this.logId = logId;
     }
 
     public String getLogmodule() {
@@ -28,7 +31,7 @@ public class LogInf {
     }
 
     public void setLogmodule(String logmodule) {
-        this.logmodule = logmodule == null ? null : logmodule.trim();
+        this.logmodule = logmodule;
     }
 
     public String getLogaction() {
@@ -36,7 +39,7 @@ public class LogInf {
     }
 
     public void setLogaction(String logaction) {
-        this.logaction = logaction == null ? null : logaction.trim();
+        this.logaction = logaction;
     }
 
     public String getLogremark() {
@@ -44,7 +47,7 @@ public class LogInf {
     }
 
     public void setLogremark(String logremark) {
-        this.logremark = logremark == null ? null : logremark.trim();
+        this.logremark = logremark;
     }
 
     public String getLogtime() {
@@ -52,7 +55,7 @@ public class LogInf {
     }
 
     public void setLogtime(String logtime) {
-        this.logtime = logtime == null ? null : logtime.trim();
+        this.logtime = logtime;
     }
 
     public Integer getRoleid() {
