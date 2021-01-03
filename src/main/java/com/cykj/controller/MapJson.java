@@ -1,6 +1,5 @@
 package com.cykj.controller;
 
-import com.cykj.service.CityService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
