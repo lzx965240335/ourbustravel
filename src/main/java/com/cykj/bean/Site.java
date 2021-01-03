@@ -1,5 +1,8 @@
 package com.cykj.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Site {
     private Integer siteId;
 

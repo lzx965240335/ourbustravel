@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>城市配置</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/cityConfiguration.js}"></script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>查询条件</legend>
+</fieldset>
+<center>
+    <div class="demoTable">
+        城市名称&nbsp;：
+        <div class="layui-inline">
+            <input class="layui-input" id="cityName" autocomplete="off" placeholder="请输入城市名称">
+        </div>
+        &nbsp;城市编码&nbsp;：
+        <div class="layui-inline">
+            <input class="layui-input" id="cityCode" autocomplete="off" placeholder="请输入城市编码">
+        </div>
+        <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+        <button type="button" id="addBtn" class="layui-btn" data-type="reload" >新增</button>
+    </div>
+</center>
+<!--点击新增显示的城市页面-->
+<div style="display: none;" id="myInf">
+    <form class="layui-form" action="" method="post">
+        <div class="layui-col-md10">
+            <br/>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">城市名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addCityName" required lay-verify="required" placeholder="请输入城市名称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">城市编码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addCityCode" required lay-verify="required" placeholder="请输入城市编码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <div class="layui-input-block">
+                    <button type="button" id="register" class="layui-btn" lay-submit lay-filter="saveSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--这里是弹出层的表单信息-->
+<!--表单的id用于表单的选择，style是在本页隐藏，只有点击编辑才会弹出-->
+<div class="layui-row" id="updateTest" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" action="" style="margin-top:20px">
+            <div class="layui-form-item">
+                <label class="layui-form-label">城市名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="updateCityName" required lay-verify="required"
+                           autocomplete="off" placeholder="请输入城市名称" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label">城市编码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="updateCityCode" required lay-verify="required"
+                           autocomplete="off" placeholder="请输入城市编码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <div class="layui-input-block">
+                    <button type="button" id="sureUpdate" class="layui-btn  layui-btn" lay-submit lay-filter="demo11">
+                        确认修改
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<!--表头操作下的编辑跟删除按钮-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+</html>

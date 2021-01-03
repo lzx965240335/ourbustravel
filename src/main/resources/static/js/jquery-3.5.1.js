@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
@@ -10870,30 +10870,3 @@ if ( typeof noGlobal === "undefined" ) {
 
 return jQuery;
 } );
-
-
-
-var reg = /^[a-zA-Z]{2}$/;
-var whiteNum = /^[0-9]{1,}$/;
-//账号格式校验
-jQuery.testAccount = function(str){
-	if (str == "") {
-		alert("请输入卡号");
-		return false;
-	}
-	if (str.length != 10) {
-		alert("卡号格式不规范,请输入2位字母加8位数字");
-		return false;
-	}
-	if (str.length == 10) {
-		if (reg.test(str.substring(0, 2)) == false) {
-			alert("卡号格式不规范,前2位请输入字母");
-			return false;
-		}
-		if (whiteNum.test(Number(str.substring(2, 10))) == false) {
-			alert("卡号格式不规范,后8位请输入数字");
-			return false;
-		}
-	}
-	return true;
-}

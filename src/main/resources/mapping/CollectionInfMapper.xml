@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.CollectionInfMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.CollectionInf" >
+    <id column="collectionId" property="collectionid" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="begSite" property="begsite" jdbcType="VARCHAR" />
+    <result column="endSite" property="endsite" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    collectionId, time, begSite, endSite
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_collection
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_collection
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.CollectionInf" >
+    insert into t_collection (collectionId, time, begSite, 
+      endSite)
+    values (#{collectionid,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{begsite,jdbcType=VARCHAR}, 
+      #{endsite,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.CollectionInf" >
+    insert into t_collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionid != null" >
+        collectionId,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="begsite != null" >
+        begSite,
+      </if>
+      <if test="endsite != null" >
+        endSite,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionid != null" >
+        #{collectionid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="begsite != null" >
+        #{begsite,jdbcType=VARCHAR},
+      </if>
+      <if test="endsite != null" >
+        #{endsite,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.CollectionInf" >
+    update t_collection
+    <set >
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="begsite != null" >
+        begSite = #{begsite,jdbcType=VARCHAR},
+      </if>
+      <if test="endsite != null" >
+        endSite = #{endsite,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.CollectionInf" >
+    update t_collection
+    set time = #{time,jdbcType=VARCHAR},
+      begSite = #{begsite,jdbcType=VARCHAR},
+      endSite = #{endsite,jdbcType=VARCHAR}
+    where collectionId = #{collectionid,jdbcType=INTEGER}
+  </update>
+</mapper>
