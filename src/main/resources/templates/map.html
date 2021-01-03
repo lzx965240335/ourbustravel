@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/beforeCss.css"/>
+
+    <script type="text/javascript" src="/js/jquery-3.5.1.js" charset="utf-8"></script>
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <!--引入UI组件库（1.1版本） -->
+    <!--<script src="//webapi.amap.com/ui/1.1/main.js"></script>-->
+    <title>地图</title>
+</head>
+<body>
+<div id="container"></div>
+<div id="citybox">
+    <div class="city-title"><b>厦门</b><i class="icon-caretdown"></i></div>
+    <div class="weather-box">
+        <div class="weather-info" style="display: inline-block; opacity: 1; transform: translateX(0px);"
+             init="true">晴<br>5/13℃
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="all_city">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>当前城市：厦门市</legend>
+    </fieldset>
+    <div class="cells-header">
+    <span class="layui-breadcrumb" lay-separator="|">
+        <li onclick="initials(this)">A</li>
+        <li onclick="initials(this)">B</li>
+        <li onclick="initials(this)">C</li>
+        <li onclick="initials(this)">D</li>
+        <li onclick="initials(this)">E</li>
+        <li onclick="initials(this)">F</li>
+        <li onclick="initials(this)">G</li>
+        <li onclick="initials(this)">H</li>
+        <li onclick="initials(this)">J</li>
+        <li onclick="initials(this)">K</li>
+        <li onclick="initials(this)">L</li>
+        <li onclick="initials(this)">M</li>
+        <li onclick="initials(this)">N</li>
+        <li onclick="initials(this)">P</li>
+        <li onclick="initials(this)">Q</li>
+        <li onclick="initials(this)">R</li>
+        <li onclick="initials(this)">S</li>
+        <li onclick="initials(this)">T</li>
+        <li onclick="initials(this)">W</li>
+        <li onclick="initials(this)">X</li>
+        <li onclick="initials(this)">Y</li>
+        <li onclick="initials(this)">Z</li>
+        </span>
+    </div>
+    <div class="layui-layout-body">
+        <div class="layui-textarea">
+            <span class="layui-breadcrumb" lay-separator="|">
+
+            </span>
+        </div>
+    </div>
+</div>
+<!--工具类-->
+<div class="input-card">
+    <h4>左击获取经纬度：</h4>
+    <div class="input-item">
+        <input type="text" readonly="true" id="lnglat">
+    </div>
+</div>
+<!--信息显示栏-->
+<div id="tip" class='info' style='min-width:18rem;top: 200px'></div>
+<!--信息搜索栏-->
+<div class="info">
+    <div class="input-item">
+        <div class="input-item-prepend">
+            <span class="input-item-text" style="width:12rem;">请输入位置、公交站</span>
+        </div>
+        <input id='tipinput' type="text">
+        <input id="search" type="button" class="btn" value="搜索"/>
+    </div>
+</div>
+
+</body>
+<script src="/js/map.js"></script>
+</html>
