@@ -2,8 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/City.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/CityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/SiteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/CityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/CityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/SiteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/CityServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/SiteServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/CityMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/AfterCss.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/cityConfiguration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/site.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/AfterView.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/cityConfiguration.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/site.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/MapJson.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generator/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/SiteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/SiteMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +83,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/mapping" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static/css" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -74,11 +91,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GZ\ourbustravel\src\main\resources\mapping" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\static\css" />
       <recent name="E:\GZ\ourbustravel\src\main\resources\templates" />
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static\js" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\mapping" />
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\controller" />
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\service\impl" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cykj.util" />
@@ -160,7 +177,7 @@
       <workItem from="1609567701241" duration="17289000" />
       <workItem from="1609592398730" duration="596000" />
       <workItem from="1609639242420" duration="2218000" />
-      <workItem from="1609641503447" duration="13399000" />
+      <workItem from="1609641503447" duration="16270000" />
     </task>
     <task id="LOCAL-00001" summary="框架">
       <created>1609205717330</created>
@@ -281,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609658767678</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="last2">
+      <created>1609658922201</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609658922201</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,10 +359,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609658729035" />
-    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609658915119">
+    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1609658921665">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609658915119" />
+    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1609658921665" />
     <state x="184" y="87" key="DiffContextDialog" timestamp="1609655279282">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -395,10 +419,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1609567924505" />
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609658771741">
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1609658926272">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609658771741" />
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1609658926272" />
     <state x="754" y="443" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609226129565">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

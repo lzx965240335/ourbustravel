@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>站点配置</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/site.js}"></script>
+</head>
+<body>
+<center>
+    <div class="demoTable">
+        站点名称&nbsp;：
+        <div class="layui-inline">
+            <input class="layui-input" id="siteName" autocomplete="off" placeholder="请输入站点名称">
+        </div>
+        &nbsp;
+        站点人数&nbsp;：
+        <div class="layui-inline">
+            <input class="layui-input" id="peopleNum" autocomplete="off" placeholder="请输入站点人数">
+        </div>
+        <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+        <button type="button" id="addBtn" class="layui-btn" data-type="reload">新增</button>
+    </div>
+</center>
+
+<!--点击新增显示的站点信息-->
+<div style="display: none;" id="myInf">
+    <form class="layui-form" action="" method="post">
+        <div class="layui-col-md10">
+            <br/>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">站点名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addSiteName" required lay-verify="required" placeholder="请输入站点名称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">站点横坐标</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addSiteX" required lay-verify="required" placeholder="请输入站点的横坐标"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">站点纵坐标</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addSiteY" required lay-verify="required" placeholder="请输入站点的纵坐标"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">站点人数</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addPeopleNum" required lay-verify="required" placeholder="请输入站点人数"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" id="register" class="layui-btn" lay-submit lay-filter="saveSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+<!--表头操作下的编辑跟删除按钮-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+</html>
