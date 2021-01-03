@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.DriverMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.Driver" >
+    <id column="drivId" property="drivid" jdbcType="INTEGER" />
+    <result column="drivAccount" property="drivaccount" jdbcType="VARCHAR" />
+    <result column="drivPassword" property="drivpassword" jdbcType="VARCHAR" />
+    <result column="drivName" property="drivname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    drivId, drivAccount, drivPassword, drivName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_driver
+    where drivId = #{drivid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_driver
+    where drivId = #{drivid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.Driver" >
+    insert into t_driver (drivId, drivAccount, drivPassword, 
+      drivName)
+    values (#{drivid,jdbcType=INTEGER}, #{drivaccount,jdbcType=VARCHAR}, #{drivpassword,jdbcType=VARCHAR}, 
+      #{drivname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.Driver" >
+    insert into t_driver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="drivid != null" >
+        drivId,
+      </if>
+      <if test="drivaccount != null" >
+        drivAccount,
+      </if>
+      <if test="drivpassword != null" >
+        drivPassword,
+      </if>
+      <if test="drivname != null" >
+        drivName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="drivid != null" >
+        #{drivid,jdbcType=INTEGER},
+      </if>
+      <if test="drivaccount != null" >
+        #{drivaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drivpassword != null" >
+        #{drivpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="drivname != null" >
+        #{drivname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.Driver" >
+    update t_driver
+    <set >
+      <if test="drivaccount != null" >
+        drivAccount = #{drivaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="drivpassword != null" >
+        drivPassword = #{drivpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="drivname != null" >
+        drivName = #{drivname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where drivId = #{drivid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.Driver" >
+    update t_driver
+    set drivAccount = #{drivaccount,jdbcType=VARCHAR},
+      drivPassword = #{drivpassword,jdbcType=VARCHAR},
+      drivName = #{drivname,jdbcType=VARCHAR}
+    where drivId = #{drivid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.newsInfMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.newsInf" >
+    <id column="newsId" property="newsid" jdbcType="INTEGER" />
+    <result column="newsTime" property="newstime" jdbcType="VARCHAR" />
+    <result column="newTitle" property="newtitle" jdbcType="VARCHAR" />
+    <result column="newsUrl" property="newsurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    newsId, newsTime, newTitle, newsUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_news
+    where newsId = #{newsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_news
+    where newsId = #{newsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.newsInf" >
+    insert into t_news (newsId, newsTime, newTitle, 
+      newsUrl)
+    values (#{newsid,jdbcType=INTEGER}, #{newstime,jdbcType=VARCHAR}, #{newtitle,jdbcType=VARCHAR}, 
+      #{newsurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.newsInf" >
+    insert into t_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        newsId,
+      </if>
+      <if test="newstime != null" >
+        newsTime,
+      </if>
+      <if test="newtitle != null" >
+        newTitle,
+      </if>
+      <if test="newsurl != null" >
+        newsUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsid != null" >
+        #{newsid,jdbcType=INTEGER},
+      </if>
+      <if test="newstime != null" >
+        #{newstime,jdbcType=VARCHAR},
+      </if>
+      <if test="newtitle != null" >
+        #{newtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsurl != null" >
+        #{newsurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.newsInf" >
+    update t_news
+    <set >
+      <if test="newstime != null" >
+        newsTime = #{newstime,jdbcType=VARCHAR},
+      </if>
+      <if test="newtitle != null" >
+        newTitle = #{newtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsurl != null" >
+        newsUrl = #{newsurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where newsId = #{newsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.newsInf" >
+    update t_news
+    set newsTime = #{newstime,jdbcType=VARCHAR},
+      newTitle = #{newtitle,jdbcType=VARCHAR},
+      newsUrl = #{newsurl,jdbcType=VARCHAR}
+    where newsId = #{newsid,jdbcType=INTEGER}
+  </update>
+</mapper>

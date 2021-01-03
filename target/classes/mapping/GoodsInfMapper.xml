@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.GoodsInfMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.GoodsInf" >
+    <id column="goodsId" property="goodsid" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsImg" property="goodsimg" jdbcType="VARCHAR" />
+    <result column="goodsPoint" property="goodspoint" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsId, goodsName, goodsImg, goodsPoint
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_goods
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.GoodsInf" >
+    insert into t_goods (goodsId, goodsName, goodsImg, 
+      goodsPoint)
+    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{goodsimg,jdbcType=VARCHAR}, 
+      #{goodspoint,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.GoodsInf" >
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsimg != null" >
+        goodsImg,
+      </if>
+      <if test="goodspoint != null" >
+        goodsPoint,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsimg != null" >
+        #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodspoint != null" >
+        #{goodspoint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.GoodsInf" >
+    update t_goods
+    <set >
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsimg != null" >
+        goodsImg = #{goodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodspoint != null" >
+        goodsPoint = #{goodspoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.GoodsInf" >
+    update t_goods
+    set goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsImg = #{goodsimg,jdbcType=VARCHAR},
+      goodsPoint = #{goodspoint,jdbcType=INTEGER}
+    where goodsId = #{goodsid,jdbcType=INTEGER}
+  </update>
+</mapper>

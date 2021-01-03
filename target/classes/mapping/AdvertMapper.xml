@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.AdvertMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.Advert" >
+    <id column="advertId" property="advertid" jdbcType="INTEGER" />
+    <result column="advertImg" property="advertimg" jdbcType="VARCHAR" />
+    <result column="advertUrl" property="adverturl" jdbcType="VARCHAR" />
+    <result column="begTime" property="begtime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="advertMoney" property="advertmoney" jdbcType="INTEGER" />
+    <result column="advertTitle" property="adverttitle" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    advertId, advertImg, advertUrl, begTime, endTime, advertMoney, advertTitle, company
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_advert
+    where advertId = #{advertid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_advert
+    where advertId = #{advertid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.Advert" >
+    insert into t_advert (advertId, advertImg, advertUrl, 
+      begTime, endTime, advertMoney, 
+      advertTitle, company)
+    values (#{advertid,jdbcType=INTEGER}, #{advertimg,jdbcType=VARCHAR}, #{adverturl,jdbcType=VARCHAR}, 
+      #{begtime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{advertmoney,jdbcType=INTEGER}, 
+      #{adverttitle,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.Advert" >
+    insert into t_advert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="advertid != null" >
+        advertId,
+      </if>
+      <if test="advertimg != null" >
+        advertImg,
+      </if>
+      <if test="adverturl != null" >
+        advertUrl,
+      </if>
+      <if test="begtime != null" >
+        begTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="advertmoney != null" >
+        advertMoney,
+      </if>
+      <if test="adverttitle != null" >
+        advertTitle,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="advertid != null" >
+        #{advertid,jdbcType=INTEGER},
+      </if>
+      <if test="advertimg != null" >
+        #{advertimg,jdbcType=VARCHAR},
+      </if>
+      <if test="adverturl != null" >
+        #{adverturl,jdbcType=VARCHAR},
+      </if>
+      <if test="begtime != null" >
+        #{begtime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="advertmoney != null" >
+        #{advertmoney,jdbcType=INTEGER},
+      </if>
+      <if test="adverttitle != null" >
+        #{adverttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.Advert" >
+    update t_advert
+    <set >
+      <if test="advertimg != null" >
+        advertImg = #{advertimg,jdbcType=VARCHAR},
+      </if>
+      <if test="adverturl != null" >
+        advertUrl = #{adverturl,jdbcType=VARCHAR},
+      </if>
+      <if test="begtime != null" >
+        begTime = #{begtime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="advertmoney != null" >
+        advertMoney = #{advertmoney,jdbcType=INTEGER},
+      </if>
+      <if test="adverttitle != null" >
+        advertTitle = #{adverttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where advertId = #{advertid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.Advert" >
+    update t_advert
+    set advertImg = #{advertimg,jdbcType=VARCHAR},
+      advertUrl = #{adverturl,jdbcType=VARCHAR},
+      begTime = #{begtime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      advertMoney = #{advertmoney,jdbcType=INTEGER},
+      advertTitle = #{adverttitle,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR}
+    where advertId = #{advertid,jdbcType=INTEGER}
+  </update>
+</mapper>

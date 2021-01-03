@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.OpinionMapper" >
+  <resultMap id="BaseResultMap" type="com.cykj.bean.Opinion" >
+    <id column="opinoinId" property="opinoinid" jdbcType="INTEGER" />
+    <result column="opinionInf" property="opinioninf" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="opinionType" property="opiniontype" jdbcType="INTEGER" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    opinoinId, opinionInf, userId, opinionType, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_opinion
+    where opinoinId = #{opinoinid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_opinion
+    where opinoinId = #{opinoinid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cykj.bean.Opinion" >
+    insert into t_opinion (opinoinId, opinionInf, userId, 
+      opinionType, updateTime)
+    values (#{opinoinid,jdbcType=INTEGER}, #{opinioninf,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{opiniontype,jdbcType=INTEGER}, #{updatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cykj.bean.Opinion" >
+    insert into t_opinion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="opinoinid != null" >
+        opinoinId,
+      </if>
+      <if test="opinioninf != null" >
+        opinionInf,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="opiniontype != null" >
+        opinionType,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="opinoinid != null" >
+        #{opinoinid,jdbcType=INTEGER},
+      </if>
+      <if test="opinioninf != null" >
+        #{opinioninf,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="opiniontype != null" >
+        #{opiniontype,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.Opinion" >
+    update t_opinion
+    <set >
+      <if test="opinioninf != null" >
+        opinionInf = #{opinioninf,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="opiniontype != null" >
+        opinionType = #{opiniontype,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where opinoinId = #{opinoinid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.Opinion" >
+    update t_opinion
+    set opinionInf = #{opinioninf,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      opinionType = #{opiniontype,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=VARCHAR}
+    where opinoinId = #{opinoinid,jdbcType=INTEGER}
+  </update>
+</mapper>
