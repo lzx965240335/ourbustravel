@@ -1,8 +1,9 @@
 package com.cykj.controller;
 
-import com.cykj.bean.LayuiJson;
+
 import com.cykj.bean.Site;
 import com.cykj.service.SiteService;
+import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class SiteController {
         if (peopleNum != null && !peopleNum.equals("")) {
             map.put("peopleNum", peopleNum);
         }
-        LayuiJson<Site> layuiJson = siteService.selectAllSite(map);
+        LayuiJson layuiJson = siteService.selectAllSite(map);
         return layuiJson;
     }
 

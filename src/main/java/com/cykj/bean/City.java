@@ -1,16 +1,14 @@
 package com.cykj.bean;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class City {
     private Integer cityId;
-
     private String cityName;
+    private String adcode;
+    private String citycode;
+    private String initials;
 
-    private Integer cityCode;
-
-    private String updateTime;
+    public City() {
+    }
 
     public Integer getCityId() {
         return cityId;
@@ -28,19 +26,27 @@ public class City {
         this.cityName = cityName;
     }
 
-    public Integer getCityCode() {
-        return cityCode;
+    public String getAdcode() {
+        return adcode;
     }
 
-    public void setCityCode(Integer cityCode) {
-        this.cityCode = cityCode;
+    public void setAdcode(String adcode) {
+        this.adcode = adcode;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
+    public String getCitycode() {
+        return citycode;
     }
 
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setCitycode(String citycode) {
+        this.citycode = citycode;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials(String initials) {
+        this.initials = initials;
     }
 }

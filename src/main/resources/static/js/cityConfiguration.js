@@ -118,6 +118,7 @@ layui.use('table', function () {
             // });
         }
         $("#sureUpdate").click(function () {
+            var cityId = $("#cityId").val();
             var updateCityName = $("#updateCityName").val();
             var updateCityCode = $("#updateCityCode").val();
             if (updateCityName == null || updateCityName == '' || updateCityCode == null || updateCityCode == '') {
@@ -126,6 +127,7 @@ layui.use('table', function () {
             //获取表单数据
             var jsonStr = JSON.stringify(
                 {
+                    "cityId":$("#cityId").val(),
                     "cityName": $("#updateCityName").val(),
                     "cityCode": $("#updateCityCode").val()
                 });

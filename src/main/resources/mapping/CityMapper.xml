@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cykj.mapper.CityMapper">
 
-    <insert id="addCity" parameterType="com.cykj.bean.City">
+    <insert id="addCity" parameterType="City">
     insert into t_city(cityId,cityName,cityCode,updateTime)value(#{cityId},#{cityName},#{cityCode},#{updateTime})
   </insert>
 
@@ -10,23 +10,12 @@
     delete from t_city where cityId = #{cityId}
   </delete>
 
-    <update id="updateCity" parameterType="com.cykj.bean.City">
-        update t_city set cityName=#{cityName},cityCode=#{cityCode},updateTime=sysdate() where cityId = #{cityId}
-        <!--    <set>-->
-        <!--          <if test="cityName != null and cityName !=''" >-->
-        <!--            cityName = #{cityName},-->
-        <!--          </if>-->
-        <!--          <if test="cityCode != null and cityCode !=''" >-->
-        <!--            cityCode = #{cityCode},-->
-        <!--          </if>-->
-        <!--          <if test="updateTime != null and updateTime !=''" >-->
-        <!--            updateTime = #{updateTime},-->
-        <!--          </if>-->
-        <!--    </set>-->
-        <!--        where cityId = #{cityId}-->
+    <update id="updateCity" parameterType="City">
+        update t_city set cityName=#{cityName},cityCode=#{cityCode},updateTime=sysdate()
+        where cityId = #{cityId}
     </update>
 
-    <select id="selectCity" resultType="com.cykj.bean.City" parameterType="HashMap">
+    <select id="selectCities" resultType="City" parameterType="HashMap">
         select * from t_city
         <where>
             <if test="cityName != null and cityName !=''">
@@ -39,7 +28,7 @@
         limit #{start},#{end}
     </select>
 
-    <select id="count" resultType="int" parameterType="HashMap">
+    <select id="findCities" resultType="int" parameterType="HashMap">
         select count(*) from t_city where 1=1
         <if test="cityName != null and cityName !=''">
             and cityName like CONCAT('%',#{cityName},'%')

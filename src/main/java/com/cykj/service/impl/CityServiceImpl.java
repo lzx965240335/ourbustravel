@@ -1,9 +1,10 @@
 package com.cykj.service.impl;
 
 import com.cykj.bean.City;
-import com.cykj.bean.LayuiJson;
+
 import com.cykj.mapper.CityMapper;
 import com.cykj.service.CityService;
+import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,9 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public LayuiJson selectCity(Map map) {
-        List<City> cities = cityMapper.selectCity(map);
-        int count = cityMapper.count(map);
+    public LayuiJson selectCities(Map map) {
+        List<City> cities = cityMapper.selectCities(map);
+        int count = cityMapper.findCities(map);
         return new LayuiJson(count,cities);
     }
 }

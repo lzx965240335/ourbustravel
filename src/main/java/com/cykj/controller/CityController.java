@@ -1,8 +1,9 @@
 package com.cykj.controller;
 
 import com.cykj.bean.City;
-import com.cykj.bean.LayuiJson;
+
 import com.cykj.service.CityService;
+import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/background")
@@ -19,16 +21,7 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping(value = "/getCityView")
-    public String getCiteView() {
-        return "cityConfiguration";
-    }
-
-//    @RequestMapping(value = "/getCityView")
-//    public String getCiteView() {
-//        return "city";
-//    }
-
+    //获取所有城市
     @RequestMapping(value = "/getTable")
     @ResponseBody
     public LayuiJson getTableData(HttpServletRequest req) {
@@ -46,7 +39,7 @@ public class CityController {
         if (cityCode != null && !cityCode.equals("")) {
             map.put("cityCode", cityCode);
         }
-        LayuiJson<City> LayuiJson = cityService.selectCity(map);
+        LayuiJson LayuiJson = cityService.selectCities(map);
         return LayuiJson;
     }
 
@@ -91,6 +84,14 @@ public class CityController {
     public String updateCity(HttpServletRequest req,@RequestBody City city){
         int updateResult = cityService.updateCity(city);
         return updateResult > 0 ? "修改成功" : "修改失败";
+    }
+
+
+    @RequestMapping("/getCity")
+    @ResponseBody
+    public List findPage(){
+        LayuiJson layuiJson=cityService.selectCities(null);
+        return (List) layuiJson.get("data");
     }
 
 }
