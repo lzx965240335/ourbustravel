@@ -56,4 +56,8 @@
       and peopleNum = #{peopleNum}
     </if>
   </select>
+
+  <select id="getSites" resultType="Site" parameterType="HashMap">
+        select * from t_site;
+    </select>
 </mapper>

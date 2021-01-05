@@ -1,17 +1,19 @@
 //初始化城市数据
 var cityList;
 var cityArea = $(".layui-textarea>.layui-breadcrumb");
+var nowCity;
 $(function () {
     $.ajax({
-        url: "/getMap/getCity",
+        url: "/city/getCity",
         type: "post",
         data: null,
         dataType: "json",
         success: function (date) {
-            console.log(date);
+
             cityList = date;
         },
     })
+
 });
 
 //显示比例尺
@@ -121,67 +123,109 @@ var options = {
 AMap.plugin(["AMap.Geolocation"], function () {
     var geolocation = new AMap.Geolocation(options);
     map.addControl(geolocation);
-    geolocation.getCurrentPosition()
+    geolocation.getCurrentPosition(function (status, result) {
+        //精确定位返回结果
+    });
+    geolocation.getCityInfo(function (status, result) {
+        if (status === 'complete') {
+            $(".city-title>b").text(result.city);
+            nowCity=result.citycode;
+            //加载天气查询插件
+            AMap.plugin('AMap.Weather', function () {
+                //创建天气查询实例
+                var weather = new AMap.Weather();
+                //执行实时天气信息查询
+                weather.getForecast(result.adcode, function (err, data) {
+                    $(".weather-info").html(data.forecasts[0].dayWeather + '<br> ' + data.forecasts[0].nightTemp + '/' + data.forecasts[0].dayTemp + '℃')
+                });
+            });
+        } else {
+            $(".city-title>b").text("定位失败!");
+            $(".weather-info").html("")
+        }
+    });
+
 });
 
 /*公交站点查询*/
 var markers = [];
-// stationSearch();
 
-// function stationSearch() {
-//     // 移除原有marker
-//     map.remove(markers);
-//     markers = [];
-//     var stationKeyWord = document.getElementById('tipinput').value;
-//     if (!stationKeyWord) return;
-//     //实例化公交站点查询类
-//     var station = new AMap.StationSearch({
-//         pageIndex: 1, //页码
-//         pageSize: 60, //单页显示结果条数
-//         city: '0592'   //确定搜索城市
-//     });
-//     station.search(stationKeyWord, function (status, result) {
-//         if (status === 'complete' && result.info === 'OK') {
-//             stationSearch_CallBack(result);
-//         } else {
-//             document.getElementById('tip').innerHTML = JSON.stringify(result);
-//         }
-//     });
-// //从本地获取公交站点数据
-//     $.ajax({
-//         url: "",
-//         type: "post",
-//         data: null,
-//         dataType: "json",
-//         success: function (date) {
-//
-//         },
-//     })
-//
-// }
+function stationSearch() {
+    // 移除原有marker
+    map.remove(markers);
+    markers = [];
+    var stationKeyWord = document.getElementById('tipinput').value;
+    if (!stationKeyWord) return;
+    //实例化公交站点查询类
+    var station = new AMap.StationSearch({
+        pageIndex: 1, //页码
+        pageSize: 60, //单页显示结果条数
+        city: nowCity   //确定搜索城市
+    });
+    //从本地获取公交站点数据
+    $.ajax({
+        url: "/site/getSite",
+        type: "post",
+        data: null,
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            station.search(stationKeyWord, function (status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    stationSearch_CallBack(data);
+                } else {
+                    document.getElementById('tip').innerHTML = JSON.stringify(result);
+                }
+            });
+        },
+    })
+
+
+
+}
 
 /*公交站点查询返回数据解析*/
-function stationSearch_CallBack(searchResult) {
+function stationSearch_CallBack(data) {
 
-    var Busline = new Object();
-    Busline.id = "1";
-    Busline.name = "文辉线";
-    Busline.location = new AMap.LngLat(118.180401, 24.493483);
-    Busline.start_stop = "王杰站";
-    Busline.end_stop = "jj站";
-    var buslins = new Array();
-    buslins.push(Busline);
-    var StationInfo = new Object();
-    StationInfo.id = "1";
-    StationInfo.name = "文辉站";
-    StationInfo.location = new AMap.LngLat(118.180401, 24.493483);
-    StationInfo.adcode = "350203";
-    StationInfo.citycode = "0592";
-    StationInfo.buslines = buslins;
-    var stationArr = new Array();
-    stationArr.push(StationInfo);
+    // var Busline = new Object();
+    // Busline.id = "1";
+    // Busline.name = "文辉线";
+    // Busline.location = new AMap.LngLat(118.180401, 24.493483);
+    // Busline.start_stop = "王杰站";
+    // Busline.end_stop = "jj站";
+    // var Busline1 = new Object();
+    // Busline1.id = "2";
+    // Busline1.name = "yc线";
+    // Busline1.location = new AMap.LngLat(118.180401, 24.493483);
+    // Busline1.start_stop = "zz站";
+    // Busline1.end_stop = "zx站";
+    // var buslins = new Array();
+    // buslins.push(Busline);
+    // buslins.push(Busline1);
+    //
+    //
+    // var StationInfo = new Object();
+    // StationInfo.id = "1";
+    // StationInfo.name = "文辉站";
+    // StationInfo.location = new AMap.LngLat(118.180401, 24.493483);
+    // StationInfo.adcode = "350203";
+    // StationInfo.citycode = "0592";
+    // //buslines为null也能显示站点数据
+    // StationInfo.buslines = buslins;
+    // var StationInfo1 = new Object();
+    // StationInfo1.id = "2";
+    // StationInfo1.name = "jj站";
+    // StationInfo1.location ={className:'AMap.LngLat',lat:24.492822,lng:118.176976,kT:24.492822,KL:118.176976}
+    //     // StationInfo1.location = new AMap.LngLat(118.176976, 24.492822);
+    // StationInfo1.adcode = "350203";
+    // StationInfo1.citycode = "0592";
+    // StationInfo1.buslines = buslins;
+    // var stationArr = new Array();
+    // stationArr.push(StationInfo);
+    // stationArr.push(StationInfo1);
     // var stationArr = searchResult.stationInfo;
-    var searchNum = stationArr.length;
+    var searchNum = data.length;
+    // console.log(data)
     if (searchNum > 0) {
         document.getElementById('tip').innerHTML = '查询结果：共' + searchNum + '个相关站点';
         for (var i = 0; i < searchNum; i++) {
@@ -192,12 +236,12 @@ function stationSearch_CallBack(searchResult) {
                     imageSize: new AMap.Size(32, 32)
                 }),
                 offset: new AMap.Pixel(-16, -32),
-                position: stationArr[i].location,
+                position: data[i].location,
                 map: map,
-                title: stationArr[i].name
+                title: data[i].name
             });
             marker.info = new AMap.InfoWindow({
-                content: stationArr[i].name,
+                content: data[i].name,
                 offset: new AMap.Pixel(0, -30)
             });
             marker.on('mouseover', function (e) {
@@ -209,13 +253,14 @@ function stationSearch_CallBack(searchResult) {
     }
 }
 
-// document.getElementById('search').onclick = stationSearch;
+document.getElementById('search').onclick = stationSearch;
 
 
 //城市点击
 layui.use('layer', function () { //独立版的layer无需执行这一句
     var $ = layui.jquery, layer = layui.layer;
     $("#citybox").click(function () {
+
         layer.open({
             type: 1,
             title: "城市列表",
@@ -228,7 +273,7 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
             success: function () {
                 cityArea.empty();
                 for (var key in cityList) {
-                    cityArea.append('<li onclick="chooseCity(this)">'+cityList[key].cityName+'</li>')
+                    cityArea.append('<li onclick="chooseCity(this)">' + cityList[key].cityName + '</li>')
                 }
             }
         });
@@ -239,26 +284,43 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
 function initials(cityCell) {
     cityArea.empty();
     for (var key in cityList) {
-            if (cityList[key].initials == cityCell.innerText) {
-                cityArea.append('<li onclick="chooseCity(this)">'+cityList[key].cityName+'</li>')
+        if (cityList[key].initials == cityCell.innerText) {
+            cityArea.append('<li onclick="chooseCity(this)">' + cityList[key].cityName + '</li>')
         }
     }
 }
+
 //点击城市事件
-function chooseCity(cityName){
-    $(".layui-field-title>legend").text("当前城市："+cityName);
-    AMap.plugin(['AMap.PlaceSearch'], function(){
+function chooseCity(cityName) {
+
+    $(".layui-field-title>legend").text("当前城市：" + cityName.innerText);
+    AMap.plugin(['AMap.PlaceSearch'], function () {
+
         var placeSearch = new AMap.PlaceSearch({
             map: map
         });  //构造地点查询类
         for (var key in cityList) {
-            if (cityList[key].cityName==cityName){
-                alert("我来了")
+
+            if (cityList[key].cityName == cityName.innerText) {
+
+                console.log(cityList[key].adcode)
                 placeSearch.setCity(cityList[key].adcode);
+                placeSearch.search(cityName.innerText)
             }
         }
     });
     //改变天气变化
-    $(".city-title>b").text(cityName);
+    $(".city-title>b").text(cityName.innerText);
+
+    //加载天气查询插件
+    AMap.plugin('AMap.Weather', function () {
+        //创建天气查询实例
+        var weather = new AMap.Weather();
+        //执行实时天气信息查询
+        weather.getForecast(cityName.innerText, function (err, data) {
+            $(".weather-info").html(data.forecasts[0].dayWeather + '<br> ' + data.forecasts[0].nightTemp + '/' + data.forecasts[0].dayTemp + '℃')
+        });
+    });
+
     layer.closeAll();
 }

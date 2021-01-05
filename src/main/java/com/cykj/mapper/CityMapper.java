@@ -25,4 +25,6 @@ public interface CityMapper {
     //总数
     int findCities(Map<String, Object> condition);
 
+    //查询所有城市
+    List<City> getCities(Map<String, Object> condition);
 }

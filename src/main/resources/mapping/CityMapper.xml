@@ -38,5 +38,8 @@
         </if>
     </select>
 
+    <select id="getCities" resultType="City" parameterType="HashMap">
+        select * from t_city
+    </select>
 
 </mapper>

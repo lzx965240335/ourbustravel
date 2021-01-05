@@ -9,7 +9,7 @@ public class Advert {
 
     private String begTime;
 
-    private String endTIme;
+    private String endTime;
 
     private Integer advertMoney;
 
@@ -52,12 +52,12 @@ public class Advert {
         this.begTime = begTime;
     }
 
-    public String getEndTIme() {
-        return endTIme;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndTIme(String endTIme) {
-        this.endTIme = endTIme;
+    public void setEndTIme(String endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getAdvertMoney() {

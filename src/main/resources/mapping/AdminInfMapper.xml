@@ -16,7 +16,7 @@
     adminId, account, password, roleId, adminState, regTime, avatar, updateTime, adminName
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_admin
     where adminId = #{adminid,jdbcType=INTEGER}
@@ -26,12 +26,12 @@
     where adminId = #{adminid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cykj.bean.AdminInf" >
-    insert into t_admin (adminId, account, password, 
-      roleId, adminState, regTime, 
+    insert into t_admin (adminId, account, password,
+      roleId, adminState, regTime,
       avatar, updateTime, adminName
       )
-    values (#{adminid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{roleid,jdbcType=INTEGER}, #{adminstate,jdbcType=INTEGER}, #{regtime,jdbcType=VARCHAR}, 
+    values (#{adminid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{roleid,jdbcType=INTEGER}, #{adminstate,jdbcType=INTEGER}, #{regtime,jdbcType=VARCHAR},
       #{avatar,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{adminname,jdbcType=VARCHAR}
       )
   </insert>

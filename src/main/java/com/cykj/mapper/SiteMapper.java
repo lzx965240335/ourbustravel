@@ -1,5 +1,6 @@
 package com.cykj.mapper;
 
+import com.cykj.bean.City;
 import com.cykj.bean.Site;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +25,7 @@ public interface SiteMapper {
 
     //总数
     int siteCount(Map map);
+
+    //查询所有城市
+    List<Site> getSites(Map map);
 }

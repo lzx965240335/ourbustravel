@@ -41,10 +41,13 @@
         });  //构造地点查询类
         auto.on("select", select);//注册监听，当选中某条记录时会触发
         function select(e) {
+            console.log(e);
+            console.log(e.poi.adcode);
             placeSearch.setCity(e.poi.adcode);
             placeSearch.search(e.poi.name);  //关键字查询查询
         }
     });
+
 </script>
 </body>
 </html>

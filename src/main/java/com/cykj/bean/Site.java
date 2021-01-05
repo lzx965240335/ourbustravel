@@ -13,6 +13,8 @@ public class Site {
 
     private Integer peopleNum;
 
+    private Integer isDot;
+
     public Site() {
     }
 
@@ -62,5 +64,13 @@ public class Site {
 
     public void setPeopleNum(Integer peopleNum) {
         this.peopleNum = peopleNum;
+    }
+
+    public Integer getIsDot() {
+        return isDot;
+    }
+
+    public void setIsDot(Integer isDot) {
+        this.isDot = isDot;
     }
 }

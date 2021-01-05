@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/background")
+@RequestMapping(value = "/city")
 public class CityController {
 
     @Autowired
@@ -87,6 +87,7 @@ public class CityController {
     }
 
 
+    //获取所有城市列表
     @RequestMapping("/getCity")
     @ResponseBody
     public List findPage(){

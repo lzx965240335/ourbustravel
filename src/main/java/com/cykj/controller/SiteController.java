@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/background")
+@RequestMapping(value = "/site")
 public class SiteController {
 
     @Autowired
@@ -67,6 +68,13 @@ public class SiteController {
     public String addSite(HttpServletRequest req, @RequestBody Site site) {
         int addResult = siteService.addSite(site);
         return addResult > 0 ? "添加成功" : "添加失败";
+    }
+
+    @RequestMapping("/getSite")
+    @ResponseBody
+    public List findPage(){
+        LayuiJson layuiJson=siteService.selectAllSite(null);
+        return (List) layuiJson.get("data");
     }
 
 }

@@ -37,7 +37,13 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public LayuiJson selectCities(Map map) {
-        List<City> cities = cityMapper.selectCities(map);
+        List<City> cities=null;
+        System.out.println(map);
+        if (map!=null){
+            cities = cityMapper.selectCities(map);
+        }else {
+            cities=cityMapper.getCities(map);
+        }
         int count = cityMapper.findCities(map);
         return new LayuiJson(count,cities);
     }

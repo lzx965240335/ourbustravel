@@ -3,17 +3,10 @@ package com.cykj.mapper;
 import com.cykj.bean.Route;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface RouteMapper {
-    int deleteByPrimaryKey(Integer routeid);
-
-    int insert(Route record);
-
-    int insertSelective(Route record);
-
-    Route selectByPrimaryKey(Integer routeid);
-
-    int updateByPrimaryKeySelective(Route record);
-
-    int updateByPrimaryKey(Route record);
+   List<Route> getRoutes(Map map);
 }
