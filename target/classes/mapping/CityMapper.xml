@@ -3,7 +3,8 @@
 <mapper namespace="com.cykj.mapper.CityMapper">
 
     <insert id="addCity" parameterType="City">
-    insert into t_city(cityId,cityName,cityCode,updateTime)value(#{cityId},#{cityName},#{cityCode},#{updateTime})
+    insert into t_city(cityId,cityName,adcode,citycode,initials,updateTime)value(#{cityId},#{cityName},#{adcode},
+    #{citycode},#{initials},#{updateTime})
   </insert>
 
     <delete id="deleteCity" parameterType="java.lang.Integer">
@@ -11,30 +12,42 @@
   </delete>
 
     <update id="updateCity" parameterType="City">
-        update t_city set cityName=#{cityName},cityCode=#{cityCode},updateTime=sysdate()
+        update t_city set cityName=#{cityName},adcode=#{adcode},citycode=#{citycode},initials=#{initials},updateTime=sysdate()
         where cityId = #{cityId}
     </update>
 
-    <select id="selectCities" resultType="City" parameterType="HashMap">
+    <select id="selectCities" resultType="com.cykj.bean.City" parameterType="HashMap">
         select * from t_city
         <where>
             <if test="cityName != null and cityName !=''">
                 and cityName like CONCAT('%',#{cityName},'%')
             </if>
-            <if test="cityCode != null and cityCode !=''">
-                and cityCode like CONCAT('%',#{cityCode},'%')
+            <if test="adcode != null and adcode !=''">
+                and adCode like CONCAT('%',#{adcode},'%')
+            </if>
+            <if test="citycode != null and citycode !=''">
+                and cityCode like CONCAT('%',#{citycode},'%')
+            </if>
+            <if test="initials != null and initials !=''">
+                and initials like CONCAT('%',#{initials},'%')
             </if>
         </where>
         limit #{start},#{end}
     </select>
 
-    <select id="findCities" resultType="int" parameterType="HashMap">
+    <select id="findCities" resultType="java.lang.Integer" parameterType="HashMap">
         select count(*) from t_city where 1=1
         <if test="cityName != null and cityName !=''">
             and cityName like CONCAT('%',#{cityName},'%')
         </if>
-        <if test="cityCode != null and cityCode !=''">
-            and cityCode like CONCAT('%',#{cityCode},'%')
+        <if test="adcode != null and adcode !=''">
+            and adCode like CONCAT('%',#{adcode},'%')
+        </if>
+        <if test="citycode != null and citycode !=''">
+            and cityCode like CONCAT('%',#{citycode},'%')
+        </if>
+        <if test="initials != null and initials !=''">
+            and initials like CONCAT('%',#{initials},'%')
         </if>
     </select>
 

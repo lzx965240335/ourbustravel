@@ -1,9 +1,8 @@
 layui.use('table', function () {
-
     var table = layui.table;
     table.render({
         elem: '#test'
-        , url: '/background/getCities'
+        , url: '/city/getCities'
         , title: '城市数据表'
         , toolbar: '#toolbarDemo'
         , totalRow: true
@@ -12,10 +11,10 @@ layui.use('table', function () {
                 {type: 'numbers'},
                 {checkbox: true}
                 //field后面的值必须跟实体类的属性一致
-                , {field: 'cityId', title: 'ID', sort: true}
+                // , {field: 'cityId', title: 'ID', sort: true}
                 , {field: 'cityName', title: '城市名称'}
-                , {field: 'adcode', title: '省份证归属地'}
-                , {field: 'citycode', title: '区号'}
+                , {field: 'adcode', title: '身份证归属地'}
+                , {field: 'citycode', title: '城市区号'}
                 , {field: 'initials', title: '城市首字母', sort: true}
                 , {field: 'updateTime', title: '更新时间', sort: true}
                 // 设置表头工具栏
@@ -39,7 +38,7 @@ layui.use('table', function () {
                 }
                 , where: {
                     cityName: cityName.val(),
-                    cityCode: cityCode.val(),
+                    citycode: cityCode.val(),
                 }
             }, 'data');
         }
@@ -51,7 +50,7 @@ layui.use('table', function () {
     });
 
 
-    //工具栏事件
+    // 工具栏事件
     table.on('toolbar(test)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
         switch (obj.event) {
@@ -74,8 +73,6 @@ layui.use('table', function () {
     table.on('tool(test)', function (obj) {
         //得到当前行的相关信息
         var data = obj.data;
-        console.log(data);
-        //得到事件名
         var eventName = obj.event;
         // 判断事件名，执行对应的方法
         if (eventName === 'del') {//删除
@@ -83,7 +80,7 @@ layui.use('table', function () {
                 $.ajax({
                     type: "post",
                     dataType: "text",
-                    url: "/background/deleteCity",
+                    url: "/city/deleteCity",
                     data: {"cityId": data.cityId},
                     success: function (data) {
                         layer.msg(data);
@@ -96,35 +93,32 @@ layui.use('table', function () {
                     }
                 })
             });
-        } else if (eventName === 'update') {//编辑
+        } else if (eventName === 'update') {//修改事件
+            $("#cityId").val(data.cityId);
+            $("#updateCityName").val(data.cityName);
+            $("#updateAdCode").val(data.adcode);
+            $("#updateCityCode").val(data.citycode);
+            $("#updateInitials").val(data.initials);
+            console.log("点击修改按钮时"+data);
             layer.open({
                 //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type: 1,
                 title: "修改城市信息",
-                area: ['50%', '40%'],
+                area: ['100%', '100%'],
                 content: $("#updateTest"),
                 success: function () {
                     $("#register");
                 }
             })
-            // form.render();
-            // })
-            // }, function (value, index) {
-            //     //修改指定单元格的值
-            //     //value表示输入的值
-            //     obj.update({
-            //         cityName: value,
-            //         cityCode:value
-            //     });
-            //     //关闭弹出层
-            //     layer.close(index);
-            // });
         }
         $("#sureUpdate").click(function () {
             var cityId = $("#cityId").val();
             var updateCityName = $("#updateCityName").val();
+            var updateAdCode = $("#updateAdCode").val();
             var updateCityCode = $("#updateCityCode").val();
-            if (updateCityName == null || updateCityName == '' || updateCityCode == null || updateCityCode == '') {
+            var updateInitials = $("#updateInitials").val();
+            if (updateCityName == null || updateCityName == '' || updateAdCode == null || updateAdCode == ''
+                ||updateCityCode == null || updateCityCode == '' || updateInitials == null || updateInitials == '') {
                 return;
             }
             //获取表单数据
@@ -132,14 +126,16 @@ layui.use('table', function () {
                 {
                     "cityId":$("#cityId").val(),
                     "cityName": $("#updateCityName").val(),
-                    "cityCode": $("#updateCityCode").val()
+                    "adcode": $("#updateAdCode").val(),
+                    "citycode": $("#updateCityCode").val(),
+                    "initials": $("#updateInitials").val(),
                 });
             //向后台发送数据
             $.ajax({
                 contentType: "application/json",
                 dataType: "text",
                 type: "post",
-                url: "/background/updateCity",
+                url: "/city/updateCity",
                 data: jsonStr,
                 success: function (data) {
                     layer.msg(data);
@@ -156,6 +152,7 @@ layui.use('table', function () {
 });
 
 
+
 layui.use('laydate', function () {
     var laydate = layui.laydate;
     lay('.test-item').each(function () {
@@ -170,6 +167,9 @@ layui.use('element', function () {
     var element = layui.element;
 });
 
+var yingwen = /^[A-Z][1]$/;
+var num=/^[0-9][6]$/;
+
 layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
     var form = layui.form
         , layer = layui.layer
@@ -177,22 +177,36 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
 
     $("#register").click(function () {
         var addCityName = $("#addCityName").val();
+        var adCode = $("#adCode").val();
         var addCityCode = $("#addCityCode").val();
-        if (addCityName == null || addCityName == '' || addCityCode == null || addCityCode == '') {
+        var initials = $("#initials").val();
+        // if(!yingwen.test(initials)){
+        //     layer.alert("城市首字母只能使用英文仅一位", {  title: "提示",skin: 'layui-layer-molv' });
+        //     return false;
+        // }
+        // if(!num.test(adCode)){
+        //     layer.alert("城市首字母仅一位", {  title: "提示",skin: 'layui-layer-molv' });
+        //     return false;
+        // }
+
+        if (addCityName == null || addCityName == '' || adCode == null || adCode == ''
+            ||addCityCode == null || addCityCode == '' || initials == null || initials == '') {
             return;
         }
         //获取表单数据
         var jsonStr = JSON.stringify(
             {
                 "cityName": $("#addCityName").val(),
-                "cityCode": $("#addCityCode").val()
+                "adcode": $("#adCode").val(),
+                "citycode": $("#addCityCode").val(),
+                "initials": $("#initials").val()
             });
         //向后台发送数据
         $.ajax({
             contentType: "application/json",
             dataType: "text",
             type: "post",
-            url: "/background/addCity",//数据接口，到新增方法的那个路径上
+            url: "/city/addCity",//数据接口，到新增方法的那个路径上
             data: jsonStr,
             success: function (data) {
                 layer.msg(data);
@@ -210,7 +224,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         layer.open({
             type: 1,
             title: ["新增城市信息"],
-            area: ['50%', '40%'],
+            area: ['100%', '100%'],
             content: $("#myInf"),
             cancel: function () {
             },
@@ -218,7 +232,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
                 $("#register");
             }
         })
-        // form.render();
+        form.render();
     })
 
 

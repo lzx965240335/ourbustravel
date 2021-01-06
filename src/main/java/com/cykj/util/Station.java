@@ -22,8 +22,8 @@ public class Station {
                             Lines lines = new Lines();
                             lines.setId(route.getRouteid() + "");
                             lines.setName(route.getRoutename());
-                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()));
-                            lines.setLocation(new AMap(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()),bms));
+                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
+                            lines.setLocation(new AMap(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()),bms));
                             lines.setStart_stop(site.getSiteName());
                             lines.setEnd_stop(sites.get(sites.size()-1).getSiteName());
 
@@ -48,8 +48,8 @@ public class Station {
                             StationInfo stationInfo =new StationInfo();
                             stationInfo.setId(site.getSiteId()+"");
                             stationInfo.setName(site.getSiteName());
-                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()));
-                            stationInfo.setLocation(new AMap(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()),bms));
+                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
+                            stationInfo.setLocation(new AMap(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()),bms));
                             stationInfo.setAdcode("350200");
                             stationInfo.setCitycode("0592");
                             stationInfo.setBuslines(busLines);

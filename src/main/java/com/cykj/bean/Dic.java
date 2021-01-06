@@ -1,5 +1,8 @@
 package com.cykj.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Dic {
     private Integer dicId;
 
@@ -42,5 +45,16 @@ public class Dic {
 
     public void setDicType(String dicType) {
         this.dicType = dicType;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Dic{" +
+                "dicId=" + dicId +
+                ", dickey='" + dickey + '\'' +
+                ", dicValue='" + dicValue + '\'' +
+                ", dicType='" + dicType + '\'' +
+                '}';
     }
 }

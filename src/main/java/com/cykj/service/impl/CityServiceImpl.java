@@ -25,8 +25,6 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public boolean deleteCity(City city) {
-//        int deleteCity = cityMapper.deleteCity(city.getCityId());
-//        return deleteCity>0;
         return cityMapper.deleteCity(city.getCityId())>0;
     }
 

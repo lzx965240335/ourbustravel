@@ -5,7 +5,7 @@
 
   <insert id="addSite" parameterType="com.cykj.bean.Site">
     insert into t_site(siteId,siteX,siteY,siteName,setTime,peopleNum)
-    value(#{siteId},#{siteX},#{siteY},#{siteName},#{setTime},#{peopleNum})
+    value(#{siteId},#{longitude},#{latitude},#{siteName},#{setTime},#{peopleNum})
   </insert>
 
   <delete id="deleteSite" parameterType="java.lang.Integer" >
@@ -16,10 +16,10 @@
     update t_site
     <set>
       <if test="siteX != null and siteX !=''" >
-        siteX = #{siteX},
+        longitude = #{longitude},
       </if>
       <if test="siteY != null and siteY !=''" >
-        siteY = #{siteY},
+        latitude = #{latitude},
       </if>
       <if test="siteName != null and siteName !=''" >
         siteName = #{siteName},

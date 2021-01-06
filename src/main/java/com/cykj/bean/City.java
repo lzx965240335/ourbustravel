@@ -1,11 +1,16 @@
 package com.cykj.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class City {
     private Integer cityId;
     private String cityName;
     private String adcode;
     private String citycode;
     private String initials;
+    private String updateTime;
+
 
     public City() {
     }
@@ -48,5 +53,13 @@ public class City {
 
     public void setInitials(String initials) {
         this.initials = initials;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

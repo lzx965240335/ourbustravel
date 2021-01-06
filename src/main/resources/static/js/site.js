@@ -2,27 +2,28 @@ layui.use('table', function () {
     var table = layui.table;
     table.render({
         elem: '#test'
-        , url: '/background/getSiteTable'
-        , title: '用户数据表'
+        , url: '/site/getSites'
+        , title: '站点数据表'
         , toolbar: '#toolbarDemo'
         , totalRow: true
         , cols: [
             [
-                {type:'numbers'},
+                {type: 'numbers'},
                 {checkbox: true}
                 //field后面的值必须跟实体类的属性一致
-                , {field: 'siteId', title: 'ID',sort: true}
+                // , {field: 'siteId', title: 'ID', sort: true}
                 , {field: 'siteName', title: '站点名称'}
                 , {field: 'siteX', title: '站点横坐标'}
                 , {field: 'siteY', title: '站点纵坐标'}
-                , {field: 'peopleNum', title: '站点人数',sort: true}
+                , {field: 'peopleNum', title: '站点人数', sort: true}
+                , {field: 'setTime', title: '更新时间'}
                 , {field: 'operation', title: '操作', toolbar: '#barDemo'}
             ]
         ]
         , id: 'testReload'
         , page: true
-        , height: 365
         , limit: 5
+        , limits: [5, 10]
     });
 
     var $ = layui.$, active = {
@@ -48,21 +49,22 @@ layui.use('table', function () {
     });
 
     //工具栏事件
-    table.on('toolbar(test)', function(obj){
+    table.on('toolbar(test)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
+        switch (obj.event) {
             case 'getCheckData':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
                 break;
             case 'getCheckLength':
                 var data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
+                layer.msg('选中了：' + data.length + ' 个');
                 break;
             case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选')
+                layer.msg(checkStatus.isAll ? '全选' : '未全选')
                 break;
-        };
+        }
+        ;
     });
 
     //监听行工具事件
@@ -73,7 +75,7 @@ layui.use('table', function () {
                 $.ajax({
                     type: "post",
                     dataType: "text",
-                    url: "/background/deleteSite",
+                    url: "/site/deleteSite",
                     data: {"siteId": data.siteId},
                     success: function (data) {
                         layer.msg(data);
@@ -84,18 +86,60 @@ layui.use('table', function () {
                     }
                 })
             });
-        } else if (obj.event === 'edit') {
-            //实现编辑功能
-            layer.prompt({
-                formType: 2
-                , value: data.email
-            }, function (value, index) {
-                obj.update({
-                    email: value
-                });
-                layer.close(index);
-            });
+        } else if (obj.event === 'update') {
+            $("#siteId").val(data.siteId);
+            $("#updateSiteName").val(data.siteName);
+            $("#updateSiteX").val(data.siteX);
+            $("#updateSiteY").val(data.siteY);
+            $("#updatePeopleNum").val(data.peopleNum);
+            console.log("点击修改按钮时" + data);
+            layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "修改城市信息",
+                area: ['100%', '100%'],
+                content: $("#updateTest"),
+                success: function () {
+                    $("#register");
+                }
+            })
         }
+        $("#sureUpdate").click(function () {
+            var siteId = $("#siteId").val();
+            var updateSiteName = $("#updateSiteName").val();
+            var updateSiteX = $("#updateSiteX").val();
+            var updateSiteY = $("#updateSiteY").val();
+            var updatePeopleNum = $("#updatePeopleNum").val();
+            if (updateSiteName == null || updateSiteName == '' || updateSiteX == null || updateSiteX == ''
+                || updateSiteY == null || updateSiteY == '' || updatePeopleNum == null || updatePeopleNum == '') {
+                return;
+            }
+            //获取表单数据
+            var jsonStr = JSON.stringify(
+                {
+                    "siteId": $("#siteId").val(),
+                    "siteName": $("#updateSiteName").val(),
+                    "siteX": $("#updateSiteX").val(),
+                    "siteY": $("#updateSiteY").val(),
+                    "peopleNum": $("#updatePeopleNum").val(),
+                });
+            //向后台发送数据
+            $.ajax({
+                contentType: "application/json",
+                dataType: "text",
+                type: "post",
+                url: "/site/updateSite",
+                data: jsonStr,
+                success: function (data) {
+                    layer.msg(data);
+                    if (data == "修改成功") {
+                        layer.closeAll();
+                    }
+                    //数据刷新
+                    table.reload('testReload', {}, 'data');
+                }
+            })
+        })
     });
 
 });
@@ -115,6 +159,7 @@ layui.use('element', function () {
     var element = layui.element;
 });
 
+// var shuzi = /^[1-9][3]\d*$/
 layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
     var form = layui.form
         , layer = layui.layer
@@ -125,6 +170,11 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         var addSiteX = $("#addSiteX").val();
         var addSiteY = $("#addSiteY").val();
         var addPeopleNum = $("#addPeopleNum").val();
+        // if(!shuzi.test(addPeopleNum)){
+        //     alert(1);
+        //     return;
+        // }
+
         if (addSiteName == null || addSiteName == '' || addSiteX == null || addSiteX == ''
             || addSiteY == null || addSiteY == '' || addPeopleNum == null || addPeopleNum == '') {
             return;
@@ -142,7 +192,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
             contentType: "application/json",
             dataType: "text",
             type: "post",
-            url: "/background/addSite",
+            url: "/site/addSite",
             data: jsonStr,
             success: function (data) {
                 layer.msg(data);
@@ -160,7 +210,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         layer.open({
             type: 1,
             title: ["新增站点"],
-            area: ['50%', '50%'],
+            area: ['100%', '100%'],
             content: $("#myInf"),
             cancel: function () {
             },
