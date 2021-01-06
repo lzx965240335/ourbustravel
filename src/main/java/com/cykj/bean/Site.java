@@ -3,9 +3,9 @@ package com.cykj.bean;
 public class Site {
     private Integer siteId;
 
-    private String siteX;
+    private String longitude;
 
-    private String siteY;
+    private String latitude;
 
     private String siteName;
 
@@ -26,20 +26,20 @@ public class Site {
         this.siteId = siteId;
     }
 
-    public String getSiteX() {
-        return siteX;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setSiteX(String siteX) {
-        this.siteX = siteX;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getSiteY() {
-        return siteY;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setSiteY(String siteY) {
-        this.siteY = siteY;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public String getSiteName() {

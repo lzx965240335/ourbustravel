@@ -22,10 +22,13 @@ public class Station {
                             Lines lines = new Lines();
                             lines.setId(route.getRouteid() + "");
                             lines.setName(route.getRoutename());
-                            lines.setLocation(new AMap("AMap.LngLat",Double.valueOf(site.getSiteY()),Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()),Double.valueOf(site.getSiteX())));
+                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()));
+                            lines.setLocation(new AMap(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()),bms));
                             lines.setStart_stop(site.getSiteName());
                             lines.setEnd_stop(sites.get(sites.size()-1).getSiteName());
+
                             busLines.add(lines);
+
                         }else {
                             break;
                         }
@@ -35,7 +38,6 @@ public class Station {
                 }
             }
         }
-        System.out.println(busLines);
         for (Route route:routes) {
             String[] ids=route.getRouteinf().split("#");
             for (Site site:sites) {
@@ -46,7 +48,8 @@ public class Station {
                             StationInfo stationInfo =new StationInfo();
                             stationInfo.setId(site.getSiteId()+"");
                             stationInfo.setName(site.getSiteName());
-                            stationInfo.setLocation(new AMap("AMap.LngLat",Double.valueOf(site.getSiteY()),Double.valueOf(site.getSiteY()),Double.valueOf(site.getSiteY()),Double.valueOf(site.getSiteY())));
+                            Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()));
+                            stationInfo.setLocation(new AMap(Double.valueOf(site.getSiteX()),Double.valueOf(site.getSiteY()),bms));
                             stationInfo.setAdcode("350200");
                             stationInfo.setCitycode("0592");
                             stationInfo.setBuslines(busLines);

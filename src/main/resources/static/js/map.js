@@ -44,57 +44,89 @@ auto = new AMap.AutoComplete({
 //鼠标工具类
 var mouseTool = new AMap.MouseTool(map);
 //监听draw事件可获取画好的覆盖物
-var overlays = [];
-mouseTool.on('draw', function (e) {
-    overlays.push(e.obj);
-})
+// var overlays = [];
+// mouseTool.on('draw', function (e) {
+//     overlays.push(e.obj);
+// })
+//
+// //图形绘制工具
+// function draw(type) {
+//     switch (type) {
+//         case 'marker': {
+//             mouseTool.marker({
+//                 //同Marker的Option设置
+//             });
+//             break;
+//         }
+//         case 'polyline': {
+//             mouseTool.polyline({
+//                 strokeColor: '#80d8ff'
+//                 //同Polyline的Option设置
+//             });
+//             break;
+//         }
+// case 'polygon':{
+//     mouseTool.polygon({
+//         fillColor:'#00b0ff',
+//         strokeColor:'#80d8ff'
+//         //同Polygon的Option设置
+//     });
+//     break;
+// }
+// case 'rectangle':{
+//     mouseTool.rectangle({
+//         fillColor:'#00b0ff',
+//         strokeColor:'#80d8ff'
+//         //同Polygon的Option设置
+//     });
+//     break;
+// }
+// case 'circle':{
+//     mouseTool.circle({
+//         fillColor:'#00b0ff',
+//         strokeColor:'#80d8ff'
+//         //同Circle的Option设置
+//     });
+//     break;
+// }
+//     }
+// }
 
-//图形绘制工具
-function draw(type) {
-    switch (type) {
-        case 'marker': {
-            mouseTool.marker({
-                //同Marker的Option设置
-            });
-            break;
-        }
-        case 'polyline': {
-            mouseTool.polyline({
-                strokeColor: '#80d8ff'
-                //同Polyline的Option设置
-            });
-            break;
-        }
-        // case 'polygon':{
-        //     mouseTool.polygon({
-        //         fillColor:'#00b0ff',
-        //         strokeColor:'#80d8ff'
-        //         //同Polygon的Option设置
-        //     });
-        //     break;
-        // }
-        // case 'rectangle':{
-        //     mouseTool.rectangle({
-        //         fillColor:'#00b0ff',
-        //         strokeColor:'#80d8ff'
-        //         //同Polygon的Option设置
-        //     });
-        //     break;
-        // }
-        // case 'circle':{
-        //     mouseTool.circle({
-        //         fillColor:'#00b0ff',
-        //         strokeColor:'#80d8ff'
-        //         //同Circle的Option设置
-        //     });
-        //     break;
-        // }
-    }
-}
-
+//创建右键菜单
+var contextMenu = new AMap.ContextMenu();
+//右键添加Marker标记
+contextMenu.addItem("设为起点", function (e) {
+    var marker = new AMap.Marker({
+        icon: new AMap.Icon({
+            image: '/imgs/icon_dir.png',
+            size: new AMap.Size(32, 32),
+            imageSize: new AMap.Size(32, 32)
+        }),
+        map: map,
+        position: contextMenuPositon //基点位置
+    });
+}, 1);
+contextMenu.addItem("设为终点", function (e) {
+    var marker = new AMap.Marker({
+        map: map,
+        position: contextMenuPositon //基点位置
+    });
+}, 2);
+contextMenu.addItem("清除路线", function (e) {
+    var marker = new AMap.Marker({
+        map: map,
+        position: contextMenuPositon //基点位置
+    });
+}, 3);
+//地图绑定鼠标右击事件——弹出右键菜单
+map.on('rightclick', function (e) {
+    contextMenu.open(map, e.lnglat);
+    contextMenuPositon = e.lnglat;
+});
 
 //为地图注册click事件获取鼠标点击出的经纬度坐标
 map.on('click', function (e) {
+    //左键获取经纬度
     document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
 });
 
@@ -129,7 +161,7 @@ AMap.plugin(["AMap.Geolocation"], function () {
     geolocation.getCityInfo(function (status, result) {
         if (status === 'complete') {
             $(".city-title>b").text(result.city);
-            nowCity=result.citycode;
+            nowCity = result.citycode;
             //加载天气查询插件
             AMap.plugin('AMap.Weather', function () {
                 //创建天气查询实例
@@ -172,6 +204,7 @@ function stationSearch() {
             console.log(data);
             station.search(stationKeyWord, function (status, result) {
                 if (status === 'complete' && result.info === 'OK') {
+
                     stationSearch_CallBack(data);
                 } else {
                     document.getElementById('tip').innerHTML = JSON.stringify(result);
@@ -179,7 +212,6 @@ function stationSearch() {
             });
         },
     })
-
 
 
 }
@@ -223,9 +255,10 @@ function stationSearch_CallBack(data) {
     // var stationArr = new Array();
     // stationArr.push(StationInfo);
     // stationArr.push(StationInfo1);
+    // console.log(stationArr);
     // var stationArr = searchResult.stationInfo;
     var searchNum = data.length;
-    // console.log(data)
+
     if (searchNum > 0) {
         document.getElementById('tip').innerHTML = '查询结果：共' + searchNum + '个相关站点';
         for (var i = 0; i < searchNum; i++) {
@@ -244,9 +277,9 @@ function stationSearch_CallBack(data) {
                 content: data[i].name,
                 offset: new AMap.Pixel(0, -30)
             });
-            marker.on('mouseover', function (e) {
-                e.target.info.open(map, e.target.getPosition())
-            });
+            // marker.on('click', function (e) {
+            //     e.target.info.open(map, e.target.getPosition())
+            // });
             markers.push(marker);
         }
         map.setFitView();
@@ -284,7 +317,7 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
 function initials(cityCell) {
     cityArea.empty();
     for (var key in cityList) {
-        if (cityList[key].initials == cityCell.innerText) {
+        if (cityList[key].initials.index(0) == cityCell.innerText) {
             cityArea.append('<li onclick="chooseCity(this)">' + cityList[key].cityName + '</li>')
         }
     }
