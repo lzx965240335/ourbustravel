@@ -23,7 +23,7 @@ var scale = new AMap.Scale({
 
     map = new AMap.Map('container', {
         resizeEnable: true,//是否监控地图容器尺寸变化
-        mapStyle: 'amap://styles/macaron', //设置地图的显示样式
+        // mapStyle: 'amap://styles/macaron', //设置地图的显示样式
         zoom: 13 //地图显示的缩放级别
         // center: [118.178322, 24.492585],//初始化地图中心点
         // viewMode: '3D',
@@ -98,9 +98,9 @@ var contextMenu = new AMap.ContextMenu();
 contextMenu.addItem("设为起点", function (e) {
     var marker = new AMap.Marker({
         icon: new AMap.Icon({
-            image: '/imgs/icon_dir.png',
-            size: new AMap.Size(32, 32),
-            imageSize: new AMap.Size(32, 32)
+            image: '/imgs/start_marker.png',
+            size: new AMap.Size(32, 40),
+            imageSize: new AMap.Size(32, 40)
         }),
         map: map,
         position: contextMenuPositon //基点位置
@@ -108,11 +108,17 @@ contextMenu.addItem("设为起点", function (e) {
 }, 1);
 contextMenu.addItem("设为终点", function (e) {
     var marker = new AMap.Marker({
+        icon: new AMap.Icon({
+            image: '/imgs/end_marker.png',
+            size: new AMap.Size(32, 40),
+            imageSize: new AMap.Size(32, 40)
+        }),
         map: map,
         position: contextMenuPositon //基点位置
     });
 }, 2);
 contextMenu.addItem("清除路线", function (e) {
+
     var marker = new AMap.Marker({
         map: map,
         position: contextMenuPositon //基点位置
@@ -225,17 +231,8 @@ function stationSearch_CallBack(data) {
     // Busline.location = new AMap.LngLat(118.180401, 24.493483);
     // Busline.start_stop = "王杰站";
     // Busline.end_stop = "jj站";
-    // var Busline1 = new Object();
-    // Busline1.id = "2";
-    // Busline1.name = "yc线";
-    // Busline1.location = new AMap.LngLat(118.180401, 24.493483);
-    // Busline1.start_stop = "zz站";
-    // Busline1.end_stop = "zx站";
     // var buslins = new Array();
     // buslins.push(Busline);
-    // buslins.push(Busline1);
-    //
-    //
     // var StationInfo = new Object();
     // StationInfo.id = "1";
     // StationInfo.name = "文辉站";
@@ -244,19 +241,9 @@ function stationSearch_CallBack(data) {
     // StationInfo.citycode = "0592";
     // //buslines为null也能显示站点数据
     // StationInfo.buslines = buslins;
-    // var StationInfo1 = new Object();
-    // StationInfo1.id = "2";
-    // StationInfo1.name = "jj站";
-    // StationInfo1.location ={className:'AMap.LngLat',lat:24.492822,lng:118.176976,kT:24.492822,KL:118.176976}
-    //     // StationInfo1.location = new AMap.LngLat(118.176976, 24.492822);
-    // StationInfo1.adcode = "350203";
-    // StationInfo1.citycode = "0592";
-    // StationInfo1.buslines = buslins;
     // var stationArr = new Array();
     // stationArr.push(StationInfo);
-    // stationArr.push(StationInfo1);
     // console.log(stationArr);
-    // var stationArr = searchResult.stationInfo;
     var searchNum = data.length;
 
     if (searchNum > 0) {

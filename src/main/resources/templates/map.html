@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/static/js/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/beforeCss.css"/>
 
     <script type="text/javascript" src="/js/jquery-3.5.1.js" charset="utf-8"></script>
-    <script src="/static/layui/layui.js" charset="utf-8"></script>
+    <script src="/static/js/layui/layui.js" charset="utf-8"></script>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
@@ -77,17 +77,16 @@
 <div class="info">
     <div class="input-item">
         <div class="input-item-prepend">
-            <span class="input-item-text" style="width:12rem;">请输入位置、公交站</span>
+<!--            <img src="">-->
+            <span class="input-item-text" style="width:12rem;">222</span>
         </div>
-        <input id='tipinput' type="text">
+        <input id='tipinput' type="text" placeholder="请输入位置、公交站">
         <input id="search" type="button" class="btn" value="搜索"/>
     </div>
 </div>
-<div class="direntry usel">
-    <img class="fa-dir icontip"
-         src=""
-         draggable="false" data-spm-anchor-id="0.0.0.i8.42e51c4eNr4cMe">
-
+<div class="direntry" onclick="openSeach()">
+    <img class="icontip"
+         src="/imgs/to_where.png" style="width: 100%;height: 100%">
 </div>
 
 </body>
