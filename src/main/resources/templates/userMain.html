@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>乘客账户管理</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/layui/layui.js}" ></script>
+    <script th:src="@{/js/userMain.js}" type="text/javascript"
+            charset="UTF-8"></script>
+</head>
+<body>
+<center>
+    <div class="demoTable">
+        姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="userName" id="userName" autocomplete="off" placeholder="请输出姓名">
+        </div>
+        <button class="layui-btn layui-btn-sm" data-type="reload">搜索</button>
+    </div>
+</center>
+
+<table class="layui-hide" id="user" lay-filter="user"></table>
+</body>
+</html>

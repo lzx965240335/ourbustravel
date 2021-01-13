@@ -14,38 +14,33 @@ public class Station {
 
         for (Route route:routes) {
             String[] ids=route.getRouteinf().split("#");
+            Lines lines = new Lines();
             for (Site site:sites) {
                 if (site.getIsDot()==0){
-                    for (int i=0;i<=ids.length;i++){
+                    //遍历每一条线路的站点
+                    for (int i=0;i<ids.length;i++){
                         if (site.getSiteId().toString().equals(ids[i])){
                             //创建线路
-                            Lines lines = new Lines();
                             lines.setId(route.getRouteid() + "");
                             lines.setName(route.getRoutename());
                             Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
                             lines.setLocation(new AMap(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()),bms));
                             lines.setStart_stop(site.getSiteName());
                             lines.setEnd_stop(sites.get(sites.size()-1).getSiteName());
-
                             busLines.add(lines);
-
-                        }else {
-                            break;
                         }
                     }
-                }else {
-                    break;
                 }
             }
         }
         for (Route route:routes) {
             String[] ids=route.getRouteinf().split("#");
             for (Site site:sites) {
+                StationInfo stationInfo =new StationInfo();
                 if (site.getIsDot()==0){
-                    for (int i=0;i<=ids.length;i++){
+                    for (int i=0;i<ids.length;i++){
                         if (site.getSiteId().toString().equals(ids[i])){
                             //创建站点
-                            StationInfo stationInfo =new StationInfo();
                             stationInfo.setId(site.getSiteId()+"");
                             stationInfo.setName(site.getSiteName());
                             Double[]bms= TransMap.convertG2BMC(Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
@@ -54,16 +49,11 @@ public class Station {
                             stationInfo.setCitycode("0592");
                             stationInfo.setBuslines(busLines);
                             stationInfos.add(stationInfo);
-                        }else {
-                            break;
                         }
                     }
-                }else {
-                    break;
                 }
             }
         }
-
         return stationInfos;
     }
 

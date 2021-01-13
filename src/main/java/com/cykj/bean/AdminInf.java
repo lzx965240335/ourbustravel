@@ -19,6 +19,10 @@ public class AdminInf {
 
     private String adminName;
 
+    private Dic dic;
+
+    private Role role;
+
     public AdminInf() {
     }
 
@@ -92,5 +96,21 @@ public class AdminInf {
 
     public void setAdminName(String adminName) {
         this.adminName = adminName;
+    }
+
+    public Dic getDic() {
+        return dic;
+    }
+
+    public void setDic(Dic dic) {
+        this.dic = dic;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -1,0 +1,10 @@
+.amends{
+
+    width: 50%;
+    height: 68%;
+    background-color: pink;
+    display: none;
+    position: absolute;
+    left: 35%;
+    top: 18%;
+}

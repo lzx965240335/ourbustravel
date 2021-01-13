@@ -7,76 +7,17 @@
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    menuId, menuName, pid, url
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_menu
-    where menuId = #{menuid,jdbcType=INTEGER}
+<!--查询角色拥有的菜单-->
+  <select id="findMenuByRole" resultType="MenuInf" parameterType="int">
+        select m.* from t_power p , t_menu m where p.menuId = m.menuId and m.pid= #{menuId} and p.state=1 and p.roleId=2;
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_menu
-    where menuId = #{menuid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.cykj.bean.MenuInf" >
-    insert into t_menu (menuId, menuName, pid, 
-      url)
-    values (#{menuid,jdbcType=INTEGER}, #{menuname,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
-      #{url,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.MenuInf" >
-    insert into t_menu
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="menuid != null" >
-        menuId,
-      </if>
-      <if test="menuname != null" >
-        menuName,
-      </if>
-      <if test="pid != null" >
-        pid,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="menuid != null" >
-        #{menuid,jdbcType=INTEGER},
-      </if>
-      <if test="menuname != null" >
-        #{menuname,jdbcType=VARCHAR},
-      </if>
-      <if test="pid != null" >
-        #{pid,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.MenuInf" >
-    update t_menu
-    <set >
-      <if test="menuname != null" >
-        menuName = #{menuname,jdbcType=VARCHAR},
-      </if>
-      <if test="pid != null" >
-        pid = #{pid,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where menuId = #{menuid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.MenuInf" >
-    update t_menu
-    set menuName = #{menuname,jdbcType=VARCHAR},
-      pid = #{pid,jdbcType=INTEGER},
-      url = #{url,jdbcType=VARCHAR}
-    where menuId = #{menuid,jdbcType=INTEGER}
-  </update>
+<!--查询父菜单-->
+    <select id="findByPid" resultType="MenuInf">
+        select m2.* from t_power p , t_menu m,t_menu m2 where p.menuId = m.menuId  and m.pid=m2.menuId group by m.pid;
+    </select>
+
+  <select id="powerByRole" parameterType="int" resultType="Power">
+        select * from t_Power where roleId=#{roleId}
+    </select>
+
 </mapper>

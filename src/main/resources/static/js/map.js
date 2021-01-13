@@ -1,3 +1,5 @@
+
+
 //初始化城市数据
 var cityList;
 var cityArea = $(".layui-textarea>.layui-breadcrumb");
@@ -9,7 +11,6 @@ $(function () {
         data: null,
         dataType: "json",
         success: function (date) {
-
             cityList = date;
         },
     })
@@ -22,13 +23,13 @@ var scale = new AMap.Scale({
     }),
 
     map = new AMap.Map('container', {
-        resizeEnable: true,//是否监控地图容器尺寸变化
-        // mapStyle: 'amap://styles/macaron', //设置地图的显示样式
-        zoom: 13 //地图显示的缩放级别
-        // center: [118.178322, 24.492585],//初始化地图中心点
-        // viewMode: '3D',
-        // pinch: 45
-    });
+    resizeEnable: true,//是否监控地图容器尺寸变化
+    mapStyle: 'amap://styles/macaron', //设置地图的显示样式
+    zoom: 13 ,//地图显示的缩放级别
+    // center: [118.178322, 24.492585],//初始化地图中心点
+    // viewMode: '3D',
+    // pinch: 45
+});
 map.addControl(scale);
 //输入提示
 auto = new AMap.AutoComplete({
@@ -225,25 +226,6 @@ function stationSearch() {
 /*公交站点查询返回数据解析*/
 function stationSearch_CallBack(data) {
 
-    // var Busline = new Object();
-    // Busline.id = "1";
-    // Busline.name = "文辉线";
-    // Busline.location = new AMap.LngLat(118.180401, 24.493483);
-    // Busline.start_stop = "王杰站";
-    // Busline.end_stop = "jj站";
-    // var buslins = new Array();
-    // buslins.push(Busline);
-    // var StationInfo = new Object();
-    // StationInfo.id = "1";
-    // StationInfo.name = "文辉站";
-    // StationInfo.location = new AMap.LngLat(118.180401, 24.493483);
-    // StationInfo.adcode = "350203";
-    // StationInfo.citycode = "0592";
-    // //buslines为null也能显示站点数据
-    // StationInfo.buslines = buslins;
-    // var stationArr = new Array();
-    // stationArr.push(StationInfo);
-    // console.log(stationArr);
     var searchNum = data.length;
 
     if (searchNum > 0) {
@@ -304,7 +286,7 @@ layui.use('layer', function () { //独立版的layer无需执行这一句
 function initials(cityCell) {
     cityArea.empty();
     for (var key in cityList) {
-        if (cityList[key].initials.index(0) == cityCell.innerText) {
+        if (cityList[key].initials == cityCell.innerText) {
             cityArea.append('<li onclick="chooseCity(this)">' + cityList[key].cityName + '</li>')
         }
     }
@@ -343,4 +325,16 @@ function chooseCity(cityName) {
     });
 
     layer.closeAll();
+}
+
+function openSeach() {
+    $(".dirbox").slideToggle("normal");
+    //加载历史记录
+}
+
+function closeBox() {
+    $(".dirbox").slideToggle("normal");
+    //清除搜索框的值
+    //消除地图路线
+    //加载历史记录
 }

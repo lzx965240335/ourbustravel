@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layim - layui</title>
+    <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/src/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+<div class="wrap passport">
+    <h1 class="title01-logo"><a th:href="@{/main/getView}"><img th:src="@{/imgs/logo_blue.png}" style="width: 250px"></a></h1>
+    <div class="main register">
+        <ul class="tabs">
+            <li><span>1</span>填写注册信息</li>
+            <li><span>2</span>注册成功</li>
+        </ul><!-- /ul.tabs -->
+        <form class="form layui-form" action="/" method="post" id="register_form">
+            <table class="form_tb">
+                <tbody><tr class="msg_tr">
+                    <td colspan="3">
+                    </td>
+                </tr>
+                <tr>
+                    <td>手机号</td>
+                    <td>
+                        <input type="text" autocomplete="off" name="phone" id="phone" maxlength="11" placeholder="输入大陆地区手机号">
+                    </td>
+                    <td class="info_td">
+
+                    </td>
+                </tr>
+                <tr class="verify_tr">
+                    <td><span>验证</span></td>
+                    <td class="verify_td_register">
+                        <div class="verify-wrap" id="verify-wrap"></div>
+                    </td>
+                    <td class="info_td">
+
+                    </td>
+                </tr>
+                <tr class="verify_tr">
+                    <td>验证码</td>
+                    <td>
+                        <input type="text" name="code" id="code" maxlength="4" placeholder="输入验证码">
+                        <input type="button" autocomplete="off" id="send_msg" class="btn" value="点击发送验证码">
+                    </td>
+                    <td class="info_td">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <input type="password" name="password" id="password" placeholder="密码需8-16位字母、数字或特殊字符，区分大小写" maxlength="16">
+                    </td>
+                    <td class="info_td">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>重复密码</td>
+                    <td>
+                        <input type="password" autocomplete="off" name="repassword" id="repassword" placeholder="再次输入密码" maxlength="16">
+                    </td>
+                    <td class="info_td">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" id="register_btn" class="btn" value="完成注册">
+                    </td>
+                    <td class="info_td"></td>
+                </tr>
+                </tbody></table><!-- /.form_tb -->
+        </form>
+
+        <div class="register_success none" id="register_success">
+            <h1 class="success_h1">
+                <span class="checkmark">恭喜您，您已经注册成功！</span>
+            </h1>
+
+            <ul class="suggest_list">
+                <li>返回<a th:href="@{/}">http://localhost:8080/</a></li>
+            </ul><!-- /.suggest_list -->
+        </div><!-- /.register_success -->
+    </div><!-- /.main -->
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jq-slideVerify.js}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        var SlideVerifyPlug = window.slideVerifyPlug;
+        var slideVerify = new SlideVerifyPlug('#verify-wrap',{
+            wrapWidth:'300',//设置 容器的宽度 ，默认为 350 ，也可不用设，你自己css 定义好也可以，插件里面会取一次这个 容器的宽度
+            initText:'请按住滑块，拖动到最右边',  //设置  初始的 显示文字
+            sucessText:'验证通过',//设置 验证通过 显示的文字
+            getSucessState:function(res){
+                //当验证完成的时候 会 返回 res 值 true，只留了这个应该够用了
+                console.log(res);
+            }
+        });
+            // slideVerify.resetVerify();//可以重置 插件 回到初始状态
+            // alert(slideVerify.slideFinishState);   //这个可以拿到 当前验证状态  是否完成
+        layui.use( 'layer', function(){
+            var  layer = layui.layer,
+                form = layui.form,
+                phone=document.getElementById("phone"),
+                password=document.getElementById("password"),
+                repassword=document.getElementById("repassword"),
+                code=document.getElementById("code");
+                reg_tel = /^(13[0-9]|14[01456879]|15[0-3,5-9]|16[2567]|17[0-8]|18[0-9]|19[0-3,5-9])\d{8}$/,
+                reg_pwd = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9]{8,16}$/;
+            var phoneres = phone.onblur=function(){
+                if (phone.value =="") {
+                    layer.msg("请填写您的手机号码！");
+                    phone.focus();
+                    phone.select();
+                    return false
+                } else if (!reg_tel.test(phone.value)) {
+                    layer.msg("请正确填写您的手机号码！");
+                    phone.focus();
+                    phone.select();
+                    return false
+                }
+                return true
+            };
+            var passwordres = password.onblur=function(){
+                if (password.value =="") {
+                    layer.msg("请填写您的密码！");
+                    password.focus();
+                    password.select();
+                    return false
+                } else if (!reg_pwd.test(password.value)) {
+                    layer.msg("请正确填写您的密码！");
+                    password.focus();
+                    password.select();
+                    return false
+                }
+                return true
+            };
+            var repasswordres =repassword.onblur=function () {
+                if (repassword.value =="") {
+                    layer.msg("请再次填写您的密码！");
+                    repassword.focus();
+                    repassword.select();
+                    return false
+                } else if (repassword.value !==password.value) {
+                    layer.msg("密码不一致！");
+                    return false
+                }
+                return true
+            }
+            var coderes = code.onblur=function () {
+                if (code.value =="") {
+                    layer.msg("请填写验证码！");
+                    code.focus();
+                    code.select();
+                    return false
+                }
+                return true
+            }
+            $("#register_btn").click(function() {
+                if(coderes()&phoneres()&passwordres()&repasswordres()&slideVerify.slideFinishState==1){
+                    $.ajax({
+                        url : "/main/register",
+                        type: "post",
+                        data :"password="+password.value+"&phoneNum="+phone.value+"&code="+code.value,
+                        datatype :"text",
+                        success:function (res) {
+                            alert(res)
+                            if (res.includes("验证码")){
+                                $(".tabs li:first-child").css({"border-color": "#b8c4ce",
+                                    "color": "#b8c4ce"})
+                                $(".tabs li:first-child + li").css({"border-color": "#53aaec",
+                                "color": "#2d97e9"})
+                               $("#register_form").addClass("none")
+                               $("#register_success").removeClass("none")
+                                layer.msg("3秒后跳转回登录页面")
+                                setTimeout("jumpurl()",3000)
+                            }
+                        }
+                    })
+                }
+            });
+        });
+        $("#send_msg").click(function () {
+            console.log($("#phone").val())
+            $.ajax({
+                url : "/main/verification",
+                type: "post",
+                data :"phoneNum="+$("#phone").val(),
+                datatype :"text",
+                success:function (res) {
+                    layer.msg(res)
+                }
+            })
+        })
+    })
+    function jumpurl(){
+        location='/';
+    }
+</script>
+</body>
+</html>

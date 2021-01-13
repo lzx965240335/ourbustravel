@@ -1,3 +1,69 @@
+//显示比例尺
+var scale = new AMap.Scale({
+        visible: true
+    }),
+    map = new AMap.Map('container', {
+        resizeEnable: true,//是否监控地图容器尺寸变化
+        mapStyle: 'amap://styles/macaron', //设置地图的显示样式
+        zoom: 13,//地图显示的缩放级别
+        center: [118.178322, 24.492585],//初始化地图中心点
+        viewMode: '3D',
+        pinch: 45
+    });
+map.addControl(scale);
+//添加3d罗盘
+AMap.plugin([
+    'AMap.ControlBar',
+], function () {
+    // 添加 3D 罗盘控制
+    map.addControl(new AMap.ControlBar());
+});
+
+/*公交站点查询*/
+var markers = [];
+stationSearch();
+/*公交站点查询返回数据解析*/
+function stationSearch() {
+    // 移除原有marker
+    map.remove(markers);
+    markers = [];
+    $.ajax({
+        url: "/site/getSite",
+        type: "post",
+        data: null,
+        dataType: "json",
+        success: function (data) {
+            var searchNum = data.length;
+            if (searchNum > 0) {
+                for (var i = 0; i < searchNum; i++) {
+                    var marker = new AMap.Marker({
+                        icon: new AMap.Icon({
+                            image: '//a.amap.com/jsapi_demos/static/resource/img/pin.png',
+                            size: new AMap.Size(32, 32),
+                            imageSize: new AMap.Size(32, 32)
+                        }),
+                        offset: new AMap.Pixel(-16, -32),
+                        position: data[i].location,
+                        map: map,
+                        title: data[i].name
+                    });
+                    marker.info = new AMap.InfoWindow({
+                        content: data[i].name,
+                        offset: new AMap.Pixel(0, -30)
+                    });
+                    // marker.on('click', function (e) {
+                    //     e.target.info.open(map, e.target.getPosition())
+                    // });
+                    markers.push(marker);
+                }
+                map.setFitView();
+            }
+        },
+    })
+}
+
+
+
 layui.use('table', function () {
     var table = layui.table;
     table.render({
@@ -13,8 +79,8 @@ layui.use('table', function () {
                 //field后面的值必须跟实体类的属性一致
                 // , {field: 'siteId', title: 'ID', sort: true}
                 , {field: 'siteName', title: '站点名称'}
-                , {field: 'siteX', title: '站点横坐标'}
-                , {field: 'siteY', title: '站点纵坐标'}
+                , {field: 'longitude', title: '站点经度坐标'}
+                , {field: 'latitude', title: '站点纬度坐标'}
                 , {field: 'peopleNum', title: '站点人数', sort: true}
                 , {field: 'setTime', title: '更新时间'}
                 , {field: 'operation', title: '操作', toolbar: '#barDemo'}
@@ -89,10 +155,11 @@ layui.use('table', function () {
         } else if (obj.event === 'update') {
             $("#siteId").val(data.siteId);
             $("#updateSiteName").val(data.siteName);
-            $("#updateSiteX").val(data.siteX);
-            $("#updateSiteY").val(data.siteY);
+            $("#updateLongitude").val(data.longitude);
+            $("#updateLatitude").val(data.latitude);
             $("#updatePeopleNum").val(data.peopleNum);
-            console.log("点击修改按钮时" + data);
+            // console.log("点击修改按钮时" + data);
+            // 修改弹出框
             layer.open({
                 //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type: 1,
@@ -107,11 +174,11 @@ layui.use('table', function () {
         $("#sureUpdate").click(function () {
             var siteId = $("#siteId").val();
             var updateSiteName = $("#updateSiteName").val();
-            var updateSiteX = $("#updateSiteX").val();
-            var updateSiteY = $("#updateSiteY").val();
+            var updateLongitude = $("#updateLongitude").val();
+            var updateLatitude = $("#updateLatitude").val();
             var updatePeopleNum = $("#updatePeopleNum").val();
-            if (updateSiteName == null || updateSiteName == '' || updateSiteX == null || updateSiteX == ''
-                || updateSiteY == null || updateSiteY == '' || updatePeopleNum == null || updatePeopleNum == '') {
+            if (updateSiteName == null || updateSiteName == '' || updateLongitude == null || updateLongitude == ''
+                || updateLatitude == null || updateLatitude == '' || updatePeopleNum == null || updatePeopleNum == '') {
                 return;
             }
             //获取表单数据
@@ -119,25 +186,29 @@ layui.use('table', function () {
                 {
                     "siteId": $("#siteId").val(),
                     "siteName": $("#updateSiteName").val(),
-                    "siteX": $("#updateSiteX").val(),
-                    "siteY": $("#updateSiteY").val(),
+                    "longitude": $("#updateLongitude").val(),
+                    "latitude": $("#updateLatitude").val(),
                     "peopleNum": $("#updatePeopleNum").val(),
                 });
-            //向后台发送数据
-            $.ajax({
-                contentType: "application/json",
-                dataType: "text",
-                type: "post",
-                url: "/site/updateSite",
-                data: jsonStr,
-                success: function (data) {
-                    layer.msg(data);
-                    if (data == "修改成功") {
-                        layer.closeAll();
+            layer.confirm('真的确认修改么', function () {
+                //向后台发送数据
+                $.ajax({
+                    contentType: "application/json",
+                    dataType: "text",
+                    type: "post",
+                    url: "/site/updateSite",
+                    data: jsonStr,
+                    success: function (data) {
+                        if (data == "修改成功") {
+                            //关闭整个修改界面
+                            layer.closeAll();
+                        }
+                        //弹出层(显示效果）
+                        layer.msg(data);
+                        //数据刷新
+                        table.reload('testReload', {}, 'data');
                     }
-                    //数据刷新
-                    table.reload('testReload', {}, 'data');
-                }
+                })
             })
         })
     });
@@ -159,31 +230,32 @@ layui.use('element', function () {
     var element = layui.element;
 });
 
-// var shuzi = /^[1-9][3]\d*$/
+var shuzi = /^[1-9][3]\d*$/
 layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
     var form = layui.form
         , layer = layui.layer
         , table = layui.table
 
+    // 新增页面里面的提交按钮事件
     $("#register").click(function () {
         var addSiteName = $("#addSiteName").val();
-        var addSiteX = $("#addSiteX").val();
-        var addSiteY = $("#addSiteY").val();
+        var addLongitude = $("#addLongitude").val();
+        var addLatitude = $("#addLatitude").val();
         var addPeopleNum = $("#addPeopleNum").val();
-        // if(!shuzi.test(addPeopleNum)){
-        //     alert(1);
-        //     return;
-        // }
+        if (!shuzi.test(addPeopleNum)) {
+            alert(1);
+            return;
+        }
 
-        if (addSiteName == null || addSiteName == '' || addSiteX == null || addSiteX == ''
-            || addSiteY == null || addSiteY == '' || addPeopleNum == null || addPeopleNum == '') {
+        if (addSiteName == null || addSiteName == '' || addLongitude == null || addLongitude == ''
+            || addLatitude == null || addLatitude == '' || addPeopleNum == null || addPeopleNum == '') {
             return;
         }
         //获取表单数据
         var jsonStr = JSON.stringify({
             "siteName": $("#addSiteName").val(),
-            "siteX": $("#addSiteX").val(),
-            "siteY": $("#addSiteY").val(),
+            "longitude": $("#addLongitude").val(),
+            "latitude": $("#addLatitude").val(),
             "peopleNum": $("#addPeopleNum").val()
         });
 
@@ -221,5 +293,9 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         form.render();
     })
 
+    // 取消事件
+    $("#cancel").click(function () {
+        layer.closeAll();
+    })
 
 })

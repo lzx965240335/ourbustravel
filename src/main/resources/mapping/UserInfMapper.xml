@@ -1,51 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cykj.mapper.UserInfMapper" >
-  <resultMap id="BaseResultMap" type="com.cykj.bean.UserInf" >
-    <id column="userId" property="userid" jdbcType="INTEGER" />
-    <result column="account" property="account" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="userName" property="username" jdbcType="VARCHAR" />
-    <result column="userSex" property="usersex" jdbcType="VARCHAR" />
-    <result column="userAge" property="userage" jdbcType="INTEGER" />
-    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-    <result column="idCardNum" property="idcardnum" jdbcType="VARCHAR" />
-    <result column="regTime" property="regtime" jdbcType="VARCHAR" />
-    <result column="phoneNum" property="phonenum" jdbcType="VARCHAR" />
-    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="DOUBLE" />
-    <result column="point" property="point" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    userId, account, password, userName, userSex, userAge, avatar, idCardNum, regTime, 
-    phoneNum, updateTime, money, point
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_user
-    where userId = #{userid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_user
-    where userId = #{userid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.cykj.bean.UserInf" >
-    insert into t_user (userId, account, password, 
-      userName, userSex, userAge, 
-      avatar, idCardNum, regTime, 
-      phoneNum, updateTime, money, 
-      point)
-    values (#{userid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, #{userage,jdbcType=INTEGER}, 
-      #{avatar,jdbcType=VARCHAR}, #{idcardnum,jdbcType=VARCHAR}, #{regtime,jdbcType=VARCHAR}, 
-      #{phonenum,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, 
-      #{point,jdbcType=INTEGER})
+
+  <insert id="addUser" parameterType="UserInf">
+    insert into t_user(userId, account, password, userName, userSex, userAge, avatar, idCardNum, regTime,
+      phoneNum, updateTime, money, point)value (#{userid}, #{account}, #{password}, #{username}, #{usersex},
+       #{userage},  #{avatar}, #{idcardnum}, sysdate(), #{phonenum}, #{updatetime}, #{money},  #{point})
   </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.UserInf" >
+
+  <delete id="deleteUser" parameterType="java.lang.Integer">
+    delete from t_user where userId = #{userId}
+  </delete>
+
+  <update id="updateUser" parameterType="java.lang.Integer">
+    update t_user
+    <set>
+      <if test="account !=null and account !=''">
+        account = #{account},
+      </if>
+      <if test="password !=null and password !=''">
+        password = #{password},
+      </if>
+      <if test="userName !=null and userName !=''">
+        userName = #{userName},
+      </if>
+      <if test="userSex !=null and userSex !=''">
+        userSex = #{userSex},
+      </if>
+      <if test="userAge !=null and userAge !=''">
+        userAge = #{userAge},
+      </if>
+      <if test="avatar !=null and avatar !=''">
+        avatar = #{avatar},
+      </if>
+      <if test="idCardNum !=null and idCardNum !=''">
+        idCardNum = #{idCardNum},
+      </if>
+      <if test="regTime !=null and regTime !=''">
+        regTime = #{regTime},
+      </if>
+      <if test="phoneNum !=null and phoneNum !=''">
+        phoneNum = #{phoneNum},
+      </if>
+      <if test="updateTime !=null and updateTime !=''">
+        updateTime = #{updateTime},
+      </if>
+      <if test="money !=null and money !=''">
+        money = #{money},
+      </if>
+      <if test="point !=null and point !=''">
+        avatar = #{avatar},
+      </if>
+    </set>
+      where userId = #{userId}
+  </update>
+
+  <select id="selectUser" resultType="UserInf" parameterType="java.util.HashMap">
+    select * from t_user
+    <where>
+      <if test="userName != null and userName !=''">
+        and userName like CONCAT('%',#{userName},'%')
+      </if>
+    </where>
+    limit #{start},#{end}
+  </select>
+
+  <select id="count" resultType="int" parameterType="HashMap">
+    select count(*) from t_user where 1=1
+    <if test="userName != null and userName !=''">
+      and userName like CONCAT('%',#{userName},'%')
+    </if>
+    <if test="userId != null and userId !=''">
+      and userId like CONCAT('%',#{userId},'%')
+    </if>
+  </select>
+
+
+  <insert id="insert" parameterType="com.cykj.bean.UserInf" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
+      <if test="userId != null" >
         userId,
       </if>
       <if test="account != null" >
@@ -54,28 +88,28 @@
       <if test="password != null" >
         password,
       </if>
-      <if test="username != null" >
+      <if test="userName != null" >
         userName,
       </if>
-      <if test="usersex != null" >
+      <if test="userSex != null" >
         userSex,
       </if>
-      <if test="userage != null" >
+      <if test="userAge != null" >
         userAge,
       </if>
       <if test="avatar != null" >
         avatar,
       </if>
-      <if test="idcardnum != null" >
+      <if test="idCardNum != null" >
         idCardNum,
       </if>
-      <if test="regtime != null" >
+      <if test="regTime != null" >
         regTime,
       </if>
-      <if test="phonenum != null" >
+      <if test="phoneNum != null" >
         phoneNum,
       </if>
-      <if test="updatetime != null" >
+      <if test="updateTime != null" >
         updateTime,
       </if>
       <if test="money != null" >
@@ -86,8 +120,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="account != null" >
         #{account,jdbcType=VARCHAR},
@@ -95,29 +129,29 @@
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="usersex != null" >
-        #{usersex,jdbcType=VARCHAR},
+      <if test="userSex != null" >
+        #{userSex,jdbcType=VARCHAR},
       </if>
-      <if test="userage != null" >
-        #{userage,jdbcType=INTEGER},
+      <if test="userAge != null" >
+        #{userAge,jdbcType=INTEGER},
       </if>
       <if test="avatar != null" >
         #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="idcardnum != null" >
+      <if test="idCardNum != null" >
         #{idcardnum,jdbcType=VARCHAR},
       </if>
-      <if test="regtime != null" >
-        #{regtime,jdbcType=VARCHAR},
+      <if test="regTime != null" >
+        #{regTime,jdbcType=VARCHAR},
       </if>
-      <if test="phonenum != null" >
-        #{phonenum,jdbcType=VARCHAR},
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
         #{money,jdbcType=DOUBLE},
@@ -127,38 +161,35 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.UserInf" >
+  <update id="updateUserInf" parameterType="com.cykj.bean.UserInf" >
     update t_user
     <set >
-      <if test="account != null" >
-        account = #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
+      <if test="password != null and password !=''" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="username != null" >
-        userName = #{username,jdbcType=VARCHAR},
+      <if test="userName != null and userName !=''" >
+        userName = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="usersex != null" >
-        userSex = #{usersex,jdbcType=VARCHAR},
+      <if test="userSex != null and userSex !=''" >
+        userSex = #{userSex,jdbcType=VARCHAR},
       </if>
-      <if test="userage != null" >
-        userAge = #{userage,jdbcType=INTEGER},
+      <if test="userAge != null and userAge !=0" >
+        userAge = #{userAge,jdbcType=INTEGER},
       </if>
-      <if test="avatar != null" >
+      <if test="avatar != null and avatar !=''" >
         avatar = #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="idcardnum != null" >
+      <if test="idCardNum != null and idCardNum !=''" >
         idCardNum = #{idcardnum,jdbcType=VARCHAR},
       </if>
-      <if test="regtime != null" >
-        regTime = #{regtime,jdbcType=VARCHAR},
+      <if test="regTime != null and regTime!=''" >
+        regTime = #{regTime,jdbcType=VARCHAR},
       </if>
-      <if test="phonenum != null" >
-        phoneNum = #{phonenum,jdbcType=VARCHAR},
+      <if test="phoneNum != null and phoneNum!=''" >
+        phoneNum = #{phoneNum,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        updateTime = #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null and updateTime!=''" >
+        updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
         money = #{money,jdbcType=DOUBLE},
@@ -167,22 +198,49 @@
         point = #{point,jdbcType=INTEGER},
       </if>
     </set>
-    where userId = #{userid,jdbcType=INTEGER}
+    where account = #{account,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.UserInf" >
-    update t_user
-    set account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      userName = #{username,jdbcType=VARCHAR},
-      userSex = #{usersex,jdbcType=VARCHAR},
-      userAge = #{userage,jdbcType=INTEGER},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      idCardNum = #{idcardnum,jdbcType=VARCHAR},
-      regTime = #{regtime,jdbcType=VARCHAR},
-      phoneNum = #{phonenum,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
-      money = #{money,jdbcType=DOUBLE},
-      point = #{point,jdbcType=INTEGER}
-    where userId = #{userid,jdbcType=INTEGER}
-  </update>
+
+  <select id="selectUsers" resultType="UserInf" parameterType="UserInf">
+    select * from t_user
+    <trim prefix="where" prefixOverrides="and">
+      <if test="account != null and account !=''" >
+        and account = #{account,jdbcType=VARCHAR}
+      </if>
+      <if test="password != null and password !=''" >
+        and password = #{password,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and userName !=''" >
+        and userName = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userSex != null and userSex !=''" >
+        and userSex = #{userSex,jdbcType=VARCHAR}
+      </if>
+      <if test="userAge != null" >
+        and userAge = #{userAge,jdbcType=INTEGER}
+      </if>
+      <if test="avatar != null and avatar !=''" >
+        and avatar = #{avatar,jdbcType=VARCHAR}
+      </if>
+      <if test="idCardNum != null and idCardNum !=''" >
+        and idCardNum = #{idcardNum,jdbcType=VARCHAR}
+      </if>
+      <if test="regTime != null and regTime !=''" >
+        and regTime = #{regTime,jdbcType=VARCHAR}
+      </if>
+      <if test="phoneNum != null and phoneNum !=''" >
+        and phoneNum = #{phoneNum,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null and updateTime !=''" >
+        and updateTime = #{updateTime,jdbcType=VARCHAR}
+      </if>
+      <if test="money != null and money !=''" >
+        and money = #{money,jdbcType=DOUBLE}
+      </if>
+      <if test="point != null and point !=''" >
+        and point = #{point,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </select>
+
 </mapper>

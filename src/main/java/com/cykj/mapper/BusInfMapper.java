@@ -3,17 +3,26 @@ package com.cykj.mapper;
 import com.cykj.bean.BusInf;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface BusInfMapper {
-    int deleteByPrimaryKey(Integer busid);
+    //新增车辆
+    int addBus(BusInf busInf);
 
-    int insert(BusInf record);
+    //修改
+    int updateBus(BusInf busInf);
 
-    int insertSelective(BusInf record);
+    //删除
+    int deleteBus(int busId);
 
-    BusInf selectByPrimaryKey(Integer busid);
+    //查询数据库所有的数据,分页
+    List<BusInf> selectBus(Map<String, Object> condition);
 
-    int updateByPrimaryKeySelective(BusInf record);
+    //总数
+    int count(Map map);
 
-    int updateByPrimaryKey(BusInf record);
+    //改状态
+    public int updateState(BusInf busInf);
 }

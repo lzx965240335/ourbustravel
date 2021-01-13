@@ -11,118 +11,60 @@
     <result column="advertTitle" property="adverttitle" jdbcType="VARCHAR" />
     <result column="company" property="company" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    advertId, advertImg, advertUrl, begTime, endTime, advertMoney, advertTitle, company
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_advert
-    where advertId = #{advertid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_advert
-    where advertId = #{advertid,jdbcType=INTEGER}
+
+  <!--表格查询-->
+  <select id="advertSelectTable" resultMap="Advert" parameterType="Map">
+    select a.*,d.dicValue from t_advert a left join t_dic d on a.advertState = d.dicid where 1=1
+    <if test="beginTime!=null and beginTime!=''">
+      <![CDATA[and a.begTime>=#{beginTime}]]>
+    </if>
+    <if test="endingTime!=null and endingTime!=''">
+      <![CDATA[and a.endTime<=#{endingTime}]]>
+    </if>
+    <if test="selState!=null and selState!=''">
+      and a.advertState =#{selState}
+    </if>
+    </select>
+  <resultMap id="Advert" type="Advert">
+    <id property="advertId" column="advertId"></id>
+    <result property="advertTitle" column="advertTitle"></result>
+    <result property="begTime" column="begTime"></result>
+    <result property="endTime" column="endTime"></result>
+    <result property="advertState" column="advertState"></result>
+    <association property="dic" javaType="Dic">
+      <result column="dicValue" property="dicValue"></result>
+    </association>
+  </resultMap>
+  <select id="advertSelectCount" resultType="int" parameterType="Map">
+    select count(*) from t_advert a where 1=1
+    <if test="beginTime!=null and beginTime!=''">
+      <![CDATA[and a.begTime>=#{beginTime}]]>
+    </if>
+    <if test="endingTime!=null and endingTime!=''">
+      <![CDATA[and a.endTime<=#{endingTime}]]>
+    </if>
+    <if test="selState!=null and selState!=''">
+      and a.advertState =#{selState}
+    </if>
+    </select>
+  <insert id="insertAdvert" parameterType="Advert">
+          insert into t_advert(advertTitle,begTime,endTime,advertMoney,advertState) values (#{advertTitle},#{begTime},#{endTime},#{advertMoney},5)
+  </insert>
+  <delete id="deleteAdvert" parameterType="Advert">
+        delete from t_advert where advertId = #{advertId}
   </delete>
-  <insert id="insert" parameterType="com.cykj.bean.Advert" >
-    insert into t_advert (advertId, advertImg, advertUrl, 
-      begTime, endTime, advertMoney, 
-      advertTitle, company)
-    values (#{advertid,jdbcType=INTEGER}, #{advertimg,jdbcType=VARCHAR}, #{adverturl,jdbcType=VARCHAR}, 
-      #{begtime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{advertmoney,jdbcType=INTEGER}, 
-      #{adverttitle,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.Advert" >
-    insert into t_advert
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="advertid != null" >
-        advertId,
-      </if>
-      <if test="advertimg != null" >
-        advertImg,
-      </if>
-      <if test="adverturl != null" >
-        advertUrl,
-      </if>
-      <if test="begtime != null" >
-        begTime,
-      </if>
-      <if test="endtime != null" >
-        endTime,
-      </if>
-      <if test="advertmoney != null" >
-        advertMoney,
-      </if>
-      <if test="adverttitle != null" >
-        advertTitle,
-      </if>
-      <if test="company != null" >
-        company,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="advertid != null" >
-        #{advertid,jdbcType=INTEGER},
-      </if>
-      <if test="advertimg != null" >
-        #{advertimg,jdbcType=VARCHAR},
-      </if>
-      <if test="adverturl != null" >
-        #{adverturl,jdbcType=VARCHAR},
-      </if>
-      <if test="begtime != null" >
-        #{begtime,jdbcType=VARCHAR},
-      </if>
-      <if test="endtime != null" >
-        #{endtime,jdbcType=VARCHAR},
-      </if>
-      <if test="advertmoney != null" >
-        #{advertmoney,jdbcType=INTEGER},
-      </if>
-      <if test="adverttitle != null" >
-        #{adverttitle,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null" >
-        #{company,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.Advert" >
-    update t_advert
-    <set >
-      <if test="advertimg != null" >
-        advertImg = #{advertimg,jdbcType=VARCHAR},
-      </if>
-      <if test="adverturl != null" >
-        advertUrl = #{adverturl,jdbcType=VARCHAR},
-      </if>
-      <if test="begtime != null" >
-        begTime = #{begtime,jdbcType=VARCHAR},
-      </if>
-      <if test="endtime != null" >
-        endTime = #{endtime,jdbcType=VARCHAR},
-      </if>
-      <if test="advertmoney != null" >
-        advertMoney = #{advertmoney,jdbcType=INTEGER},
-      </if>
-      <if test="adverttitle != null" >
-        advertTitle = #{adverttitle,jdbcType=VARCHAR},
-      </if>
-      <if test="company != null" >
-        company = #{company,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where advertId = #{advertid,jdbcType=INTEGER}
+  <update id="updateAdvert" parameterType="Advert">
+        update t_advert  set advertTitle = #{advertTitle},begTime = #{begTime},endTime = #{endTime},advertMoney = #{advertMoney},advertState = #{advertState} where advertId = #{advertId}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.Advert" >
-    update t_advert
-    set advertImg = #{advertimg,jdbcType=VARCHAR},
-      advertUrl = #{adverturl,jdbcType=VARCHAR},
-      begTime = #{begtime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=VARCHAR},
-      advertMoney = #{advertmoney,jdbcType=INTEGER},
-      advertTitle = #{adverttitle,jdbcType=VARCHAR},
-      company = #{company,jdbcType=VARCHAR}
-    where advertId = #{advertid,jdbcType=INTEGER}
+  <!--修改状态-->
+  <update id="updateState" parameterType="Advert">
+    update t_advert set advertState= #{advertState}
+    <where>
+      advertid=#{advertId};
+    </where>
   </update>
+<!--查询状态和日期符合条件的-->
+  <select id="selAdvertMsg" resultType="Advert">
+    select * from t_advert where advertState = 5 and endTime > sysdate();
+  </select>
 </mapper>

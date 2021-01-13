@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台登入页面</title>
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/adminLogin.css}">
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/layui/layui.js}"></script>
+    <script th:src="@{/js/adminLogin.js}"></script>
+</head>
+<body>
+<div class="bgimg"></div>
+<canvas id="c" style="position: absolute;z-index: -1;text-align: center;"></canvas>
+<div class="content">
+    <div id="left" class="left" >
+        <p class="p1">传一公交</p>
+        <p class="p2"><span id="cozy">上午好!</span><span id="time"></span></p>
+        <p class="p2">欢迎登录传一公交后台管理系统</p>
+    </div>
+    <div class="right">
+        <form class="layui-form">
+            <div style="text-align: center"><span style="font-size: 32px;color: white">登录</span></div>
+            <div class="inp"><input type="text" id='account' placeholder="请输入账号"><span>账号：</span></div>
+            <div class="inp"><input type="password" id="password" placeholder="请输入密码"><span>密码:</span></div>
+            <div class="but">
+                <button type="button" onclick="loginBut()" lay-submit lay-filter="formDemo">进入管理系统</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

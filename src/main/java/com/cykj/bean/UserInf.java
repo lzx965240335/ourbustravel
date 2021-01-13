@@ -3,29 +3,29 @@ package com.cykj.bean;
 public class UserInf {
     private Integer userId;
 
-    private String account;
+    private String account;//账户
 
-    private String password;
+    private String password;//密码
 
-    private String userName;
+    private String userName;//用户名
 
-    private String userSex;
+    private String userSex;//性别
 
-    private Integer userAge;
+    private Integer userAge;//年龄
 
-    private String avatar;
+    private String avatar;//头像
 
-    private String idCardNum;
+    private String idCardNum;//身份证
 
-    private String regTime;
+    private String regTime;//注册时间
 
-    private String phoneNum;
+    private String phoneNum;//手机号
 
-    private String updateTime;
+    private String updateTime;//修改时间
 
-    private Double money;
+    private Double money;//余额
 
-    private Integer point;
+    private Integer point;//积分
 
     public UserInf() {
     }

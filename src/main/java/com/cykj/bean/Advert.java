@@ -15,7 +15,11 @@ public class Advert {
 
     private String advertTitle;
 
+    private Integer advertState;
+
     private String company;
+
+    private  Dic dic;
 
     public Advert() {
     }
@@ -82,5 +86,25 @@ public class Advert {
 
     public void setCompany(String company) {
         this.company = company == null ? null : company.trim();
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public Dic getDic() {
+        return dic;
+    }
+
+    public void setDic(Dic dic) {
+        this.dic = dic;
+    }
+
+    public Integer getAdvertState() {
+        return advertState;
+    }
+
+    public void setAdvertState(Integer advertState) {
+        this.advertState = advertState;
     }
 }

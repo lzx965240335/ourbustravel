@@ -1,19 +1,24 @@
 package com.cykj.mapper;
 
 import com.cykj.bean.MenuInf;
+import com.cykj.bean.Power;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface MenuInfMapper {
-    int deleteByPrimaryKey(Integer menuid);
 
-    int insert(MenuInf record);
+    //查询所有角色拥有的菜单
+    List<MenuInf> findMenuByRole(int menuId);
 
-    int insertSelective(MenuInf record);
+    //查询父菜单
+    List<MenuInf> findByPid(int pid);
 
-    MenuInf selectByPrimaryKey(Integer menuid);
+    //根据角色查询菜单
+    List<Power> powerByRole(int roleId);
 
-    int updateByPrimaryKeySelective(MenuInf record);
-
-    int updateByPrimaryKey(MenuInf record);
+    //增加权限
+    public int updateRole(Map map);
 }

@@ -1,4 +1,4 @@
-html,body,#container{
+html, body, #container {
     height: 100%;
     width: 100%;
     font-size: 12px;
@@ -6,28 +6,32 @@ html,body,#container{
     color: #565656;
     word-wrap: break-word;
 }
+
 .input-card {
     width: 300px;
     top: 500px;
     bottom: auto;
 }
+
 /*城市框*/
 #citybox {
     top: 1rem;
-    left: 600px;
+    right: 130px;
     z-index: 1100;
     border-top-left-radius: 3px;
     color: #5f6477;
 }
 
 #citybox, #citybox .weather-box {
-    box-shadow: 0 2px 2px rgba(0,0,0,.15);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .15);
     position: absolute;
     background: #fff;
 }
+
 #citybox, #citybox .city-title {
     border-bottom-left-radius: 3px;
 }
+
 #citybox .city-title {
     padding: 14px 8px;
     background: #fff;
@@ -49,20 +53,33 @@ html,body,#container{
     border-top-right-radius: 3px;
 }
 
-.cells-header{
+.layui-breadcrumb > a {
+    /*margin-left: 10px;*/
+    margin-right: 20px;
+}
+
+.cells-header {
     margin-top: 25px;
     margin-left: 30px;
 }
-.layui-textarea{
+
+.layui-textarea {
     margin-top: 25px;
     height: 300px;
 }
-.layui-breadcrumb{
+
+.layui-breadcrumb {
     visibility: visible;
 }
-.info{
+
+.info {
     left: 10rem;
     right: auto;
+    position: absolute;
+}
+
+#search {
+    margin-left: 10px;
 }
 
 /*窗口信息*/
@@ -129,7 +146,7 @@ div.info-bottom img {
 }
 
 span {
-    margin-left: 5px;
+    /*margin-left: 5px;*/
     font-size: 11px;
 }
 
@@ -137,6 +154,7 @@ span {
     float: left;
     margin-right: 6px;
 }
+
 /*  图片库 */
 
 /*路线框*/
@@ -148,5 +166,577 @@ span {
     top: 1rem;
     background-color: #f8f8f8;
     border-radius: 0 3px 3px 0;
-    left: 500px;
+    /*谷歌*/
+    /*left: 481px;*/
+    /*火狐*/
+    left: 456px;
+}
+
+/*路线样式*/
+/*#dirBox {*/
+/*    position: absolute;*/
+/*    left: 15px;*/
+/*    top: 15px;*/
+/*    z-index: 6300;*/
+/*    overflow: hidden;*/
+/*}*/
+.dirbox {
+    position: absolute;
+    top: 1rem;
+    left: 10rem;
+    width: 390px;
+    background: #fff;
+    z-index: 6300;
+    border-radius: 2px 3px 3px 2px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .15);
+}
+
+#indexbox {
+    position: relative;
+    box-sizing: border-box;
+}
+
+#planForm {
+    position: relative;
+    padding: 14px;
+    padding-bottom: 14px;
+    padding-bottom: 68px;
+    background: #3d93fd;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+ul.tabs.dir_tab {
+    width: 200px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    height: 30px;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+
+ul.tabs.dir_tab li {
+    height: 30px;
+    width: 33.3333%;
+    line-height: 30px;
+    position: relative;
+    display: block;
+    float: left;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.dir_close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    color: #edf8ff;
+    cursor: pointer;
+}
+
+.line-search {
+    position: relative;
+    margin-top: 15px;
+}
+
+.icon_exchange {
+    top: 50%;
+    left: 0;
+    width: 18px;
+    height: 28px;
+    margin-top: -14px;
+    cursor: pointer;
+}
+
+.line-search-left, .line-search-right {
+    position: absolute;
+}
+
+.line-search-form {
+    margin: 0 30px;
+}
+
+.line-search-form p.line_serch_ipt {
+    position: relative;
+    height: 34px;
+    line-height: 34px;
+    width: 300px;
+    font-size: 14px;
+    color: #acd7ff;
+    background-color: #3587eb;
+    border-radius: 2px;
+    margin-bottom: 10px;
+
+}
+
+.line-search-form p label {
+    margin-left: 10px;
+}
+
+.line-search-form p input {
+    width: 78%;
+    height: 34px;
+    line-height: 32px;
+    border: none;
+    background: transparent;
+    text-indent: 5px;
+    color: #acd7ff;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.line-search-submit {
+    position: absolute;
+    margin-top: 17px;
+    border-bottom: none;
+    width: 300px;
+}
+
+.line-search-submit a {
+    font-size: 13px;
+    text-decoration: none;
+    opacity: 1;
+    line-height: 32px;
+}
+
+.line-search-submit .dir_submit {
+    display: inline-block;
+    float: right;
+    padding: 0 25px;
+    height: 32px;
+    line-height: 32px;
+    background-color: #559ffb;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .21);
+
+}
+
+.plan_wrap {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.dirSug, .dirtips {
+    width: 100%;
+    background: #fff;
+}
+
+.dirtips {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/*搜索结果栏*/
+#planList, .planlist_wrap {
+    position: relative;
+}
+
+.planlist_wrap {
+    padding: 0 14px;
+}
+
+.ps-container {
+    touch-action: none;
+    overflow: hidden !important;
+}
+
+.planTitle.current {
+    background: #f4f9fd;
+}
+
+.planTitle {
+    position: relative;
+    padding: 8px 10px 16px;
+    border-top: 1px solid #f3f3f3;
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.planTitle h3, .planTitle p {
+    font-size: 12px;
+}
+
+body, h1, h2, h3, h4, h5, ol, p, ul {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+}
+
+.planTitle h3 span:last-child {
+    margin-right: 0;
+}
+
+.planTitle h3 span {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+span.busline {
+    color: #565656;
+    margin-left: 18px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+span.line {
+    display: inline-block;
+    line-height: 18px;
+    text-indent: 0;
+}
+
+.planTitle .red {
+    font-weight: 400;
+    color: #ff4546;
+}
+
+.planTitle .route_info {
+    margin-top: 6px;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.planTitle .route_info .route_min_tag {
+    background: #0f89f5;
+    color: #fff;
+    padding: 0 4px;
+}
+
+.planTitle .route_info li {
+    float: left;
+    font-size: 12px;
+    margin-right: 4px;
+    line-height: 20px;
+    border-radius: 2px;
+}
+
+.planTitle .route_info .route_up_station {
+    line-height: 18px;
+    border: 1px solid #97a0aa;
+}
+
+.planTitle .route_info .route_up_station span {
+    float: left;
+    line-height: 18px;
+    background: #97a0aa;
+    color: #fff;
+    padding: 0 4px 0 3px;
+}
+
+.planTitle .route_info .route_up_station span.up_station {
+
+    background: #fff;
+    color: #505a68;
+    padding: 0 6px;
+}
+
+.planlist_bus .planTitle .sidebar, .planlist_train .planTitle .sidebar, .planTitle .sidebar {
+    top: 50%;
+    margin-top: -15px;
+}
+
+.planTitle .sidebar {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0;
+}
+
+.planTitle .sidebar a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transition: all .3s ease-in 0s;
+    -webkit-transition: all .3s ease-in 0s;
+    -moz-transition: all .3s ease-in 0s;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    text-align: center;
+}
+
+.icon-arrow-up, .icon-arrow-up:hover {
+    text-decoration: none;
+}
+
+a {
+    background-color: transparent;
+    color: #0f89f5;
+    text-decoration: none;
+}
+
+.icon-arrow-up .icon-arrowup {
+    font-size: 10px;
+    color: #666867;
+    line-height: 30px;
+    text-align: center;
+}
+
+.iconfont {
+    font-family: iconfont !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.p_route {
+    width: 313px;
+    background: #fffffe;
+    font-size: 14px;
+    margin: 0 auto;
+    display: none;
+}
+
+.p_route > li {
+    padding-left: 10px;
+    position: relative;
+    z-index: 66;
+}
+
+
+.p_start > .p_icon {
+    position: absolute;
+    left: 2px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #0f89f5;
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    text-align: center;
+    line-height: 20px;
+    z-index: 100;
+}
+
+.p_route .p_walk {
+    font-size: 12px;
+}
+
+.p_route .p_walk .info {
+    border-left: 4px solid #e5e7e8;
+}
+
+.p_traffic .info > p {
+    margin-left: 20px;
+    margin-right: 5px;
+    color: #000;
+}
+
+.p_route .p_walk span {
+    color: gray;
+}
+
+.p_route .p_bus {
+    z-index: 100;
+    border-radius: 4px;
+}
+
+.p_route > li {
+    padding-left: 10px;
+    position: relative;
+}
+
+.p_traffic .point {
+    position: absolute;
+    left: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.p_bus .point_1 {
+    top: -3px;
+}
+
+.p_bus .point_2 {
+    bottom: -4px;
+}
+
+.p_traffic .traffic_background {
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    margin-left: -1px;
+    left: 1px;
+    width: 22px;
+    height: 22px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    background-image: url(/imgs/icon_bus.png);
+    background-size: 671px 238px;
+}
+
+.p_bus .traffic_background {
+    background-position: -325px -101px;
+}
+
+.p_traffic .info {
+    border-left-style: solid;
+    border-left-width: 4px;
+}
+
+.p_traffic p.direct {
+    padding: 10px 0;
+    text-indent: 5px;
+    border-bottom: 1px solid #fff;
+    color: #878a8c;
+}
+
+.p_traffic .info > p {
+    margin-left: 20px;
+    margin-right: 5px;
+    color: #000;
+}
+
+.p_traffic p.direct span {
+    font-weight: 700;
+}
+
+.p_traffic .p_content {
+    margin-left: 20px;
+}
+
+.p_traffic .p_content h4 {
+    padding: 5px 0;
+    text-indent: 6px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.p_traffic .p_content .busstop {
+    color: #000;
+}
+
+.p_traffic .p_content h4 span {
+    color: #878a8c;
+}
+
+.time_and_num {
+    font-size: 12px;
+    color: gray !important;
+}
+
+.p_traffic .num1 {
+    position: absolute;
+    right: 29px;
+    top: -25px;
+    font-size: 12px;
+    color: #0f89f5;
+}
+
+.p_traffic .alter_bus .alter_busline {
+    color: #878a8c;
+}
+
+.p_traffic .info > p.endwalk {
+    border-bottom: 1px solid #e5e7e8;
+}
+
+.p_route .p_walk p {
+    padding: 10px 0;
+    text-indent: 6px;
+}
+
+.p_end > .p_icon {
+    top: 13px;
+    position: absolute;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #f75f41;
+    color: #fff;
+    font-size: 12px;
+    font-style: normal;
+    text-align: center;
+    line-height: 20px;
+    z-index: 11;
+}
+
+.route_ctrl {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 100;
+}
+
+.route_ctrl_list {
+    margin: 0 14px;
+    padding: 10px 0;
+    border-top: 1px solid #f3f3f3;
+}
+
+.route_ctrl_list li {
+    float: right;
+    width: 33.33%;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.route_ctrl_list li a {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    color: #2c9efe;
+}
+
+.route_ctrl_list li .iconfont {
+    font-size: 16px;
+    margin-right: 9px;
+    float: left;
+}
+
+.route_ctrl_list li .ctrl_lbl {
+    float: left;
+    line-height: 16px;
+    padding-top: 1px;
+}
+
+/*路线显示框*/
+#panel {
+    position: fixed;
+    background-color: white;
+    max-height: 90%;
+    overflow-y: auto;
+    top: 10px;
+    right: 10px;
+    width: 280px;
+}
+
+#panel .amap-call {
+    background-color: #009cf9;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+#panel .amap-lib-transfer {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
 }

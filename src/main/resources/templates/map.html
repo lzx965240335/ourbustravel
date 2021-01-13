@@ -1,21 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
-    <link rel="stylesheet" href="/static/js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" th:href="@{/src/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
     <link rel="stylesheet" href="/css/beforeCss.css"/>
 
+
     <script type="text/javascript" src="/js/jquery-3.5.1.js" charset="utf-8"></script>
-    <script src="/static/js/layui/layui.js" charset="utf-8"></script>
+    <script th:src="@{/src/layui.js}"></script>
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
     <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+
     <!--引入UI组件库（1.1版本） -->
     <!--<script src="//webapi.amap.com/ui/1.1/main.js"></script>-->
     <title>地图</title>
+    <style>
+
+    </style>
 </head>
 <body>
 <div id="container"></div>
@@ -31,29 +40,29 @@
         <legend>当前城市：厦门市</legend>
     </fieldset>
     <div class="cells-header">
-    <span class="layui-breadcrumb" lay-separator="|">
-        <li onclick="initials(this)">A</li>
-        <li onclick="initials(this)">B</li>
-        <li onclick="initials(this)">C</li>
-        <li onclick="initials(this)">D</li>
-        <li onclick="initials(this)">E</li>
-        <li onclick="initials(this)">F</li>
-        <li onclick="initials(this)">G</li>
-        <li onclick="initials(this)">H</li>
-        <li onclick="initials(this)">J</li>
-        <li onclick="initials(this)">K</li>
-        <li onclick="initials(this)">L</li>
-        <li onclick="initials(this)">M</li>
-        <li onclick="initials(this)">N</li>
-        <li onclick="initials(this)">P</li>
-        <li onclick="initials(this)">Q</li>
-        <li onclick="initials(this)">R</li>
-        <li onclick="initials(this)">S</li>
-        <li onclick="initials(this)">T</li>
-        <li onclick="initials(this)">W</li>
-        <li onclick="initials(this)">X</li>
-        <li onclick="initials(this)">Y</li>
-        <li onclick="initials(this)">Z</li>
+    <span class="layui-breadcrumb">
+        <a href="javascript:void(0)" onclick="initials(this)">A</a>
+        <a href="javascript:void(0)" onclick="initials(this)">B</a>
+        <a href="javascript:void(0)" onclick="initials(this)">C</a>
+        <a href="javascript:void(0)" onclick="initials(this)">D</a>
+        <a href="javascript:void(0)" onclick="initials(this)">E</a>
+        <a href="javascript:void(0)" onclick="initials(this)">F</a>
+        <a href="javascript:void(0)" onclick="initials(this)">G</a>
+        <a href="javascript:void(0)" onclick="initials(this)">H</a>
+        <a href="javascript:void(0)" onclick="initials(this)">J</a>
+        <a href="javascript:void(0)" onclick="initials(this)">K</a>
+        <a href="javascript:void(0)" onclick="initials(this)">L</a>
+        <a href="javascript:void(0)" onclick="initials(this)">M</a>
+        <a href="javascript:void(0)" onclick="initials(this)">N</a>
+        <a href="javascript:void(0)" onclick="initials(this)">P</a>
+        <a href="javascript:void(0)" onclick="initials(this)">Q</a>
+        <a href="javascript:void(0)" onclick="initials(this)">R</a>
+        <a href="javascript:void(0)" onclick="initials(this)">S</a>
+        <a href="javascript:void(0)" onclick="initials(this)">T</a>
+        <a href="javascript:void(0)" onclick="initials(this)">W</a>
+        <a href="javascript:void(0)" onclick="initials(this)">X</a>
+        <a href="javascript:void(0)" onclick="initials(this)">Y</a>
+        <a href="javascript:void(0)" onclick="initials(this)">Z</a>
         </span>
     </div>
     <div class="layui-layout-body">
@@ -77,8 +86,8 @@
 <div class="info">
     <div class="input-item">
         <div class="input-item-prepend">
-<!--            <img src="">-->
-            <span class="input-item-text" style="width:12rem;">222</span>
+            <img src="/imgs/log_blue.png" style="height: 100%;width: 10rem">
+            <!--            <span class="input-item-text" style="width:12rem;">222</span>-->
         </div>
         <input id='tipinput' type="text" placeholder="请输入位置、公交站">
         <input id="search" type="button" class="btn" value="搜索"/>
@@ -89,6 +98,533 @@
          src="/imgs/to_where.png" style="width: 100%;height: 100%">
 </div>
 
+<div id="dirbox" class="dirbox" style="display: none; ">
+    <div id="indexbox" class="real-height-box">
+        <div class="content">
+            <div id="planForm">
+                <ul class="tabs dir_tab col3 z-depth-1 clearfix" id="trafficTab">
+                    <li><img id="busTab" class="palntype_tab icon-bus icondirtip current" src="/imgs/icon_bus.png"></li>
+                    <li><span id="walkTab" class="palntype_tab icon-walk icondirtip"
+                              style="color:white;font-size: 14px">欢迎使用传一公交！</span></li>
+                </ul>
+                <i class="dir_close iconfont icon-close" style="color: white;font-size: 15px;"
+                   onclick="closeBox()">X</i>
+                <div class="line-search">
+                    <div class="line-search-left icon_exchange" id="dir_exchange"><i
+                            class="iconfont icon-switchroute"><img src="/imgs/arrow-down-up.png"></i></div>
+                    <div class="line-search-form"><p
+                            class="line_serch_ipt line-search-from"><label>起 </label> <input type="text" class="dir_ipt"
+                                                                                             id="dir_from_ipt"
+                                                                                             placeholder="请输入起点">
+                        <span class="del-item" style="display: none;">X</span></p>
+                        <!--                       -->
+                        <div class="passList" style="display: none;"></div>
+                        <!--                      -->
+                        <p class="line_serch_ipt line-search-to"><label>终 </label> <input type="text" class="dir_ipt"
+                                                                                          id="dir_to_ipt"
+                                                                                          placeholder="请输入终点">
+                            <span class="del-item" style="display: none;">x</span></p>
+                        <p class="line-search-submit"><a href="javascript:void(0)"
+                                                         class="line-search-clear" style="color: white">清除路线</a>
+                            <a href="javascript:void(0)" class="dir_submit">坐公交</a>
+                        </p></div>
+                </div>
+            </div>
+            <div class="plan_wrap">
+                <div class="plan_wrap_item dirtips">
+                    <div class="dirtips_item dirlocSug" style="display: none;"><a href="javascript:void(0)"
+                                                                                  id="locsug">我的位置</a></div>
+                </div>
+                <div class="plan_wrap_item dirHistory" id="dirHistory" style="display: none;"><h2><i
+                        class="iconfont icon-history"></i>路线搜索记录 </h2> <a class="dirhisclear" style="display: none"
+                                                                          href="javascript:void(0)">清空历史记录</a>
+                    <ul class="dir_history_list"></ul>
+                </div>
+                <div class="plan_wrap_item plan_list" id="planList" style="display: block;">
+                    <div class="planlist_wrap planlist_bus ps-container ps-theme-default" style="max-height: 605px;">
+
+                        <!-- 出行计划由js生成 -->
+                        <div class="planTitle current" index="0" id="plantitle_0">
+                            <h3>
+                <span class="line busline  ">
+                    751路/18路等
+                    <i class="risk_time"></i>
+                </span>
+                            </h3>
+                            <p>20分钟（1.0公里）| 步行463米
+                                | <span class="red"> 1元 </span>
+                            </p>
+                            <ul class="route_info clearfix">
+                                <li class="route_min_tag min_lesstime">时间短</li>
+                                <li class="route_up_station">
+                                    <span>上车站</span>
+                                    <span class="up_station">软件园南门</span>
+                                </li>
+                            </ul>
+                            <div class="sidebar">
+                                <a class="icon-arrow-up" href="javascript:void(0)">
+                                    <i class="iconfont icon-arrowup"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <ol class="p_route" id="plan_0">
+                            <li class="p_start busstop" id="marker-plan-0">
+                                <em class="p_icon">起</em>
+                                <div class="info">
+                                    <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>
+                                </div>
+                            </li>
+
+
+                            <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">
+                                <div class="info">
+
+                                    <p class="">步行 <span class="distance">223米</span> 至&nbsp;软件园南门(约4分钟)</p>
+                                </div>
+                            </li>
+
+
+                            <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1"
+                                style="background-color: rgba(65,138,236,0.15)">
+                                <div class="p_icon">
+                                    <em class="point point_1" style="border: 1px solid #418AEC;"></em>
+                                    <div class="traffic_background" style="background-color: #418AEC"></div>
+                                    <em class="point point_2" style="border: 1px solid #418AEC;"></em>
+                                </div>
+                                <div class="info" style="border-left-color: rgba(65,138,236,0.5)">
+
+                                    <p class="direct"><span style="color: #418AEC" class="">751路</span>（厦大翔安校区方向）</p>
+                                    <div class="p_content">
+                                        <h4>
+                                            <a href="javascript:void(0)" class="busstop" id="marker-plan-1">
+                                                软件园南门
+                                            </a>&nbsp;
+                                            <span>上车</span>
+                                        </h4>
+                                        <ol>
+                                        </ol>
+                                        <h4>
+                                            <a href="javascript:void(0)" class="busstop" id="marker-plan-2">
+                                                岭兜佳园站
+                                            </a>&nbsp;
+                                            <span>下车</span>
+                                        </h4>
+                                    </div>
+
+                                    <p class="time_and_num"><span class="time_start ">首：06:40</span>&nbsp;&nbsp;<span
+                                            class="time_end ">末：22:20</span>&nbsp;&nbsp;约25分钟/趟
+                                        <span class="num1">1站</span>
+                                    </p>
+
+
+                                    <p class="alter_bus">或
+                                        <span class="alter_busline" busid="350200011156" alter-index="0-0-0">18路</span>
+                                    </p>
+
+                                </div>
+                            </li>
+
+                            <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">
+                                <div class="info">
+
+                                    <p class="endwalk">步行 <span class="distance">240米</span> 至&nbsp;终点(约4分钟)</p>
+                                </div>
+                            </li>
+
+                            <li class="p_end busstop" id="marker-plan-3">
+                                <em class="p_icon">终</em>
+                                <div class="info">
+                                    <p class="address" title="厦门市金山路">厦门市金山路</p>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <!-- <div class="planTitle offline"> -->
+                        <!--                            <div class="planTitle" index="1" id="plantitle_1">-->
+                        <!--                                <h3>-->
+                        <!--                <span class="line busline  ">-->
+                        <!--                    656路-->
+                        <!--                    <i class="risk_time"></i>-->
+                        <!--                </span>-->
+
+                        <!--                                </h3>-->
+                        <!--                                <p>25分钟（2.2公里）| 步行457米 | <span class="red"> 1元 </span>-->
+
+                        <!--                                </p>-->
+                        <!--                                <ul class="route_info clearfix">-->
+                        <!--                                    <li class="route_min_tag min_"></li>-->
+                        <!--                                    <li class="route_up_station">-->
+                        <!--                                        <span>上车站</span>-->
+                        <!--                                        <span class="up_station">软件园南门站</span>-->
+                        <!--                                    </li>-->
+
+                        <!--                                </ul>-->
+                        <!--                                <div class="sidebar">-->
+                        <!--                                    <a class="icon-arrow-up" href="javascript:void(0)">-->
+                        <!--                                        <i class="iconfont icon-arrowup"></i>-->
+                        <!--                                    </a>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+
+                        <!--                            <ol class="p_route" id="plan_1">-->
+                        <!--                                <li class="p_start busstop" id="marker-plan-0">-->
+                        <!--                                    <em class="p_icon">起</em>-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">-->
+                        <!--                                    <div class="info">-->
+
+                        <!--                                        <p class="">步行 <span class="distance">217米</span> 至&nbsp;软件园南门站(约4分钟)</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+
+                        <!--                                <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1" style="background-color: rgba(65,138,236,0.15)">-->
+                        <!--                                    <div class="p_icon">-->
+                        <!--                                        <em class="point point_1" style="border: 1px solid #418AEC;"></em>-->
+                        <!--                                        <div class="traffic_background" style="background-color: #418AEC"></div>-->
+                        <!--                                        <em class="point point_2" style="border: 1px solid #418AEC;"></em>-->
+                        <!--                                    </div>-->
+                        <!--                                    <div class="info" style="border-left-color: rgba(65,138,236,0.5)">-->
+
+                        <!--                                        <p class="direct"><span style="color: #418AEC" class="">656路</span>（五显公交场站方向）</p>-->
+                        <!--                                        <div class="p_content">-->
+                        <!--                                            <h4>-->
+                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-1">-->
+                        <!--                                                    软件园南门站-->
+                        <!--                                                </a>&nbsp;-->
+                        <!--                                                <span>上车</span>-->
+                        <!--                                            </h4>-->
+                        <!--                                            <ol>-->
+                        <!--                                                <li>岭兜二里</li>-->
+                        <!--                                                <li>前埔路岭兜</li>-->
+                        <!--                                            </ol>-->
+                        <!--                                            <h4>-->
+                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-2">-->
+                        <!--                                                    岭兜佳园-->
+                        <!--                                                </a>&nbsp;-->
+                        <!--                                                <span>下车</span>-->
+                        <!--                                            </h4>-->
+                        <!--                                        </div>-->
+
+                        <!--                                        <p class="time_and_num">-->
+                        <!--                                            运营时间：06:30-21:00-->
+                        <!--                                            约25分钟/趟-->
+                        <!--                                            <span class="station_num">3站-->
+                        <!--                            <a class="icon-arrow-up" href="javascript:void(0)">-->
+                        <!--                                <i class="iconfont icon-arrowup"></i>-->
+                        <!--                            </a>-->
+                        <!--                        </span>-->
+                        <!--                                        </p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="endwalk">步行 <span class="distance">240米</span> 至&nbsp;终点(约4分钟)</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_end busstop" id="marker-plan-3">-->
+                        <!--                                    <em class="p_icon">终</em>-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="address" title="厦门市金山路">厦门市金山路</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                            </ol>-->
+
+                        <!--                            &lt;!&ndash; <div class="planTitle offline"> &ndash;&gt;-->
+                        <!--                            <div class="planTitle" index="2" id="plantitle_2">-->
+                        <!--                                <h3>-->
+                        <!--                <span class="line busline  ">-->
+                        <!--                    123路/127路/94路等-->
+                        <!--                    <i class="risk_time"></i>-->
+                        <!--                </span>-->
+
+                        <!--                                </h3>-->
+                        <!--                                <p>25分钟（1.4公里）| 步行768米 | <span class="red"> 1元 </span>-->
+                        <!--                                </p>-->
+                        <!--                                <ul class="route_info clearfix">-->
+
+                        <!--                                    <li class="route_min_tag min_"></li>-->
+
+                        <!--                                    <li class="route_up_station">-->
+                        <!--                                        <span>上车站</span>-->
+                        <!--                                        <span class="up_station">软件园南门</span>-->
+                        <!--                                    </li>-->
+                        <!--                                </ul>-->
+                        <!--                                <div class="sidebar">-->
+                        <!--                                    <a class="icon-arrow-up" href="javascript:void(0)">-->
+                        <!--                                        <i class="iconfont icon-arrowup"></i>-->
+                        <!--                                    </a>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+
+                        <!--                            <ol class="p_route" id="plan_2">-->
+                        <!--                                <li class="p_start busstop" id="marker-plan-0">-->
+                        <!--                                    <em class="p_icon">起</em>-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="">步行 <span class="distance">223米</span> 至&nbsp;软件园南门(约4分钟)</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1" style="background-color: rgba(65,138,236,0.15)">-->
+                        <!--                                    <div class="p_icon">-->
+                        <!--                                        <em class="point point_1" style="border: 1px solid #418AEC;"></em>-->
+                        <!--                                        <div class="traffic_background" style="background-color: #418AEC"></div>-->
+                        <!--                                        <em class="point point_2" style="border: 1px solid #418AEC;"></em>-->
+                        <!--                                    </div>-->
+                        <!--                                    <div class="info" style="border-left-color: rgba(65,138,236,0.5)">-->
+
+                        <!--                                        <p class="direct"><span style="color: #418AEC" class="">123路</span>（思明区政府方向）</p>-->
+                        <!--                                        <div class="p_content">-->
+                        <!--                                            <h4>-->
+                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-1">-->
+                        <!--                                                    软件园南门-->
+                        <!--                                                </a>&nbsp;-->
+                        <!--                                                <span>上车</span>-->
+                        <!--                                            </h4>-->
+                        <!--                                            <ol></ol>-->
+                        <!--                                            <h4>-->
+                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-2">明发园</a>&nbsp;-->
+                        <!--                                                <span>下车</span>-->
+                        <!--                                            </h4>-->
+                        <!--                                        </div>-->
+
+                        <!--                                        <p class="time_and_num"><span class="time_start ">首：06:00</span>&nbsp;&nbsp;<span class="time_end ">末：23:00</span>&nbsp;&nbsp;约15分钟/趟-->
+
+                        <!--                                            <span class="num1">1站</span>-->
+                        <!--                                        </p>-->
+
+
+                        <!--                                        <p class="alter_bus">或-->
+                        <!--                                            <span class="alter_busline" busid="350200010372" alter-index="2-0-0">127路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="350200010525" alter-index="2-0-1">94路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="350200011187" alter-index="2-0-2">38路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="350200011190" alter-index="2-0-3">39路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="350200011220" alter-index="2-0-4">68路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="350200011261" alter-index="2-0-5">88路</span>-->
+                        <!--                                            ,-->
+                        <!--                                            <span class="alter_busline" busid="900000085719" alter-index="2-0-6">403路</span>-->
+                        <!--                                        </p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="endwalk">步行 <span class="distance">545米</span> 至&nbsp;终点(约8分钟)</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+
+                        <!--                                <li class="p_end busstop" id="marker-plan-3">-->
+                        <!--                                    <em class="p_icon">终</em>-->
+                        <!--                                    <div class="info">-->
+                        <!--                                        <p class="address" title="厦门市金山路">厦门市金山路</p>-->
+                        <!--                                    </div>-->
+                        <!--                                </li>-->
+                        <!--                            </ol>-->
+                        <!--                            <div class="dir_bottom"></div>-->
+                    </div>
+                    <div class="route_ctrl">
+                        <ul class="route_ctrl_list clearfix">
+                            <li><a href="javascript:void(0)" class="icon-mobile"><i
+                                    class="iconfont icon-phone"></i><span
+                                    class="ctrl_lbl">发送到手机</span></a></li>
+                            <li>
+                                <a href="javascript:void(0)" class="icon-mark favdir mark-bus"><i
+                                        class="iconfont icon-star"></i><span
+                                        class="ctrl_lbl">收藏</span></a>
+                            </li>
+                            <li><a href="javascript:void(0)" class="icon-share"><i
+                                    class="iconfont icon-iconfenxiang"></i><span
+                                    class="ctrl_lbl">分享</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="amap_panel_model"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="panel"></div>
+
+<!--登入板块-->
+<div class="layui-header">
+    <ul class="layui-nav layui-layout-right" style="background-color:transparent">
+        <li class="layui-nav-item">
+            <div id="loginbox">
+                <div class="avatar"></div>
+            </div>
+            <dl class="layui-nav-child" style="width: 200px ; padding: 0;right: 0;left: unset">
+
+                <div class="user-head">
+                    <div class="login-banner clearfix">
+                        <div class="text-notice">
+                            <p>登录后可享受</p>
+                            <p>更多贴心服务</p>
+                        </div>
+                        <div class="login-btn">登录</div>
+                    </div>
+                </div>
+                <dd><a href="javascript:void(0)">基本资料</a></dd>
+                <dd><a href="javascript:void(0)">我的钱包</a></dd>
+                <dd><a href="javascript:void(0)">我的收藏</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<div style="display: none;" id="loginView">
+    <div>
+        <img class="passport-icon-bg" id="leftimg" th:src="@{/imgs/left.png}">
+        <img style="position:absolute; top:100px; left:18px; z-index:2" width="120" height="60"
+             th:src="@{/imgs/log.png}">
+    </div>
+    <div class="right--jss-0-18" id="login-type" style="margin-top: 20px">
+        <ul style="font-size: 14px;margin-left: 20px">
+            <li class="on">&nbsp;&nbsp;密码登录 &nbsp;|&nbsp;</li>
+            <li class="off">&nbsp;短信登录</li>
+        </ul>
+        <div id="account-login" class="show" style="margin-top: 30px">
+            <form class="layui-form">
+                <br>
+                <div class="layui-form-item">
+                    <div class="accountIcon--jss-0-64 passport-icon passport-icon-account"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="account" required lay-verify="required" placeholder="请输入用户名"
+                               autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="passwordIcon--jss-0-63 passport-icon passport-icon-password"></div>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                               autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="formDemo1">
+                            登陆
+                        </button>
+                    </div>
+                </div>
+                <a href="" class="font-set">忘记密码?</a>
+                <a id="butt" class="font-set" th:href="@{/main/ht}">立即注册</a>
+            </form>
+        </div>
+        <div id="phone-login" class="hide" style="margin-top: 34px">
+            <form class="layui-form">
+                <br>
+                <div class="layui-form-item">
+                    <div class="accountIcon--jss-0-63 passport-icon passport-icon-phone"
+                         data-spm-anchor-id="0.0.0.i6.42e51c4eXMCJvA"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="phoneNum" id="phoneNum" required lay-verify="required"
+                               placeholder="请输入手机号码" autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="yzmwordIcon--jss-0-63 passport-icon passport-icon-password"
+                         data-spm-anchor-id="0.0.0.i6.42e51c4eXMCJvA"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="verificationCode" required lay-verify="required" placeholder="请输入验证码"
+                               autocomplete="off" class="layui-input" style="border: 0" width="200px">
+                        <label class="yzmbtn" style="color:#2d97e9">发送验证码</label>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="formDemo2">
+                            登陆
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
-<script src="/js/map.js"></script>
+
+<script th:src="@{/js/jquery.js}" type="text/javascript" charset="UTF-8"></script>
+
+<script th:src="@{https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js}"></script>
+<script src="/js/map.js" type="text/javascript" charset="UTF-8"></script>
+<script th:src="@{/js/login.js}" type="text/javascript" charset="UTF-8"></script>
+
+
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+    $(function () {
+        var myTab = document.getElementById("login-type"); //整个div
+        var myUl = myTab.getElementsByTagName("ul")[0]; //一个节点
+        var myLi = myUl.getElementsByTagName("li"); //数组
+        var myDiv = myTab.querySelectorAll('#login-type > div'); //数组
+        for (var i = 0; i < myLi.length; i++) {
+            myLi[i].index = i;
+            myLi[i].onclick = function () {
+                for (var j = 0; j < myLi.length; j++) {
+                    myLi[j].className = "off";
+                    myDiv[j].className = "hide";
+
+                }
+                this.className = "on";
+                myDiv[this.index].className = "show";
+            }
+        }
+    })
+    $(function () {
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+            $(".login-btn").click(function () {
+                layer.open({
+                    type: 1,
+                    title: null,
+                    area: ['580px', '300px'],
+                    offset: '300px',
+                    content: $("#loginView"),
+                    cancel: function () {
+                        $(this).css("display", "none")
+                    },
+                    success: function () {
+                    }
+                })
+                form.render();
+            })
+            $(".yzmbtn").click(function () {
+                console.log($("#phoneNum").val())
+                $.ajax({
+                    url: "/userMain/verification",
+                    type: "post",
+                    data: "phoneNum=" + $("#phoneNum").val(),
+                    datatype: "text",
+                    success: function (res) {
+                        layer.msg(res)
+                    }
+                })
+            })
+        });
+    });
+</script>
+
 </html>

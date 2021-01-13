@@ -1,93 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cykj.mapper.BusInfMapper" >
-  <resultMap id="BaseResultMap" type="com.cykj.bean.BusInf" >
-    <id column="busId" property="busid" jdbcType="INTEGER" />
-    <result column="carNum" property="carnum" jdbcType="VARCHAR" />
-    <result column="importTime" property="importtime" jdbcType="VARCHAR" />
-    <result column="busState" property="busstate" jdbcType="INTEGER" />
-    <result column="onloadState" property="onloadstate" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    busId, carNum, importTime, busState, onloadState
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_bus
-    where busId = #{busid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_bus
-    where busId = #{busid,jdbcType=INTEGER}
+
+  <insert id="addBus" parameterType="BusInf">
+    insert into t_bus(busId, busName, carNum, importTime, busState, onloadState)value (#{busId}, #{busName}, #{carNum},
+       sysdate(), #{busState}, #{onloadState})
+  </insert>
+
+    <delete id="deleteBus" parameterType="java.lang.Integer">
+    delete from t_bus where busId = #{busId}
   </delete>
-  <insert id="insert" parameterType="com.cykj.bean.BusInf" >
-    insert into t_bus (busId, carNum, importTime, 
-      busState, onloadState)
-    values (#{busid,jdbcType=INTEGER}, #{carnum,jdbcType=VARCHAR}, #{importtime,jdbcType=VARCHAR}, 
-      #{busstate,jdbcType=INTEGER}, #{onloadstate,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.BusInf" >
-    insert into t_bus
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="busid != null" >
-        busId,
-      </if>
-      <if test="carnum != null" >
-        carNum,
-      </if>
-      <if test="importtime != null" >
-        importTime,
-      </if>
-      <if test="busstate != null" >
-        busState,
-      </if>
-      <if test="onloadstate != null" >
-        onloadState,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="busid != null" >
-        #{busid,jdbcType=INTEGER},
-      </if>
-      <if test="carnum != null" >
-        #{carnum,jdbcType=VARCHAR},
-      </if>
-      <if test="importtime != null" >
-        #{importtime,jdbcType=VARCHAR},
-      </if>
-      <if test="busstate != null" >
-        #{busstate,jdbcType=INTEGER},
-      </if>
-      <if test="onloadstate != null" >
-        #{onloadstate,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.BusInf" >
-    update t_bus
-    <set >
-      <if test="carnum != null" >
-        carNum = #{carnum,jdbcType=VARCHAR},
-      </if>
-      <if test="importtime != null" >
-        importTime = #{importtime,jdbcType=VARCHAR},
-      </if>
-      <if test="busstate != null" >
-        busState = #{busstate,jdbcType=INTEGER},
-      </if>
-      <if test="onloadstate != null" >
-        onloadState = #{onloadstate,jdbcType=INTEGER},
-      </if>
-    </set>
-    where busId = #{busid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.BusInf" >
-    update t_bus
-    set carNum = #{carnum,jdbcType=VARCHAR},
-      importTime = #{importtime,jdbcType=VARCHAR},
-      busState = #{busstate,jdbcType=INTEGER},
-      onloadState = #{onloadstate,jdbcType=INTEGER}
-    where busId = #{busid,jdbcType=INTEGER}
-  </update>
+
+    <update id="updateAdmin" parameterType="BusInf">
+        update t_bus
+        <set>
+            <if test="busName !=null and busName !=''">
+                busName = #{busName},
+            </if>
+            <if test="carNum !=null and carNum !=''">
+                carNum = #{carNum},
+            </if>
+            <if test="importTime !=null and importTime !=''">
+                importTime = sysdate(),
+            </if>
+            <if test="busState !=null and busState !=''">
+                busState = #{busState},
+            </if>
+            <if test="onloadState !=null and onloadState !=''">
+                onloadState = #{onloadState},
+            </if>
+        </set>
+        where busId = #{busId}
+    </update>
+
+    <select id="selectBus" resultType="BusInf" parameterType="HashMap">
+  select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
+        <where>
+            <if test="busName != null and busName !=''">
+                and busName like CONCAT('%',#{busName},'%')
+            </if>
+        </where>
+
+        limit #{start},#{end};
+  </select>
+    <resultMap id="BusInf" type="BusInf">
+        <id property="busId" column="busId"></id>
+        <result property="busName" column="busName"></result>
+        <result property="carNum" column="carNum"></result>
+        <result property="importTime" column="importTime"></result>
+        <result property="busState" column="busState"></result>
+        <result property="onloadState" column="onloadState"></result>
+        <association property="dic" javaType="Dic">
+            <result column="dicValue" property="dicValue"></result>
+        </association>
+    </resultMap>
+
+    <select id="count" resultType="int" parameterType="java.util.HashMap">
+        select count(*) from t_bus where 1=1
+        <if test="busName != null and busName !=''">
+            and busName like CONCAT('%',#{busName},'%')
+        </if>
+    </select>
+
+
+    <!--修改状态-->
+    <update id="updateState" parameterType="BusInf">
+        update t_bus set busName= #{busName}
+        <where>
+            busId=#{busId};
+        </where>
+    </update>
 </mapper>

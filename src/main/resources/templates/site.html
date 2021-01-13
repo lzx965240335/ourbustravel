@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>站点配置</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
-    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
-    <script type="text/javascript" th:src="@{/js/site.js}"></script>
+    <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+<div id="container" style="height: 50%;width: 100%" ></div>
+<div style="height: 50%;width: 100%">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>站点查询条件</legend>
 </fieldset>
@@ -95,7 +108,7 @@
             <div class="layui-form-item" style="margin-top:20px">
                 <label class="layui-form-label required">站点横坐标</label>
                 <div class="layui-input-block">
-                    <input type="text" id="updateSiteX" required lay-verify="required" placeholder="请输入身份证归属地"
+                    <input type="text" id="updateSiteX" required lay-verify="required" placeholder="请输入经度"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -103,7 +116,7 @@
                 <label class="layui-form-label required">站点纵坐标</label>
                 <div class="layui-input-block">
                     <input type="text" id="updateSiteY" required lay-verify="required"
-                           autocomplete="off" placeholder="请输入城市区号" class="layui-input">
+                           autocomplete="off" placeholder="请输入纬度" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top:20px">
@@ -118,7 +131,7 @@
                     <button type="button" id="sureUpdate" class="layui-btn  layui-btn" lay-submit lay-filter="demo11">
                         确认修改
                     </button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button type="button" id="cancel" class="layui-btn layui-btn-primary">取消</button>
                 </div>
             </div>
         </form>
@@ -139,5 +152,8 @@
     <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+</div>
 </body>
+
+<script type="text/javascript" th:src="@{/js/site.js}"></script>
 </html>

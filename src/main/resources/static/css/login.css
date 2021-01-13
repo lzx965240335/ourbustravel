@@ -1,0 +1,229 @@
+.layui-header{
+    z-index: 1100;
+    position: absolute;
+    top: 1rem;
+    right: 10px;
+}
+
+
+.container{
+    width: 420px;
+    height: 320px;
+    min-height: 320px;
+    max-height: 320px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 20px;
+    z-index: 130;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+    font-size: 16px;
+}
+.close{
+    background-color: white;
+    border: none;
+    font-size: 18px;
+    margin-left: 410px;
+    margin-top: -10px;
+}
+
+.layui-input{
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+    font-size: 15px;
+}
+.layui-form-item{
+    margin-left: -24px;
+}
+#logoid{
+    margin-top: -16px;
+    padding-left:150px;
+    padding-bottom: 15px;
+}
+.layui-btn{
+    margin-left: -50px;
+    border-radius: 5px;
+    width: 350px;
+    height: 40px;
+    font-size: 15px;
+}
+.verity{
+    width: 120px;
+}
+.font-set{
+    font-size: 13px;
+    text-decoration: none;
+    margin-left: 100px;
+}
+a:hover{
+    text-decoration: underline;
+}
+.login--jss-0-75 {
+    width: 130px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    border: none;
+    margin-left: 20px;
+    background-color: #42a5f5;
+    outline: none;
+    text-align: center;
+}
+.a--jss-0-54 {
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    cursor: pointer;
+    color: #42a5f5;
+    margin-left: 16px;
+    text-decoration: none;
+}
+.loginArea--jss-0-90 {
+    position: absolute;
+    text-align: right;
+    right: 30px;
+    bottom: 60px;
+}
+#loginbox .avatar {
+    width: 46px;
+    height: 46px;
+    background: url(/imgs/defavatar.png) 50% no-repeat;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.16), 0 1px 3px 0 rgba(0,0,0,.12);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.16),0 1px 3px 0 rgba(0,0,0,.12);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.16), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+.user-head {
+    background-color: #52acf6;
+    padding: 14px;
+    color: #fff;
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -ms-border-radius: 5px 5px 0 0;
+    /*border-radius: 5px 5px 0 0;*/
+}
+.text-notice {
+    float: left;
+    margin: 0 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+.passport-icon-bg {
+    background-position: -0px -1783px;
+    background-position-x: 0px;
+    background-position-y: -1783px;
+    width: 160px;
+    height: 300px;
+    float: left;
+    z-index:1
+}
+.right--jss-0-18 {
+    float: left;
+    box-sizing: border-box;
+    position: relative;
+    padding-top: 18px;
+    height: 100%;
+    padding-bottom: 15px;
+}
+.passport-icon-account {
+    background-position: -0px -142px;
+    background-position-x: 0px;
+    background-position-y: -142px;
+    width: 20px;
+    height: 22px;
+}
+.passport-icon-phone {
+    background-position: -0px -184px;
+    background-position-x: 0px;
+    background-position-y: -184px;
+    width: 20px;
+    height: 22px;
+}
+.input--jss-0-59 {
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    color: #455a64;
+    box-shadow: 0 0 0 40px white inset;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #cacbcc;
+    width: 100%;
+    padding: 10px 0 10px 48px;
+    box-sizing: border-box;
+    transition: all 450ms ease-out;
+}
+.accountIcon--jss-0-64 {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 60px;
+    top: 31%;
+    transform: translateY(-50%);
+}
+.accountIcon--jss-0-63 {
+    width: 20px;
+    height: 24px;
+    position: absolute;
+    left: 60px;
+    top: 33%;
+    transform: translateY(-50%);
+}
+.passport-icon {
+    background-image: url(/imgs/phone.png);
+    background-size: 246px 2201px;
+}
+.passwordIcon--jss-0-63 {
+    width: 20px;
+    height: 22px;
+    position: absolute;
+    left: 60px;
+    top: 52%;
+    transform: translateY(-50%);
+}
+.yzmwordIcon--jss-0-63 {
+    width: 20px;
+    height: 22px;
+    position: absolute;
+    left: 60px;
+    top: 55%;
+    transform: translateY(-50%);
+}
+.passport-icon-password {
+    background-position: -0px -162px;
+    width: 20px;
+    height: 22px;
+}
+.hide {
+    display:none;
+}
+#loginView li {
+
+    display: inline;
+
+    line-height: 40px;
+
+    float:left
+}
+.yzmbtn {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    background-color: #fff;
+    border: none;   // 去掉边框
+outline: none;  // 去掉点击按钮后的边框
+}
+.on{
+    color:#2d97e9
+}

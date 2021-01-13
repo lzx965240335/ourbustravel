@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆信息配置</title>
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/layui/layui.js}" ></script>
+    <script th:src="@{/js/busMain.js}" type="text/javascript"
+            charset="UTF-8"></script>
+</head>
+<body>
+<center>
+    <div class="demoTable">
+        公交路号：
+        <div class="layui-inline">
+            <input class="layui-input" id="busName" autocomplete="off" placeholder="请输出公交名字">
+        </div>
+        <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+        <button type="button" id="addBtn" class="layui-btn" data-type="reload" >新增</button>
+    </div>
+</center>
+
+<script type="text/html" id="barDemo">
+    {{# if(d.onloadState == '16'){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <!--    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="cz">重置密码</a>-->
+    <a class="layui-btn layui-btn-xs classSt" lay-event="enable">维修</a>
+    {{# } else if(d.onloadState == '17'){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <!--    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="cz">重置密码</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-xs classSt" lay-event="enable">正常</a>
+    {{# } }}
+
+
+</script>
+
+<!--新增页面-->
+<div style="display: none;" id="myInf">
+    <form class="layui-form" action="" method="post">
+        <div class="layui-col-md10">
+            <br/>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">公交路号</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addbusName" required lay-verify="required" placeholder="请输入公交路号"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">公交车牌</label>
+                <div class="layui-input-block">
+                    <input type="text" id="addCarNum" required lay-verify="required" placeholder="请输入公交车牌"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">车状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="addBusState" value="正常" title="正常">
+                    <input type="radio" name="addBusState" value="维修中"  title="维修中">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">行车状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="addOnloadState" value="停站" title="停站">
+                    <input type="radio" name="addOnloadState" value="行驶中"  title="行驶中">
+                    <input type="radio" name="addOnloadState" value="故障"  title="故障">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:20px">
+                <div class="layui-input-block">
+                    <button type="button" id="register" class="layui-btn" lay-submit lay-filter="saveSubmit">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<!--修改信息页面-->
+<div class="layui-row" id="updateTest" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" action="" style="margin-top:20px">
+            <div class="layui-form-item">
+                <label class="layui-form-label">公交ID</label>
+                <div class="layui-input-block">
+                    <input type="text" id="busId" disabled required lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公交车牌</label>
+                <div class="layui-input-block">
+                    <input type="text" id="carNum" disabled required lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">车状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="busState" value="正常" title="正常">
+                    <input type="radio" name="busState" value="维修中"  title="维修中">
+                </div>
+            </div>
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">行车状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="onloadState" value="停站" title="停站">
+                    <input type="radio" name="onloadState" value="行驶中"  title="行驶中">
+                    <input type="radio" name="onloadState" value="故障"  title="故障">
+                </div>
+            </div>
+<!--            <div class="layui-form-item" style="margin-top:20px">-->
+<!--                <label class="layui-form-label required">司机</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" id="siJi" required lay-verify="required" placeholder="请输入司机姓名"-->
+<!--                           autocomplete="off" class="layui-input">-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="layui-form-item" style="margin-top:20px">
+                <div class="layui-input-block">
+                    <button type="button" id="sureUpdate" class="layui-btn" lay-submit lay-filter="demo11">确认修改</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<table class="layui-hide" id="bus" lay-filter="bus"></table>
+</body>
+</html>

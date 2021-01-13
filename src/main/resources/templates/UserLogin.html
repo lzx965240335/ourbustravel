@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>layim - layui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
+    <script th:src="@{/js/jquery.js}" type="text/javascript" charset="UTF-8"></script>
+    <script th:src="@{/js/login.js}" type="text/javascript" charset="UTF-8"></script>
+
+    <link rel="stylesheet" th:href="@{/src/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<div class="layui-header">
+    <ul class="layui-nav layui-layout-right" style="background-color:transparent">
+        <li class="layui-nav-item">
+            <div id="loginbox">
+                <div class="avatar"></div>
+            </div>
+            <dl class="layui-nav-child" style="width: 200px ; padding: 0;">
+
+                    <div class="user-head">
+                        <div class="login-banner clearfix">
+                            <div class="text-notice">
+                                <p>登录后可享受</p>
+                                <p>更多贴心服务</p>
+                            </div>
+                            <div class="login-btn">登录</div>
+                        </div>
+                    </div>
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="">我的钱包</a></dd>
+                <dd><a href="">我的收藏</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<div style="display: none;" id="loginView">
+    <div>
+        <img class="passport-icon-bg" id="leftimg"th:src="@{/imgs/left.png}">
+        <img style="position:absolute; top:100px; left:18px; z-index:2" width="120" height="60" th:src="@{/imgs/logo.png}">
+    </div>
+    <div class="right--jss-0-18" id="login-type">
+        <ul style="font-size: 14px">
+            <li class="on" >&nbsp;&nbsp;密码登录 &nbsp;|&nbsp;</li>
+            <li class="off" >&nbsp;短信登录</li>
+        </ul>
+        <div id="account-login" class="show">
+            <form class="layui-form">
+                <br>
+                <div class="layui-form-item">
+                    <div class="accountIcon--jss-0-64 passport-icon passport-icon-account"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="account" required  lay-verify="required" placeholder="请输入用户名"  autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="passwordIcon--jss-0-63 passport-icon passport-icon-password" data-spm-anchor-id="0.0.0.i6.42e51c4eXMCJvA"></div>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="formDemo1">登陆</button>
+                    </div>
+                </div>
+                <a href="" class="font-set">忘记密码?</a>
+                <a id="butt" class="font-set" th:href="@{/main/ht}">立即注册</a>
+            </form>
+        </div>
+        <div id="phone-login" class="hide">
+            <form class="layui-form">
+                <br>
+                <div class="layui-form-item">
+                    <div class="accountIcon--jss-0-63 passport-icon passport-icon-phone"  data-spm-anchor-id="0.0.0.i6.42e51c4eXMCJvA"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="phoneNum" id="phoneNum" required  lay-verify="required" placeholder="请输入手机号码"  autocomplete="off" class="layui-input" style="border: 0">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="yzmwordIcon--jss-0-63 passport-icon passport-icon-password" data-spm-anchor-id="0.0.0.i6.42e51c4eXMCJvA"></div>
+                    <div class="layui-input-block">
+                        <input type="text" name="verificationCode" required lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" style="border: 0" width="200px">
+                        <label class="yzmbtn" style="color:#2d97e9">发送验证码</label>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal layui-btn-radius" lay-submit lay-filter="formDemo2">登陆</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+    });
+    $(function() {
+        var myTab = document.getElementById("login-type"); //整个div
+        var myUl = myTab.getElementsByTagName("ul")[0]; //一个节点
+        var myLi = myUl.getElementsByTagName("li"); //数组
+        var myDiv = myTab.querySelectorAll('#login-type > div'); //数组
+        for (var i = 0; i < myLi.length; i++) {
+            myLi[i].index = i;
+            myLi[i].onclick = function() {
+                for (var j = 0; j < myLi.length; j++) {
+                    myLi[j].className = "off";
+                    myDiv[j].className = "hide";
+
+                }
+                this.className = "on";
+                myDiv[this.index].className = "show";
+            }
+        }
+    })
+    $(function() {
+        layui.use(['form','layedit', 'laydate'], function(){
+            var form = layui.form
+                , layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+            $(".login-btn").click(function() {
+                layer.open({
+                    type: 1,
+                    title: null,
+                    area: ['580px', '300px'],
+                    offset: '60px',
+                    content: $("#loginView"),
+                    cancel: function() {
+                        $(this).css("display","none")
+                    },
+                    success: function() {
+                    }
+                })
+                form.render();
+            })
+            $(".yzmbtn").click(function () {
+                console.log($("#phoneNum").val())
+                $.ajax({
+                    url : "/main/verification",
+                    type: "post",
+                    data :"phoneNum="+$("#phoneNum").val(),
+                    datatype :"text",
+                    success:function (res) {
+                        layer.msg(res)
+                    }
+                })
+            })
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,141 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cykj.mapper.AdminInfMapper" >
-  <resultMap id="BaseResultMap" type="com.cykj.bean.AdminInf" >
-    <id column="adminId" property="adminid" jdbcType="INTEGER" />
-    <result column="account" property="account" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="roleId" property="roleid" jdbcType="INTEGER" />
-    <result column="adminState" property="adminstate" jdbcType="INTEGER" />
-    <result column="regTime" property="regtime" jdbcType="VARCHAR" />
-    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
-    <result column="adminName" property="adminname" jdbcType="VARCHAR" />
+
+
+  <!--表格查询-->
+  <select id="adminSelectTable" resultMap="Admin" parameterType="AdminInf">
+    select a.*,r.roleName,d2.dicValue from t_admin a left join t_role r on a.roleid = r.roleId left join t_dic d2 on a.adminState=d2.dicid;
+    </select>
+  <resultMap id="Admin" type="AdminInf">
+    <id property="adminId" column="adminId"></id>
+    <result property="adminName" column="adminName"></result>
+    <result property="account" column="account"></result>
+    <result property="password" column="password"></result>
+    <result property="roleId" column="roleId"></result>
+    <result property="adminState" column="adminState"></result>
+    <result property="regTime" column="regTime"></result>
+  <association property="role" javaType="Role">
+    <result column="roleName" property="roleName"></result>
+  </association>
+    <association property="dic" javaType="Dic">
+      <result column="dicValue" property="dicValue"></result>
+    </association>
   </resultMap>
-  <sql id="Base_Column_List" >
-    adminId, account, password, roleId, adminState, regTime, avatar, updateTime, adminName
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from t_admin
-    where adminId = #{adminid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_admin
-    where adminId = #{adminid,jdbcType=INTEGER}
+  <select id="adminSelectCount" resultType="int">
+            select count(*) from t_admin
+    </select>
+<insert id="insertAdminInf" parameterType="AdminInf">
+          insert into t_admin(account,password,roleId,adminState,regTime,avatar,updateTime,adminName) values (#{account},#{password},#{roleId},#{adminState},#{regTime},#{avatar},#{updateTime},#{adminName})
+</insert>
+  <delete id="deleteAdminInf" parameterType="AdminInf">
+        delete from t_admin where adminId = #{adminId}
   </delete>
-  <insert id="insert" parameterType="com.cykj.bean.AdminInf" >
-    insert into t_admin (adminId, account, password,
-      roleId, adminState, regTime,
-      avatar, updateTime, adminName
-      )
-    values (#{adminid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{roleid,jdbcType=INTEGER}, #{adminstate,jdbcType=INTEGER}, #{regtime,jdbcType=VARCHAR},
-      #{avatar,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{adminname,jdbcType=VARCHAR}
-      )
+  <update id="updateAdminInf" parameterType="AdminInf">
+        update t_admin  set account = #{account},password = #{password},roleId = #{roleId},adminState = #{adminState},adminName = #{adminName} where adminId = #{adminId}
+  </update>
+  <update id="resetPwd">
+            update t_admin set password = '123456' where account = #{account}
+  </update>
+
+
+  <insert id="addAdmin" parameterType="AdminInf">
+    insert into t_admin(adminId, account, password, roleId, adminState, regTime, avatar, updateTime, adminName)value (#{adminId}, #{account}, #{password}, #{roleId}, 5,
+       sysdate(),  #{avatar}, #{updateTime}, #{adminName})
   </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.AdminInf" >
-    insert into t_admin
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="adminid != null" >
-        adminId,
-      </if>
-      <if test="account != null" >
-        account,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="roleid != null" >
-        roleId,
-      </if>
-      <if test="adminstate != null" >
-        adminState,
-      </if>
-      <if test="regtime != null" >
-        regTime,
-      </if>
-      <if test="avatar != null" >
-        avatar,
-      </if>
-      <if test="updatetime != null" >
-        updateTime,
-      </if>
-      <if test="adminname != null" >
-        adminName,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="adminid != null" >
-        #{adminid,jdbcType=INTEGER},
-      </if>
-      <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="roleid != null" >
-        #{roleid,jdbcType=INTEGER},
-      </if>
-      <if test="adminstate != null" >
-        #{adminstate,jdbcType=INTEGER},
-      </if>
-      <if test="regtime != null" >
-        #{regtime,jdbcType=VARCHAR},
-      </if>
-      <if test="avatar != null" >
-        #{avatar,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="adminname != null" >
-        #{adminname,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cykj.bean.AdminInf" >
+
+  <delete id="deleteAdmin" parameterType="java.lang.Integer">
+    delete from t_admin where adminId = #{adminId}
+  </delete>
+
+  <update id="updateAdmin" parameterType="AdminInf">
     update t_admin
-    <set >
-      <if test="account != null" >
-        account = #{account,jdbcType=VARCHAR},
+    <set>
+      <if test="account !=null and account !=''">
+        account = #{account},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
+      <if test="password !=null and password !=''">
+        password = #{password},
       </if>
-      <if test="roleid != null" >
-        roleId = #{roleid,jdbcType=INTEGER},
+      <if test="roleId !=null and roleId !=''">
+        roleId = #{roleId},
       </if>
-      <if test="adminstate != null" >
-        adminState = #{adminstate,jdbcType=INTEGER},
+      <if test="adminState !=null and adminState !=''">
+        adminState = #{adminState},
       </if>
-      <if test="regtime != null" >
-        regTime = #{regtime,jdbcType=VARCHAR},
+
+      <if test="avatar !=null and avatar !=''">
+        avatar = #{avatar},
       </if>
-      <if test="avatar != null" >
-        avatar = #{avatar,jdbcType=VARCHAR},
+      <if test="updateTime !=null and updateTime !=''">
+        updateTime = sysdate(),
       </if>
-      <if test="updatetime != null" >
-        updateTime = #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="adminname != null" >
-        adminName = #{adminname,jdbcType=VARCHAR},
+      <if test="adminName !=null and adminName !=''">
+        adminName = #{adminName},
       </if>
     </set>
-    where adminId = #{adminid,jdbcType=INTEGER}
+    where adminId = #{adminId}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.AdminInf" >
-    update t_admin
-    set account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      roleId = #{roleid,jdbcType=INTEGER},
-      adminState = #{adminstate,jdbcType=INTEGER},
-      regTime = #{regtime,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
-      adminName = #{adminname,jdbcType=VARCHAR}
-    where adminId = #{adminid,jdbcType=INTEGER}
+
+  <select id="selectAdmin" resultType="AdminInf" parameterType="HashMap">
+    select a.*,d.dicValue from t_admin a left join t_dic d on a.adminState = d.dicId  left join t_role r on a.roleId = r.roleId
+    <where>
+      <if test="adminName != null and adminName !=''">
+        and adminName like CONCAT('%',#{adminName},'%')
+      </if>
+    </where>
+
+    limit #{start},#{end};
+
+  </select>
+
+  <!--  select a.*,r.roleName from t_admin a left join t_role r on a.roleId = r.roleId limit #{start},#{end};-->
+  <resultMap id="AdminInf" type="AdminInf">
+    <id property="adminId" column="adminId"></id>
+    <result property="account" column="account"></result>
+    <result property="roleId" column="roleId"></result>
+    <result property="adminState" column="adminState"></result>
+    <result property="regTime" column="regTime"></result>
+    <result property="adminName" column="adminName"></result>
+    <association property="dic" javaType="Dic">
+      <result column="dicValue" property="dicValue"></result>
+    </association>
+  </resultMap>
+
+  <select id="count" resultType="int" parameterType="java.util.HashMap">
+    select count(*) from t_admin where 1=1
+    <if test="adminName != null and adminName !=''">
+      and adminName like CONCAT('%',#{adminName},'%')
+    </if>
+  </select>
+
+  <!--修改状态-->
+  <update id="updateState" parameterType="AdminInf">
+    update t_admin set adminState= #{adminState}
+    <where>
+      adminId=#{adminId};
+    </where>
   </update>
+
+<!--登入-->
+  <select id="selectAdminInf" parameterType="AdminInf" resultType="AdminInf">
+    select * from t_admin
+    <where>
+      <if test="account!=null and account!=''">
+        and account=#{account}
+      </if>
+      <if test="password!=null and password!=''">
+        and password=#{password}
+      </if>
+    </where>
+  </select>
+
+
 </mapper>
