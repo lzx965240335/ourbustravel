@@ -58,7 +58,6 @@ function chat() {
         data:"",
         dataType:"json",
         success:function (data) {
-            alert(data)
             console.log(data)
             layui.use('layim', function(layim){
                 var layim = layui.layim;

@@ -107,12 +107,12 @@ layui.use('table', function(){
             })
         }else if (obj.event === 'enable'){
 
-            var stateChinese=$(obj.tr[0].cells[3].childNodes[0].childNodes[8]).text();
-            var onloadState;
+            var stateChinese=$(obj.tr[0].cells[7].childNodes[0].childNodes[7]).text();
+            var state;
             if(stateChinese=='正常'){
-                onloadState=17;
+                state=17;
             }else {
-                onloadState=16;
+                state=16;
             }
             layer.confirm('您真的要这样做么', function (index) {
                 $.ajax({
@@ -120,7 +120,7 @@ layui.use('table', function(){
                     type: "post",
                     dataType: "text",
                     url:"/busMain/updateState",
-                    data: JSON.stringify({busId:data.busId,onloadState:onloadState}),
+                    data: JSON.stringify({busId:data.busId,busState:state}),
                     success: function (data) {
                         if (data == 'success') {
 
@@ -147,8 +147,8 @@ layui.use('table', function(){
 
         //修改数据
         $("#sureUpdate").click(function () {
-            var busState;
-            var onloadState;
+            var busStateId;
+            var onloadStateId;
             var busId = $("#busId").val();
             var busStateName = $("input[name='busState']:checked").val();
             var onloadStateName = $("input[name='onloadState']:checked").val();
@@ -156,23 +156,23 @@ layui.use('table', function(){
                 return;
             }
             if (onloadStateName == '停站') {
-                busState = 13;
+                onloadStateId = 13;
             } else if (onloadStateName == '行驶中') {
-                busState = 14;
+                onloadStateId = 14;
             } else {
-                busState = 15;
+                onloadStateId = 15;
             }
             if (busStateName == '维修中') {
-                onloadState = 16;
+                busStateId = 16;
             } else {
-                onloadState = 17;
+                busStateId = 17;
             }
             //获取表单数据
             var jsonStr = JSON.stringify(
                 {
                     "busId": busId,
-                    "busState": busState,
-                    "onloadState": onloadState,
+                    "busState": busStateId,
+                    "onloadState": onloadStateId,
                 });
             //向后台发送数据
             $.ajax({
@@ -223,17 +223,17 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
 
             return;
         }
-        if (addBusStateName == '停站') {
-            addBusState = 13;
-        } else if (addBusStateName == '行驶中') {
-            addBusState = 14;
+        if (addOnloadStateName == '停站') {
+            addOnloadState = 13;
+        } else if (addOnloadStateName == '行驶中') {
+            addOnloadState = 14;
         } else {
-            addBusState = 15;
+            addOnloadState = 15;
         }
-        if (addOnloadStateName == '维修中') {
-            addOnloadState = 16;
+        if (addBusStateName == '维修中') {
+            addBusState = 16;
         } else {
-            addOnloadState = 17;
+            addBusState = 17;
         }
         //获取表单数据
         var jsonStr = JSON.stringify(

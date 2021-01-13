@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>传一公交</title>
     <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}" type="text/css"/>
-    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/src/css/layui.css}">
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -51,7 +52,10 @@
     </div>
 </div>
 <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}" charset="utf-8"></script>
+<script th:src="@{/src/layui.js}"></script>
 <script type="text/javascript" th:src="@{/js/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/jquery.js}" type="text/javascript" charset="UTF-8"></script>
+<script th:src="@{https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js}"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
@@ -65,6 +69,75 @@
             e.preventDefault();
             $("#iframe").attr("src", $(this).attr("href"));
         });
+    });
+</script>
+
+<script>
+    $(function() {
+        $.ajax({
+            contentType:"application/json",
+            url:"/Admin/getService",
+            type:"post",
+            data:"",
+            dataType:"json",
+            success:function (data) {
+              
+                console.log(data)
+                layui.use('layim', function(layim){
+                    var layim = layui.layim;
+                    var socket = new WebSocket('ws://localhost:8080/websocket/'+data.userName);
+                    socket.onopen = function () {
+                        console.log(data.userName+"连接成功")
+                        // socket.send('XXX连接成功');
+                    }
+                    socket.onmessage = function(res){
+                        res = JSON.parse(res.data);
+                        console.log(res)
+                        layim.getMessage(res
+                        )
+                    };
+                    if (data.userName=="xx"){
+                        layim.config({
+                            init: {
+                                url: '/json/getList1.json'
+                                ,data: {}
+                            }
+
+                            //查看群员接口
+                            ,members: {
+                                url: '/json/getMembers.json'
+                                ,data: {}
+                            }
+                        });
+                    }else {
+                        layim.config({
+                            init: {
+                                url: '/json/getList.json'
+                                ,data: {}
+                            }
+                            //查看群员接口
+                            ,members: {
+                                url: '/json/getMembers.json'
+                                ,data: {}
+                            }
+                        });
+                    }
+                    layim.on('sendMessage', function(res){
+                        var mine = res.mine;
+                        var to = res.to; //对方的信息
+                        //监听到上述消息后，就可以轻松地发送socket了，如：
+                        socket.send(JSON.stringify({
+                            type: 'friendMessage' //随便定义，用于在服务端区分消息类型
+                            ,data: res
+                            ,role : $("#userName").val()
+                        }));
+                    });
+                });
+            },
+            error:function () {
+                alert('网络繁忙');
+            },
+        })
     });
 </script>
 </body>

@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layim - layui</title>
     <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
+    <script type="text/javascript" src="/js/jquery-3.5.1.js" charset="utf-8"></script>
     <link rel="stylesheet" th:href="@{/src/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
 <div class="wrap passport">
-    <h1 class="title01-logo"><a th:href="@{/main/getView}"><img th:src="@{/imgs/logo_blue.png}" style="width: 250px"></a></h1>
+    <h1 class="title01-logo"><a th:href="@{/main/getView}"><img th:src="@{/imgs/log_blue.png}" style="width: 250px"></a></h1>
     <div class="main register">
         <ul class="tabs">
             <li><span>1</span>填写注册信息</li>
@@ -53,7 +54,7 @@
                 <tr>
                     <td>密码</td>
                     <td>
-                        <input type="password" name="password" id="password" placeholder="密码需8-16位字母、数字或特殊字符，区分大小写" maxlength="16">
+                        <input type="password" name="password" id="password" placeholder="密码需8-16位字母、数字并区分大小写" maxlength="16">
                     </td>
                     <td class="info_td">
 
@@ -90,7 +91,7 @@
     </div><!-- /.main -->
 </div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 <script th:src="@{/js/jq-slideVerify.js}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     $(function(){

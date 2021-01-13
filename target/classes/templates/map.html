@@ -16,7 +16,7 @@
     <script src="/js/layui/layui.js" charset="utf-8"></script>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool,AMap.Geocoder"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 
     <!--引入UI组件库（1.1版本） -->
@@ -80,8 +80,7 @@
         <input type="text" readonly="true" id="lnglat">
     </div>
 </div>
-<!--信息显示栏-->
-<div id="tip" class='info' style='min-width:18rem;top: 200px'></div>
+
 <!--信息搜索栏-->
 <div class="info">
     <div class="input-item">
@@ -525,7 +524,7 @@
                     </div>
                 </div>
                 <a href="" class="font-set">忘记密码?</a>
-                <a id="butt" class="font-set" th:href="@{/main/ht}">立即注册</a>
+                <a id="butt" class="font-set" th:href="@{/page/whatPage?pageName=register}">立即注册</a>
             </form>
         </div>
         <div id="phone-login" class="hide" style="margin-top: 34px">
@@ -562,7 +561,6 @@
 </body>
 
 <script th:src="@{/js/jquery.js}" type="text/javascript" charset="UTF-8"></script>
-
 <script th:src="@{https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js}"></script>
 <script src="/js/map.js" type="text/javascript" charset="UTF-8"></script>
 <script th:src="@{/js/login.js}" type="text/javascript" charset="UTF-8"></script>

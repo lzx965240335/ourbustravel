@@ -19,7 +19,7 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public int addBus(BusInf busInf) {
-        return 0;
+        return busInfMapper.addBus(busInf);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public int updateBus(BusInf busInf) {
-        return 0;
+        return busInfMapper.updateBus(busInf);
     }
 
     @Override
@@ -41,6 +41,6 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public int updateState(BusInf busInf) {
-        return 0;
+        return busInfMapper.updateState(busInf);
     }
 }

@@ -227,3 +227,7 @@ outline: none;  // 去掉点击按钮后的边框
 .on{
     color:#2d97e9
 }
+
+body .layui-layim-min {
+    left: 85%!important;
+}

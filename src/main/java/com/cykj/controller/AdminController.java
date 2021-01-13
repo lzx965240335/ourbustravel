@@ -141,4 +141,9 @@ public class AdminController {
             return "账号密码错误";
         }
     }
+    @RequestMapping("/getService")
+    @ResponseBody
+    public AdminInf getService(HttpServletRequest request){
+        return (AdminInf) request.getSession().getAttribute("adminInf");
+    }
 }
