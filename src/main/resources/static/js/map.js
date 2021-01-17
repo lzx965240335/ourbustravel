@@ -173,7 +173,7 @@ function AllStation() {
                             image: '//a.amap.com/jsapi_demos/static/resource/img/pin.png',
                             imageSize: new AMap.Size(24, 24)
                         }),
-                        offset: new AMap.Pixel(-12, -12),
+                        offset: new AMap.Pixel(-12, -24),
                         position: [data[i].longitude,data[i].latitude],
                         map: map,
                         title: data[i].siteName,
@@ -182,7 +182,7 @@ function AllStation() {
 
                     marker.info = new AMap.InfoWindow({
                         content: data[i].siteName,
-                        offset: new AMap.Pixel(0, -12)
+                        offset: new AMap.Pixel(0, -24)
                     });
                     marker.on('click', function (e) {
                         e.target.info.open(map, e.target.getPosition())

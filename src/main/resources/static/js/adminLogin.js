@@ -23,17 +23,17 @@ function loginBut(){
             }
             layui.use('layer', function(){
                 var layer = layui.layer;
-                layer.alert(data, {
+                let index=layer.alert(data, {
                     skin: 'layui-layer-molv' //样式类名  自定义样式
                     ,closeBtn: 0    // 是否显示关闭按钮 0不显示，1  2 样式
                     ,anim: 0 //动画类型
                     ,btn: ['确定'] //按钮
                     ,icon: isSuccess    // icon 5是失败
                     ,yes:function(){
+                        layer.close(index);
                         if (data=='登录成功'){
                             location.href="/hello/initMenu";
                         }
-
                     }
                 });
             });

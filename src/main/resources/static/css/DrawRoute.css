@@ -1,0 +1,85 @@
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+
+
+
+#myInf{
+    width: 17%;
+    position: absolute;
+    top: 5%;
+    right: 7%;
+    background-color: white;
+    overflow-y:auto;
+    border-radius: 12px;
+}
+
+/*#container:hover{*/
+/*    cursor:wait !important;*/
+/*}*/
+
+.show{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    padding: 5px;
+    font-size: 11px;
+}
+
+.show_btn{
+    flex: 5;
+    margin: 0 3px;
+    color: gray;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 13px;
+}
+
+.show_btn:hover{
+    background-color: #9fe2db;
+    cursor:pointer;
+    color: white;
+}
+
+.icon{
+    flex: 1;
+    border: 0;
+}
+
+.row_container{
+    display: flex;
+    width: 100%;
+    justify-content:space-around;
+}
+
+
+.row_container div{
+    display: inline-block;
+}
+
+.selectSite{
+    background-color: #a5e286;
+    color: white;
+    width: 80%;
+    height: 30px;
+    margin: 2% 0;
+    font-size: 15px;
+    border-radius: 15px;
+}
+
+.color{
+    background-color: #62dfff;
+}
+
+#drawRoute_container{
+    display: none;
+    width: 17%;
+    position: absolute;
+    top: 5%;
+    right: 7%;
+    background-color: white;
+    overflow-y:auto;
+    border-radius: 12px;
+}

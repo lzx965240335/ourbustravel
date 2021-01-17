@@ -39,21 +39,22 @@ function stationSearch() {
                     var marker = new AMap.Marker({
                         icon: new AMap.Icon({
                             image: '//a.amap.com/jsapi_demos/static/resource/img/pin.png',
-                            size: new AMap.Size(32, 32),
-                            imageSize: new AMap.Size(32, 32)
+                            imageSize: new AMap.Size(24, 24)
                         }),
-                        offset: new AMap.Pixel(-16, -32),
-                        position: data[i].location,
+                        offset: new AMap.Pixel(-12, -24),
+                        position: [data[i].longitude,data[i].latitude],
                         map: map,
-                        title: data[i].name
+                        title: data[i].siteName,
+                        siteId:data[i].siteId
                     });
                     marker.info = new AMap.InfoWindow({
-                        content: data[i].name,
-                        offset: new AMap.Pixel(0, -30)
+                        content: data[i].siteName,
+                        offset: new AMap.Pixel(0, -24)
                     });
-                    // marker.on('click', function (e) {
-                    //     e.target.info.open(map, e.target.getPosition())
-                    // });
+                    marker.on('mouseover', function (e) {
+                        e.target.info.open(map, e.target.getPosition())
+                    });
+                    console.log(marker)
                     markers.push(marker);
                 }
                 map.setFitView();

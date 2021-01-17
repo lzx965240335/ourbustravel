@@ -1,5 +1,7 @@
 package com.cykj.bean;
 
+import java.util.List;
+
 public class Route {
     private Integer routeId;
 
@@ -11,13 +13,48 @@ public class Route {
 
     private String updateTime;
 
+    //起点站
     private Integer startSite;
 
+    //终点站
     private Integer endSite;
 
+    //方向
     private Integer rightOrLeft;
 
-    public Route() {
+    private Site startSiteImpl;
+
+    private Site endSiteImpl;
+
+    //所有点
+    private String position;
+
+    //路线集合
+    List<Site> sites;
+
+
+    public Integer getRightOrLeft() {
+        return rightOrLeft;
+    }
+
+    public void setRightOrLeft(Integer rightOrLeft) {
+        this.rightOrLeft = rightOrLeft;
+    }
+
+    public Site getStartSiteImpl() {
+        return startSiteImpl;
+    }
+
+    public void setStartSiteImpl(Site startSiteImpl) {
+        this.startSiteImpl = startSiteImpl;
+    }
+
+    public Site getEndSiteImpl() {
+        return endSiteImpl;
+    }
+
+    public void setEndSiteImpl(Site endSiteImpl) {
+        this.endSiteImpl = endSiteImpl;
     }
 
     public Integer getRouteId() {
@@ -35,6 +72,7 @@ public class Route {
     public void setRouteName(String routeName) {
         this.routeName = routeName;
     }
+
 
     public String getBuildTime() {
         return buildTime;
@@ -76,11 +114,38 @@ public class Route {
         this.endSite = endSite;
     }
 
-    public Integer getRightOrLeft() {
-        return rightOrLeft;
+    public List<Site> getSites() {
+        return sites;
     }
 
-    public void setRightOrLeft(Integer rightOrLeft) {
-        this.rightOrLeft = rightOrLeft;
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "routeId=" + routeId +
+                ", routeName='" + routeName + '\'' +
+                ", buildTime='" + buildTime + '\'' +
+                ", routeInf='" + routeInf + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", startSite=" + startSite +
+                ", endSite=" + endSite +
+                ", rightOrLeft=" + rightOrLeft +
+                ", startSiteImpl=" + startSiteImpl +
+                ", endSiteImpl=" + endSiteImpl +
+                ", position='" + position + '\'' +
+                ", sites=" + sites +
+                '}';
     }
 }

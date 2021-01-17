@@ -1,7 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cykj.mapper.RouteMapper" >
-  <select id="getRoutes" resultType="Route" parameterType="HashMap">
+<mapper namespace="com.cykj.mapper.RouteMapper">
+
+    <resultMap id="RouteMap" type="Route">
+        <id property="routeId" column="routeId"></id>
+        <result property="routeName" column="routeName"></result>
+        <result property="buildTime" column="buildTime"></result>
+        <result property="routeInf" column="routeInf"></result>
+        <result property="startSite" column="startSite"></result>
+        <result property="endSite" column="endSite"></result>
+        <result property="rightOrLeft" column="rightOrLeft"></result>
+        <association property="startSiteImpl" javaType="Site">
+            <id property="ssiteId" column="siteId"></id>
+            <result column="slongitude" property="longitude"></result>
+            <result column="slatitude" property="latitude"></result>
+            <result column="ssiteName" property="siteName"></result>
+            <result column="ssetTime" property="setTime"></result>
+            <result column="speopleNum" property="peopleNum"></result>
+            <result column="sisDot" property="isDot"></result>
+        </association>
+        <association property="endSiteImpl" javaType="Site">
+            <id property="esiteId" column="siteId"></id>
+            <result column="elongitude" property="longitude"></result>
+            <result column="elatitude" property="latitude"></result>
+            <result column="esiteName" property="siteName"></result>
+            <result column="esetTime" property="setTime"></result>
+            <result column="epeopleNum" property="peopleNum"></result>
+            <result column="eisDot" property="isDot"></result>
+        </association>
+    </resultMap>
+
+    <select id="getRoutes" resultType="Route" parameterType="HashMap">
         select * from t_route;
     </select>
+
+    <select id="selectRoutes" resultMap="RouteMap" parameterType="HashMap">
+        select r.*,s.siteId ssiteId ,s.longitude slongitude,
+        s.latitude slatitude,s.siteName ssiteName,s.peopleNum speopleNum,s.setTime ssetTime,s.isDot sisDot,
+        e.siteId esiteId, e.longitude elongitude,
+        e.latitude elatitude,e.siteName esiteName,e.peopleNum epeopleNum,e.setTime esetTime,e.isDot eisDot
+        from t_route r left join t_site s on r.startSite=s.siteId
+        left join t_site e on r.endSite=e.siteId
+        <where>
+            <if test="routeName != null and routeName !=''">
+                and routeName like CONCAT('%',#{routeName},'%')
+            </if>
+            <if test="startName != null and startName !=''">
+                and s.siteName like CONCAT('%',#{startName},'%')
+            </if>
+            <if test="endName != null and endName !=''">
+                and e.siteName like CONCAT('%',#{endName},'%')
+            </if>
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <select id="routeCount" resultType="int" parameterType="HashMap">
+        select count(*) from t_route r left join t_site s on r.startSite=s.siteId
+        left join t_site e on r.endSite=e.siteId
+        <where>
+            <if test="routeName != null and routeName !=''">
+                and routeName like CONCAT('%',#{routeName},'%')
+            </if>
+            <if test="startName != null and startName !=''">
+                and s.siteName like CONCAT('%',#{startName},'%')
+            </if>
+            <if test="endName != null and endName !=''">
+                and e.siteName like CONCAT('%',#{siteName},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addRoute" parameterType="Route">
+        insert into
+        t_route(routeName,buildTime,routeInf,rightOrLeft,startSite,endSite,position)value(#{routeName},sysdate(),#{routeInf},1,#{startSite},#{endSite},#{position});
+        <foreach collection="sites" item="item" separator=";">
+            insert into t_site(longitude,latitude,setTime,isDot) value
+            (#{item.longitude},#{item.latitude},sysdate(),1)
+        </foreach>
+    </insert>
+
+
+    <resultMap id="maxId" type="int">
+        <result property="Auto_increment" column="Auto_increment"></result>
+    </resultMap>
+
+    <select id="getMaxId" resultMap="maxId" parameterType="String">
+            show TABLE status like #{tableName};
+    </select>
+
+
+
 </mapper>
