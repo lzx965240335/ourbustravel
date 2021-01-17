@@ -58,6 +58,7 @@
   </select>
 
   <select id="getSites" resultType="Site" parameterType="HashMap">
-        select * from t_site;
+        select * from t_site where isDot=0;
     </select>
+
 </mapper>

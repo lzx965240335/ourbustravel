@@ -28,4 +28,7 @@ public interface SiteMapper {
 
     //查询所有城市
     List<Site> getSites(Map map);
+
+    //新增点
+    int addDots(List list);
 }

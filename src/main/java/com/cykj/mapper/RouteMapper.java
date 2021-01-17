@@ -9,4 +9,6 @@ import java.util.Map;
 @Repository
 public interface RouteMapper {
    List<Route> getRoutes(Map map);
+
+   int addDots(List list);
 }

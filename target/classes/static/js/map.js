@@ -2,6 +2,12 @@
 var cityList;
 var cityArea = $(".layui-textarea>.layui-breadcrumb");
 var nowCity;
+var nowCityName;
+var from = "";//定义起点
+var to = "";//定义终点
+var myAddress;
+var path = [];//线路规划数组
+var route;//规划线路
 //公交站点列表
 var markers = [];
 $(function () {
@@ -42,54 +48,15 @@ auto = new AMap.AutoComplete({
 //     // 添加 3D 罗盘控制
 //     map.addControl(new AMap.ControlBar());
 // });
-
-
-//创建右键菜单
-var contextMenu = new AMap.ContextMenu();
-//右键添加Marker标记
-contextMenu.addItem("设为起点", function (e) {
-    var marker = new AMap.Marker({
-        icon: new AMap.Icon({
-            image: '/imgs/start_marker.png',
-            size: new AMap.Size(32, 40),
-            imageSize: new AMap.Size(32, 40)
-        }),
-        map: map,
-        position: contextMenuPositon //基点位置
-    });
-
-    getPlace(marker.getPosition())
-}, 1);
-contextMenu.addItem("设为终点", function (e) {
-    var marker = new AMap.Marker({
-        icon: new AMap.Icon({
-            image: '/imgs/end_marker.png',
-            size: new AMap.Size(32, 40),
-            imageSize: new AMap.Size(32, 40)
-        }),
-        map: map,
-        position: contextMenuPositon //基点位置
-    });
-    getPlace(marker.getPosition())
-}, 2);
-contextMenu.addItem("清除路线", function (e) {
-
-    var marker = new AMap.Marker({
-        map: map,
-        position: contextMenuPositon //基点位置
-    });
-}, 3);
-//地图绑定鼠标右击事件——弹出右键菜单
-map.on('rightclick', function (e) {
-    contextMenu.open(map, e.lnglat);
-    contextMenuPositon = e.lnglat;
-});
-
-//为地图注册click事件获取鼠标点击出的经纬度坐标
-map.on('click', function (e) {
-    //左键获取经纬度
-    document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
-});
+var drivingOption = {
+    policy: AMap.DrivingPolicy.LEAST_DISTANCE, // 其它policy参数请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingPolicy
+    ferry: 1, // 是否可以使用轮渡
+    map: map,
+    hideMarkers: true,
+    autoFitView: true,
+};
+// 构造路线导航类
+var driving = new AMap.Driving(drivingOption)
 
 //根据ip精确定位
 var options = {
@@ -118,11 +85,20 @@ AMap.plugin(["AMap.Geolocation"], function () {
     map.addControl(geolocation);
     geolocation.getCurrentPosition(function (status, result) {
         //精确定位返回结果
+        getPlace(result.position, 1);
+        var timeoutBox = setInterval(function () {
+            if (myAddress != undefined) {
+                clearInterval(timeoutBox);
+            }
+        }, 100);
+
     });
     geolocation.getCityInfo(function (status, result) {
+
         if (status === 'complete') {
             $(".city-title>b").text(result.city);
             nowCity = result.citycode;
+            nowCityName = result.city;
             //加载天气查询插件
             AMap.plugin('AMap.Weather', function () {
                 //创建天气查询实例
@@ -132,7 +108,7 @@ AMap.plugin(["AMap.Geolocation"], function () {
                     $(".weather-info").html(data.forecasts[0].dayWeather + '<br> ' + data.forecasts[0].nightTemp + '/' + data.forecasts[0].dayTemp + '℃')
                 });
             });
-            var place = getPlace(result.position)
+
         } else {
             $(".city-title>b").text("定位失败!");
             $(".weather-info").html("")
@@ -141,27 +117,41 @@ AMap.plugin(["AMap.Geolocation"], function () {
 
 });
 
+var geocoder = new AMap.Geocoder({
+    city: nowCity, //城市设为北京，默认：“全国”
+    radius: 1000 //范围，默认：500
+});
 
 //初始化加载所有站点
 AllStation();
+document.getElementById('search').onclick = stationSearch;
 
-//根据搜索信息定位到站点
+//根据搜索信息定位到站点、地理位置
 function stationSearch() {
-
     var stationKeyWord = document.getElementById('tipinput').value;
     if (!stationKeyWord) return;
-    var options = {
-
-        'panToLocation ': true,
-        'zoomToAccuracy ':true
-    }
-    for (i=0,len=markers.length;i<len;i++){
-        if (markers[i].test(stationKeyWord)){
-            AMap.plugin(["AMap.Geolocation"], function () {
-                var geolocation = new AMap.Geolocation(options);
-                map.addControl(geolocation);
-            });
+    var flag = false;
+    for (i = 0, len = markers.length; i < len; i++) {
+        if (markers[i]._originOpts.title.includes(stationKeyWord)) {
+            flag = true;
+            var dot = markers[i];
+            map.setCenter([dot._position.lng, dot._position.lat], true, 100)
         }
+    }
+    if (flag == false) {
+        AMap.plugin(["AMap.PlaceSearch"], function () {
+            //构造地点查询类
+            var placeSearch = new AMap.PlaceSearch({
+                pageSize: 1, // 单页显示结果条数
+                pageIndex: 1, // 页码
+                city: nowCity, // 兴趣点城市
+                citylimit: true,  //是否强制限制在设置的城市内搜索
+                map: map, // 展现结果的地图实例
+                autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+            });
+            //关键字查询
+            placeSearch.search(stationKeyWord);
+        });
     }
 }
 
@@ -181,31 +171,32 @@ function AllStation() {
                     var marker = new AMap.Marker({
                         icon: new AMap.Icon({
                             image: '//a.amap.com/jsapi_demos/static/resource/img/pin.png',
-                            size: new AMap.Size(32, 32),
-                            imageSize: new AMap.Size(32, 32)
+                            imageSize: new AMap.Size(24, 24)
                         }),
-                        offset: new AMap.Pixel(-16, -32),
-                        position: data[i].location,
+                        offset: new AMap.Pixel(-12, -12),
+                        position: [data[i].longitude,data[i].latitude],
                         map: map,
-                        title: data[i].name
+                        title: data[i].siteName,
+                        siteId:data[i].siteId
                     });
+
                     marker.info = new AMap.InfoWindow({
-                        content: data[i].name,
-                        offset: new AMap.Pixel(0, -30)
+                        content: data[i].siteName,
+                        offset: new AMap.Pixel(0, -12)
                     });
-                    // marker.on('click', function (e) {
-                    //     e.target.info.open(map, e.target.getPosition())
-                    // });
+                    marker.on('click', function (e) {
+                        e.target.info.open(map, e.target.getPosition())
+                    });
+                    console.log(marker)
                     markers.push(marker);
                 }
+
                 map.setFitView();
             }
         },
     })
 
 }
-
-document.getElementById('search').onclick = stationSearch;
 
 
 //城市点击
@@ -255,7 +246,6 @@ function chooseCity(cityName) {
 
             if (cityList[key].cityName == cityName.innerText) {
 
-                console.log(cityList[key].adcode)
                 placeSearch.setCity(cityList[key].adcode);
                 placeSearch.search(cityName.innerText)
             }
@@ -277,47 +267,267 @@ function chooseCity(cityName) {
     layer.closeAll();
 }
 
-function openSeach() {
-    $(".dirbox").slideToggle("normal");
-    //加载历史记录
-}
 
-function closeBox() {
-    $(".dirbox").slideToggle("normal");
-    //清除搜索框的值
-    //消除地图路线
+//打开线路栏
+function openSeach() {
+    if ($(".dirbox").css('display') === 'none') {
+        $(".dirbox").slideToggle("normal");
+    }
     //加载历史记录
+
+    //设置起点
+    if (from != null) {
+        $("#dir_from_ipt").val(from);
+    }
+    if (to != null) {
+        $("#dir_to_ipt").val(to);
+    }
 }
 
 
 //根据经纬度找位置方法
-function getPlace(lnglat) {
-    var geocoder = new AMap.Geocoder({
-        city: nowCity, //城市设为北京，默认：“全国”
-        radius: 1000 //范围，默认：500
-    });
+function getPlace(lnglat, index) {
     geocoder.getAddress(lnglat, function (status, result) {
         if (status === 'complete' && result.regeocode) {
-            var address = result.regeocode.formattedAddress;
+            if (index == 1) {
+                if (myAddress == undefined) {
+                    myAddress = result.regeocode.formattedAddress;
+                }
+            } else if (index == 2) {
+                from = result.regeocode.formattedAddress;
+            } else if (index == 3) {
+                to = result.regeocode.formattedAddress;
+            }
         } else {
             log.error('根据经纬度查询地址失败')
         }
-    });
-    return address;
+    })
 }
 
 //根据位置找经纬度方法
 function getLnglat(place) {
-    var geocoder = new AMap.Geocoder({
-        city: nowCity, //城市设为北京，默认：“全国”
-        radius: 1000 //范围，默认：500
-    });
+    var lnglat;
+
     geocoder.getLocation(place, function (status, result) {
         if (status === 'complete' && result.geocodes.length) {
-            var lnglat = result.geocodes[0].location
+            lnglat = result.geocodes[0].location
         } else {
             log.error('根据地址查询位置失败');
         }
     });
-    return lnglat;
+}
+
+var markerStart;
+var markerEnd;
+
+//自定义菜单类
+function ContextMenu(map) {
+    var me = this;
+
+    this.contextMenuPositon = null;
+
+    var content = [];
+
+    content.push("<div class='info context_menu'>");
+    content.push("<p onclick='menu.addStart()'><img src='/imgs/start_marker.png' style='height: 35px;margin-right: 10px'>设为起点</p>");
+    content.push("<p onclick='menu.addEnd()'><img src='/imgs/end_marker.png' style='height: 35px;margin-right: 10px'>设为终点</p>");
+    content.push("<p onclick='menu.clearRoute()'><img src='/imgs/clearRoute.png' style='height: 35px;margin-right: 10px'>清除路线</p>");
+    content.push("</div>");
+
+    //通过content自定义右键菜单内容
+    this.contextMenu = new AMap.ContextMenu({isCustom: true, content: content.join('')});
+
+    //地图绑定鼠标右击事件——弹出右键菜单
+    map.on('rightclick', function (e) {
+        me.contextMenu.open(map, e.lnglat);
+        me.contextMenuPositon = e.lnglat; //右键菜单位置
+    });
+}
+
+ContextMenu.prototype.addStart = function () {  //右键菜单添加起点标记
+    if (markerStart != undefined) {
+        map.remove(markerStart);
+    }
+    markerStart = new AMap.Marker({
+        icon: new AMap.Icon({
+            image: '/imgs/start_marker.png',
+            size: new AMap.Size(32, 40),
+            imageSize: new AMap.Size(32, 40)
+        }),
+        map: map,
+        position: this.contextMenuPositon //基点位置
+    });
+    //绘制路线起点
+    drawLine(markerStart);
+    getPlace([markerStart._position.lng, markerStart._position.lat], 2);
+    setTimeout(function () {
+        openSeach();
+    }, 500);
+    this.contextMenu.close();
+};
+ContextMenu.prototype.addEnd = function () {  //右键菜单添加终点标记
+    if (markerEnd != undefined) {
+        map.remove(markerEnd);
+    }
+    markerEnd = new AMap.Marker({
+        icon: new AMap.Icon({
+            image: '/imgs/end_marker.png',
+            size: new AMap.Size(32, 40),
+            imageSize: new AMap.Size(32, 40)
+        }),
+        map: map,
+        position: this.contextMenuPositon //基点位置
+    });
+    //绘制路线终点
+    drawLine(markerEnd);
+    getPlace([markerEnd._position.lng, markerEnd._position.lat], 3);
+    setTimeout(function () {
+        openSeach();
+    }, 500);
+    this.contextMenu.close();
+};
+ContextMenu.prototype.clearRoute = function () {  //清除记录
+    //清除标记
+    if (markerStart != undefined) {
+        map.remove(markerStart);
+    }
+    if (markerEnd != undefined) {
+        map.remove(markerEnd);
+    }
+    //清除路线
+    driving.clear();
+    //清除搜索框
+    $("#dir_from_ipt").val("");
+    $("#dir_to_ipt").val("");
+    from = null;
+    to = null;
+    //清除乘车方案
+
+    //添加历史记录
+
+    this.contextMenu.close();
+};
+
+//创建右键菜单
+var menu = new ContextMenu(map);
+
+
+//为地图注册click事件获取鼠标点击出的经纬度坐标
+map.on('click', function (e) {
+    //左键获取经纬度
+    document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+});
+
+//反转线路
+function reversal() {
+    $("#dir_from_ipt").val(to);
+    $("#dir_to_ipt").val(from);
+    from=$("#dir_from_ipt").val();
+    to= $("#dir_to_ipt").val();
+    if (markerStart != undefined) {
+        var markerStart1 = markerEnd;
+        var markerStart2=markerStart;
+        map.remove(markerStart);
+    }
+    markerStart = new AMap.Marker({
+        icon: new AMap.Icon({
+            image: '/imgs/start_marker.png',
+            size: new AMap.Size(32, 40),
+            imageSize: new AMap.Size(32, 40)
+        }),
+        map: map,
+        position: markerStart1._position //基点位置
+    });
+    //绘制路线起点
+    drawLine(markerStart);
+    setTimeout(function () {
+        if (markerEnd != undefined) {
+            var markerEnd1 = markerStart2;
+            map.remove(markerEnd);
+        }
+        markerEnd = new AMap.Marker({
+            icon: new AMap.Icon({
+                image: '/imgs/end_marker.png',
+                size: new AMap.Size(32, 40),
+                imageSize: new AMap.Size(32, 40)
+            }),
+            map: map,
+            position: markerEnd1._position //基点位置
+        });
+        //绘制路线终点
+        drawLine(markerEnd);
+    },500)
+}
+
+
+//绘制初始路径
+var arr = new Array();
+
+function drawLine(Marker) {
+    switch (Marker._opts.icon._opts.image) {
+        case "/imgs/start_marker.png":
+            switch (path.length) {
+                case 0:
+                    path.splice(0, 0, [Marker._position.lng, Marker._position.lat]);
+                    break;
+                default:
+                    path.splice(0, 1, [Marker._position.lng, Marker._position.lat]);
+                    break;
+            }
+            break;
+        case "/imgs/end_marker.png":
+            switch (path.length) {
+                case 0:
+                    path.splice(1, 0, [Marker._position.lng, Marker._position.lat]);
+                    break;
+                default:
+                    path.splice(1, 1, [Marker._position.lng, Marker._position.lat]);
+                    break;
+            }
+            path.splice(1, 1, [Marker._position.lng, Marker._position.lat]);
+            break;
+    }
+    if (path.length == 2) {
+        driving.clear();
+        // 根据起终点经纬度规划驾车导航路线
+        driving.search(path[0], path[1], function (status, result) {
+            // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+            if (status === 'complete') {
+                log.success('绘制驾车路线完成')
+                console.log(result.routes)
+            } else {
+                log.error('获取驾车数据失败：' + result)
+            }
+        });
+    }
+}
+
+//关闭线路栏
+function closeBox() {
+    if ($(".dirbox").css('display') === 'block') {
+        $(".dirbox").slideToggle("normal");
+    }
+    menu.clearRoute();
+}
+
+function closeBox1() {
+    menu.clearRoute();
+}
+
+//点叉清除输入内容
+function clearInput(node) {
+    node.parentNode.childNodes[2].value = "";
+}
+
+
+function f() {
+    $.ajax({
+        url: "/site/getSite",
+        type: "post",
+        data: null,
+        dataType: "json",
+        success: function (data) {
+
+        },
+    })
 }

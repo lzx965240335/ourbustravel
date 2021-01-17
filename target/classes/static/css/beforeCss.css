@@ -740,3 +740,20 @@ a {
     border-bottom-right-radius: 4px;
     overflow: hidden;
 }
+
+/*工具框*/
+.context_menu{
+    position: relative;
+    min-width: 12rem;
+    padding: 0;
+    left: unset;
+}
+
+.context_menu p{
+    cursor: pointer;
+    padding: 0.25rem 1.25rem;
+}
+
+.context_menu p:hover{
+    background: #ccc;
+}

@@ -16,7 +16,7 @@
     <script src="/js/layui/layui.js" charset="utf-8"></script>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool,AMap.Geocoder"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool,AMap.Geocoder,AMap.Driving"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 
     <!--引入UI组件库（1.1版本） -->
@@ -107,24 +107,24 @@
                               style="color:white;font-size: 14px">欢迎使用传一公交！</span></li>
                 </ul>
                 <i class="dir_close iconfont icon-close" style="color: white;font-size: 15px;"
-                   onclick="closeBox()">X</i>
+                   onclick="closeBox()">✖</i>
                 <div class="line-search">
                     <div class="line-search-left icon_exchange" id="dir_exchange"><i
-                            class="iconfont icon-switchroute"><img src="/imgs/arrow-down-up.png"></i></div>
+                            class="iconfont icon-switchroute" onclick="reversal()"><img src="/imgs/arrow-down-up.png"></i></div>
                     <div class="line-search-form"><p
                             class="line_serch_ipt line-search-from"><label>起 </label> <input type="text" class="dir_ipt"
                                                                                              id="dir_from_ipt"
                                                                                              placeholder="请输入起点">
-                        <span class="del-item" style="display: none;">X</span></p>
+                        <a  href="javascript:void(0)" class="del-item" onclick="clearInput(this)"><img src="/imgs/icon_deleipt.png" style="height: 20px;width: 20px"></a></p>
                         <!--                       -->
                         <div class="passList" style="display: none;"></div>
                         <!--                      -->
                         <p class="line_serch_ipt line-search-to"><label>终 </label> <input type="text" class="dir_ipt"
                                                                                           id="dir_to_ipt"
                                                                                           placeholder="请输入终点">
-                            <span class="del-item" style="display: none;">x</span></p>
+                            <a  href="javascript:void(0)" class="del-item" onclick="clearInput(this)"><img src="/imgs/icon_deleipt.png" style="height: 20px;width: 20px"></a></p>
                         <p class="line-search-submit"><a href="javascript:void(0)"
-                                                         class="line-search-clear" style="color: white">清除路线</a>
+                                                         class="line-search-clear" style="color: white" onclick="closeBox1()">清除路线</a>
                             <a href="javascript:void(0)" class="dir_submit">坐公交</a>
                         </p></div>
                 </div>
