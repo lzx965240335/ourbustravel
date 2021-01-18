@@ -10,14 +10,13 @@ import java.util.Map;
 @Repository
 public interface SiteMapper {
 
-
-    //新增城市
+    //新增站点
     int addSite(Site site);
 
-    //修改城市信息
+    //更新站点信息
     int updateSite(Site site);
 
-    //删除城市信息
+    //删除站点
     int deleteSite(int siteId);
 
     //查询数据库所有的数据,分页
@@ -26,9 +25,8 @@ public interface SiteMapper {
     //总数
     int siteCount(Map map);
 
-    //查询所有城市
+    //查询所有站点
     List<Site> getSites(Map map);
 
-    //新增点
-    int addDots(List list);
+
 }

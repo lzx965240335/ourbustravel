@@ -13,4 +13,7 @@ public interface RouteService {
 
     //增加线路
     boolean addRoute(Route route);
+
+    //查询乘车方案
+    Map<Integer, List<Route>> getRoutes(String startId,String endId);
 }

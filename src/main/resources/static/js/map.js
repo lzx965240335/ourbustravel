@@ -8,6 +8,9 @@ var to = "";//定义终点
 var myAddress;
 var path = [];//线路规划数组
 var route;//规划线路
+//距离最近的公交站点数组
+var arr1 = new Array();//起点用
+var arr2 = new Array();//终点用
 //公交站点列表
 var markers = [];
 $(function () {
@@ -48,15 +51,7 @@ auto = new AMap.AutoComplete({
 //     // 添加 3D 罗盘控制
 //     map.addControl(new AMap.ControlBar());
 // });
-var drivingOption = {
-    policy: AMap.DrivingPolicy.LEAST_DISTANCE, // 其它policy参数请参考 https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingPolicy
-    ferry: 1, // 是否可以使用轮渡
-    map: map,
-    hideMarkers: true,
-    autoFitView: true,
-};
-// 构造路线导航类
-var driving = new AMap.Driving(drivingOption)
+
 
 //根据ip精确定位
 var options = {
@@ -179,7 +174,6 @@ function AllStation() {
                         title: data[i].siteName,
                         siteId:data[i].siteId
                     });
-
                     marker.info = new AMap.InfoWindow({
                         content: data[i].siteName,
                         offset: new AMap.Pixel(0, -24)
@@ -395,7 +389,7 @@ ContextMenu.prototype.clearRoute = function () {  //清除记录
         map.remove(markerEnd);
     }
     //清除路线
-    driving.clear();
+
     //清除搜索框
     $("#dir_from_ipt").val("");
     $("#dir_to_ipt").val("");
@@ -461,7 +455,6 @@ function reversal() {
 
 
 //绘制初始路径
-var arr = new Array();
 
 function drawLine(Marker) {
     switch (Marker._opts.icon._opts.image) {
@@ -488,17 +481,63 @@ function drawLine(Marker) {
             break;
     }
     if (path.length == 2) {
-        driving.clear();
-        // 根据起终点经纬度规划驾车导航路线
-        driving.search(path[0], path[1], function (status, result) {
-            // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
-            if (status === 'complete') {
-                log.success('绘制驾车路线完成')
-                console.log(result.routes)
-            } else {
-                log.error('获取驾车数据失败：' + result)
-            }
-        });
+        //一、清除原始路线
+
+        //二、绘制最新路线、先步行，后公交，再步行
+        for (i = 0, len = markers.length; i < len; i++) {
+          let m= computeDis(markerStart,markers[i]);
+          let n=computeDis(markerEnd,markers[i]);
+            arr1.push(Number(m));
+            arr2.push(Number(n));
+        }
+        console.log(arr1);
+        console.log(arr2);
+        let min1 = Math.min.apply(null, arr1);
+        let min2 = Math.min.apply(null, arr2);
+        console.log(min1);
+        console.log(min2);
+        let oneSite=arr1.indexOf(min1);
+        let twoSite=arr2.indexOf(min2);
+        console.log(oneSite);
+        console.log(twoSite);
+        if (markers[oneSite]._originOpts.siteId!=markers[twoSite]._originOpts.siteId){
+            //同步请求数据
+            $.ajax({
+                async: false,
+                url: "/routeController/getRoutes",
+                type: "post",
+                data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
+                dataType: "json",
+                success: function (date) {
+                    walkLine(markerStart,markers[oneSite]);
+                    walkLine(markerStart,markers[twoSite]);
+                    var polyline = new AMap.Polyline({
+                        routeId:1,
+                        path: date,
+                        // isOutline: true,//显示描边
+                        // outlineColor: '#ffeeff',
+                        // borderWeight: 3,
+                        showDir:true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
+                        strokeColor: "#3366FF",//线条颜色
+                        strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
+                        strokeWeight: 6,//轮廓线宽度
+                        // 折线样式还支持 'dashed'
+                        strokeStyle: "solid",
+                        // strokeStyle是dashed时有效
+                        // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
+                        lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
+                        lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
+                        zIndex: 50,
+                    });
+                    map.add(polyline);
+                    map.setFitView();
+                },
+            });
+        }else {
+
+        }
+
+
     }
 }
 
@@ -520,14 +559,30 @@ function clearInput(node) {
 }
 
 
-function f() {
-    $.ajax({
-        url: "/site/getSite",
-        type: "post",
-        data: null,
-        dataType: "json",
-        success: function (data) {
 
-        },
-    })
+//根据起终点坐标规划步行路线
+function walkLine(marker1,marker2){
+    //步行导航
+    var walking = new AMap.Walking({
+        map: map,
+        hideMarkers: true,
+        autoFitView: true,
+    });
+    walking.search(marker1.getPosition(), marker2.getPosition(), function(status, result) {
+        // result即是对应的步行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_WalkingResult
+        if (status === 'complete') {
+            log.success('绘制步行路线完成')
+        } else {
+            log.error('步行路线数据查询失败' + result)
+        }
+    });
 }
+
+
+
+//根据两点计算之间的距离，用于判断位置与公交站之间哪个近
+function computeDis(marker1,marker2){
+    return  Math.round(marker1.getPosition().distance(marker2.getPosition()));
+}
+
+

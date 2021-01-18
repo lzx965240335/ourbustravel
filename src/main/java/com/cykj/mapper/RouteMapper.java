@@ -9,10 +9,12 @@ import java.util.Map;
 
 @Repository
 public interface RouteMapper {
-   List<Route> getRoutes(Map map);
+   List<Route> getRoutes();
 
    //条件查询线路
    List<Route> selectRoutes(Map map);
+
+   //查询某条线路
 
    //条件查询线路总数
    int routeCount(Map map);

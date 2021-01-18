@@ -11,7 +11,7 @@ public class NewsInf {
 
     private String newTitle;
 
-    private String newsUrl;
+    private String newsMsg;
 
     private int newsState;
 
@@ -44,8 +44,12 @@ public class NewsInf {
         this.newTitle = newTitle;
     }
 
-    public String getNewsUrl() {
-        return newsUrl;
+    public String getNewsMsg() {
+        return newsMsg;
+    }
+
+    public void setNewsMsg(String newsMsg) {
+        this.newsMsg = newsMsg;
     }
 
     public int getNewsState() {
@@ -53,13 +57,9 @@ public class NewsInf {
     }
 
     public void setNewsState(int newsState) {
-        System.out.println("创建："+newTitle);
         this.newsState = newsState;
     }
 
-    public void setNewsUrl(String newsUrl) {
-        this.newsUrl = newsUrl;
-    }
 
     public Dic getDic() {
         return dic;
@@ -69,16 +69,4 @@ public class NewsInf {
         this.dic = dic;
     }
 
-
-    @Override
-    public String toString() {
-        return "NewsInf{" +
-                "newsId=" + newsId +
-                ", newsTime='" + newsTime + '\'' +
-                ", newTitle='" + newTitle + '\'' +
-                ", newsUrl='" + newsUrl + '\'' +
-                ", newsState=" + newsState +
-                ", dic=" + dic +
-                '}';
-    }
 }

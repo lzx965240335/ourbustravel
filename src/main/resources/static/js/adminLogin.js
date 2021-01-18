@@ -32,16 +32,13 @@ function loginBut(){
                     ,yes:function(){
                         layer.close(index);
                         if (data=='登录成功'){
-                            location.href="/hello/initMenu";
+                            location.href="/MenuController/initMenu";
                         }
                     }
                 });
             });
-
         }
     });
-
-
 }
 
 

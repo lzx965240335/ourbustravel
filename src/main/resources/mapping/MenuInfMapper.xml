@@ -7,17 +7,27 @@
     <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
   </resultMap>
-<!--查询角色拥有的菜单-->
+<!--查询角色拥有的子菜单-->
   <select id="findMenuByRole" resultType="MenuInf" parameterType="int">
-        select m.* from t_power p , t_menu m where p.menuId = m.menuId and m.pid= #{menuId} and p.state=1 and p.roleId=2;
+        select m.* from t_power p , t_menu m where p.menuId = m.menuId and m.pid= #{menuId}  and p.state=1  and p.roleId=#{roleId};
   </select>
 <!--查询父菜单-->
     <select id="findByPid" resultType="MenuInf">
         select m2.* from t_power p , t_menu m,t_menu m2 where p.menuId = m.menuId  and m.pid=m2.menuId group by m.pid;
     </select>
 
-  <select id="powerByRole" parameterType="int" resultType="Power">
-        select * from t_Power where roleId=#{roleId}
-    </select>
+<!--权限分配修改状态-->
+    <update id="updateRole" parameterType="map">
+        update t_power set state= 0 where roleId=#{roleId};
+        update t_power set state= 1 where roleId=#{roleId} and menuId in
+        <foreach collection="lists" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        </update>
+
+    <select id="findMenus" resultType="MenuInf" parameterType="int">
+        select * from t_menu where  pid= #{menuId};
+  </select>
 
 </mapper>

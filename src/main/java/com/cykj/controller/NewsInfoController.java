@@ -1,8 +1,7 @@
 package com.cykj.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+import com.alibaba.fastjson.JSON;
 import com.cykj.bean.NewsInf;
-import com.cykj.bean.Site;
 import com.cykj.service.NewsService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/news")
@@ -21,13 +21,18 @@ public class NewsInfoController {
     @Autowired
     private NewsService newsService;
 
-    //获取所有新闻公告
+
+    /**
+     * 获取所有新闻公告
+     *
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/getNewsInf")
     @ResponseBody
     public LayuiJson getNewsInf(HttpServletRequest req) {
         int page = Integer.parseInt(req.getParameter("page"));
         int limit = Integer.parseInt(req.getParameter("limit"));
-
         String newTile = req.getParameter("newTile");
         String startTime = req.getParameter("startTime");
         String endTime = req.getParameter("endTime");
@@ -49,9 +54,17 @@ public class NewsInfoController {
             map.put("newsState", newsState);
         }
         LayuiJson LayuiJson = newsService.selectNewsInfs(map);
+        System.out.println(JSON.toJSONString(LayuiJson));
         return LayuiJson;
     }
 
+    /**
+     * 新增新闻
+     *
+     * @param req
+     * @param newsInf
+     * @return
+     */
     @RequestMapping(value = "/addNewsInf")
     @ResponseBody
     public String addNewsInf(HttpServletRequest req, @RequestBody NewsInf newsInf) {
@@ -59,6 +72,12 @@ public class NewsInfoController {
         return addResult > 0 ? "新增成功" : "新增失败";
     }
 
+    /**
+     * 删除新闻
+     *
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/deleteNews")
     @ResponseBody
     public String deleteNews(HttpServletRequest req) {
@@ -82,11 +101,26 @@ public class NewsInfoController {
         return updateResult > 0 ? "修改成功" : "修改失败";
     }
 
+    /**
+     * 新闻启用禁用状态
+     *
+     * @param req
+     * @param newsInf
+     * @return
+     */
     @RequestMapping("/updateState")
     @ResponseBody
     public String updateState(HttpServletRequest req, @RequestBody NewsInf newsInf) {
         int updateStateResult = newsService.updateState(newsInf);
         return updateStateResult > 0 ? "success" : "fail";
+    }
+
+
+    @RequestMapping("/newsInfMsg")
+    @ResponseBody
+    public List<NewsInf> newsInfMsg() {
+        List<NewsInf> newsInfs = newsService.newsInfMsg();
+        return newsInfs;
     }
 
 }

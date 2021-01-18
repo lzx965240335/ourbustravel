@@ -3,8 +3,8 @@
 <mapper namespace="com.cykj.mapper.NewsInfMapper">
     <!--新增新闻-->
     <insert id="addNewsInf" parameterType="com.cykj.bean.NewsInf">
-        insert into t_news (newsId,newTitle,newsTime,newsUrl,newsState)value(#{newsId},
-        #{newTitle},sysdate(),#{newsUrl},5)
+        insert into t_news (newsId,newTitle,newsTime,newsMsg,newsState)value(#{newsId},
+        #{newTitle},sysdate(),#{newsMsg},5)
     </insert>
 
     <!--删除新闻-->
@@ -38,27 +38,14 @@
         <id property="newsId" column="newsId"></id>
         <result property="newTitle" column="newTitle"></result>
         <result property="newsTime" column="newsTime"></result>
+        <result property="newsMsg" column="newsMsg"></result>
         <result property="newsState" column="newsState"></result>
         <association property="dic" javaType="Dic">
             <result column="dicValue" property="dicValue"></result>
         </association>
     </resultMap>
 
-    <!--    <select id="selectAdmin" parameterType="HashMap" resultType="Admin">-->
-    <!--        select * from t_news-->
-    <!--        <where>-->
-<!--                <if test="startTime!=null and startTime!=''">-->
-<!--                    and date_format(newsTime, '%Y-%m-%d %H:%i:%s')>#{startTime}-->
-<!--                </if>-->
-<!--                <if test="endTime!=null and endTime!=''">-->
-<!--                    and date_format(newsTime, '%Y-%m-%d %H:%i:%s')&lt;=#{endTime}-->
-<!--                </if>-->
-<!--                <if test="newTitle!=null and newTitle!=''">-->
-<!--                    and newTitle like CONCAT('%',#{newTitle},'%')-->
-<!--                </if>-->
-    <!--        </where>-->
-    <!--        limit #{start},#{end}-->
-    <!--    </select>-->
+<!--    获取总数-->
     <select id="newsInfsCount" resultType="int" parameterType="HashMap">
         select count(*) from t_news where 1=1
         <if test="newTitle != null and newTitle !=''">
@@ -70,6 +57,9 @@
         <if test="endTime!=null and endTime!=''">
             and date_format(newsTime, '%Y-%m-%d %H:%i:%s')&lt;=#{endTime}
         </if>
+        <if test="newsState!=null and newsState!=''">
+            and newsState =#{newsState}
+        </if>
     </select>
 
     <!--修改状态-->
@@ -78,4 +68,8 @@
         where newsId = #{newsId}
     </update>
 
+    <!--获取新闻Msg-->
+    <select id="newsInfMsg" resultType="com.cykj.bean.NewsInf">
+        select * from t_news where newsState = 5
+    </select>
 </mapper>

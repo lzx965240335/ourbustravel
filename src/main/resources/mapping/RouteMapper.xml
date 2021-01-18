@@ -30,7 +30,7 @@
         </association>
     </resultMap>
 
-    <select id="getRoutes" resultType="Route" parameterType="HashMap">
+    <select id="getRoutes" resultType="Route" >
         select * from t_route;
     </select>
 

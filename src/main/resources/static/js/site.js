@@ -71,11 +71,11 @@ layui.use('table', function () {
         elem: '#test'
         , url: '/site/getSites'
         , title: '站点数据表'
-        , toolbar: '#toolbarDemo'
+        // , toolbar: '#toolbarDemo'
         , totalRow: true
         , cols: [
             [
-                {type: 'numbers'},
+                {type: 'numbers',title:'序号'},
                 {checkbox: true}
                 //field后面的值必须跟实体类的属性一致
                 // , {field: 'siteId', title: 'ID', sort: true}
@@ -243,15 +243,12 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         var addLongitude = $("#addLongitude").val();
         var addLatitude = $("#addLatitude").val();
         var addPeopleNum = $("#addPeopleNum").val();
-        if (!shuzi.test(addPeopleNum)) {
-            alert(1);
-            return;
-        }
 
         if (addSiteName == null || addSiteName == '' || addLongitude == null || addLongitude == ''
             || addLatitude == null || addLatitude == '' || addPeopleNum == null || addPeopleNum == '') {
             return;
         }
+
         //获取表单数据
         var jsonStr = JSON.stringify({
             "siteName": $("#addSiteName").val(),
@@ -294,9 +291,5 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         form.render();
     })
 
-    // 取消事件
-    $("#cancel").click(function () {
-        layer.closeAll();
-    })
 
 })

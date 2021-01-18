@@ -43,6 +43,7 @@
       <if test="peopleNum != null and peopleNum !=''">
         and peopleNum = #{peopleNum}
       </if>
+      and isDot=0
     </where>
     limit #{start},#{end}
   </select>
@@ -55,10 +56,15 @@
     <if test="peopleNum != null and peopleNum !=''">
       and peopleNum = #{peopleNum}
     </if>
+    and isDot=0
   </select>
 
   <select id="getSites" resultType="Site" parameterType="HashMap">
         select * from t_site where isDot=0;
+    </select>
+
+  <select id="getDots" resultType="Site" >
+        select * from t_site;
     </select>
 
 </mapper>

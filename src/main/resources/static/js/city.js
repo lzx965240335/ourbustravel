@@ -6,33 +6,32 @@ var yingwen = /^[A-Z]{1}$/
 var sixNum = /^\d{6}$/
 // 四位数字(开头可以为0)
 var fourNum = /^[1-9]d*|0$/
+
 layui.use('table', function () {
     var table = layui.table;
+    //执行渲染
     table.render({
-        elem: '#test'
+        elem: '#test' //指定原始表格元素选择器（推荐id选择器）
         , url: '/city/getCities'
         , title: '城市数据表'
-        , toolbar: '#toolbarDemo'
         , totalRow: true
-        , cols: [
+        , id: 'testReload'
+        , page: true//开启分页
+        , limit: 5
+        , limits: [5, 10]
+        , cols: [//表头
             [
-                {type: 'numbers'},
-                {checkbox: true}
-                //field后面的值必须跟实体类的属性一致
-                // , {field: 'cityId', title: 'ID', sort: true}
+                {type: 'numbers', title: '序号'}
+                , {checkbox: true}
                 , {field: 'cityName', title: '城市名称'}
                 , {field: 'adcode', title: '身份证归属地'}
                 , {field: 'citycode', title: '城市区号'}
                 , {field: 'initials', title: '城市首字母', sort: true}
                 , {field: 'updateTime', title: '更新时间', sort: true}
-                // 设置表头工具栏
                 , {field: 'operation', title: '操作', toolbar: '#barDemo'}
             ]
         ]
-        , id: 'testReload'
-        , page: true
-        , limit: 5
-        , limits: [5, 10]
+
     });
 
     var $ = layui.$, active = {
@@ -58,27 +57,7 @@ layui.use('table', function () {
         active[type] ? active[type].call(this) : '';
     });
 
-
-    // 工具栏事件
-    table.on('toolbar(test)', function (obj) {
-        var checkStatus = table.checkStatus(obj.config.id);
-        switch (obj.event) {
-            case 'getCheckData':
-                var data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-                break;
-            case 'getCheckLength':
-                var data = checkStatus.data;
-                layer.msg('选中了：' + data.length + ' 个');
-                break;
-            case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                break;
-        }
-        ;
-    });
-
-    //监听行工具事件
+    // 监听行工具事件
     table.on('tool(test)', function (obj) {
         //得到当前行的相关信息
         var data = obj.data;
@@ -121,9 +100,6 @@ layui.use('table', function () {
                 //内容，这里content是一个DOM
                 content: $("#updateCityView"),
 
-                success: function () {
-                    $("#register");
-                }
             })
         }
         $("#sureUpdate").click(function () {
@@ -132,6 +108,12 @@ layui.use('table', function () {
             var updateAdCode = $("#updateAdCode").val();
             var updateCityCode = $("#updateCityCode").val();
             var updateInitials = $("#updateInitials").val();
+
+            // 判断是否为空或者是否是空字符串
+            if (updateCityName == null || updateCityName == '' || updateAdCode == null || updateAdCode == ''
+                || updateCityCode == null || updateCityCode == '' || updateInitials == null || updateInitials == '') {
+                return;
+            }
 
             if (!zhongwen.test(updateCityName)) {
                 layer.alert("城市名称只能输入中文", {title: "提示", skin: 'layui-layer-molv'});
@@ -150,11 +132,7 @@ layui.use('table', function () {
                 return;
             }
 
-            // 判断是否为空或者是否是空字符串
-            if (updateCityName == null || updateCityName == '' || updateAdCode == null || updateAdCode == ''
-                || updateCityCode == null || updateCityCode == '' || updateInitials == null || updateInitials == '') {
-                return;
-            }
+
 
             //获取表单数据
             var jsonStr = JSON.stringify(
@@ -199,9 +177,6 @@ layui.use('laydate', function () {
     });
 });
 
-layui.use('element', function () {
-    var element = layui.element;
-});
 
 
 layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
@@ -214,6 +189,12 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         var adCode = $("#adCode").val();
         var addCityCode = $("#addCityCode").val();
         var initials = $("#initials").val();
+
+        // 判断非空
+        if (addCityName == null || addCityName == '' || adCode == null || adCode == ''
+            || addCityCode == null || addCityCode == '' || initials == null || initials == '') {
+            return;
+        }
 
         if (!zhongwen.test(addCityName)) {
             layer.alert("城市名称只能输入中文", {title: "提示", skin: 'layui-layer-molv'});
@@ -232,10 +213,6 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
             return;
         }
 
-        if (addCityName == null || addCityName == '' || adCode == null || adCode == ''
-            || addCityCode == null || addCityCode == '' || initials == null || initials == '') {
-            return;
-        }
         //获取表单数据
         var jsonStr = JSON.stringify(
             {
@@ -244,21 +221,23 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
                 "citycode": $("#addCityCode").val(),
                 "initials": $("#initials").val()
             });
-        //向后台发送数据
-        $.ajax({
-            contentType: "application/json",
-            dataType: "text",
-            type: "post",
-            url: "/city/addCity",//数据接口，到新增方法的那个路径上
-            data: jsonStr,
-            success: function (data) {
-                if (data == "添加成功") {
-                    layer.closeAll();
+        layer.confirm('真的确认提交么', function () {
+            //向后台发送数据
+            $.ajax({
+                contentType: "application/json",
+                dataType: "text",
+                type: "post",
+                url: "/city/addCity",//数据接口，到新增方法的那个路径上
+                data: jsonStr,
+                success: function (data) {
+                    if (data == "添加成功") {
+                        layer.closeAll();
+                    }
+                    layer.msg(data);
+                    //数据刷新
+                    table.reload('testReload', {}, 'data');
                 }
-                layer.msg(data);
-                //数据刷新
-                table.reload('testReload', {}, 'data');
-            }
+            })
         })
     })
 
@@ -269,18 +248,13 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
             title: ["新增城市信息"],
             area: ['100%', '100%'],
             content: $("#myInf"),
-            cancel: function () {
-            },
-            success: function () {
-                $("#register");
-            }
+            // cancel: function () {
+            // },
+            // success: function () {
+            //     $("#register");
+            // }
         })
-        form.render();
-    })
-
-    // 取消事件
-    $("#cancel").click(function () {
-        layer.closeAll();
+        // form.render();
     })
 
 

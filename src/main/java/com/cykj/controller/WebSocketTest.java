@@ -31,7 +31,7 @@ public class WebSocketTest {
     // 在线人数
     private static int onlineCount = 0;
     // 在线用户列表
-    private static Map<String, Session> clients = new ConcurrentHashMap<String, Session>();
+    private static Map<String, Session> clients = new ConcurrentHashMap<>();
     // 在线用户对应群聊编号集合
 //    private static Map<String, String> clientGroup = new ConcurrentHashMap<String, String>();
     private Session session;

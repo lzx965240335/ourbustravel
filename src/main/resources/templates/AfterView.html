@@ -17,10 +17,12 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    [[${session.adminInf.adminName}]]
                 </a>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li id="but1" class="layui-nav-item">
+                <a href="javascript:void(0)">退出</a></li>
+            </li>
         </ul>
     </div>
 
@@ -141,5 +143,23 @@
     });
 </script>
 </body>
+<script>
+    function getAlert(msg,session,title) {
+        return layer.alert(msg, {
+            title:title===undefined?'信息':title,
+            skin: 'layui-layer-molv' //样式类名  自定义样式
+            ,closeBtn: 1    // 是否显示关闭按钮 0不显示，1  2 样式
+            ,anim: 0 //动画类型
+            ,btn: ['确定','取消'] //按钮
+            ,icon: 6    // icon 5是失败
+            ,yes:session
+        });
+    }
+    $("#but1").click(function() {
+        getAlert('系统提示，您确定要退出本次登录吗?',function () {
+            location.href = "http://localhost:8080/page/whatPage?pageName=adminLogin";
+        });
+    });
+</script>
 </html>
 

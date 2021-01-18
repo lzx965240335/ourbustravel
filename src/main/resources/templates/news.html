@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
-    <script type="text/javascript" th:src="@{/js/news.js}"></script>
+    <script type="text/javascript" th:src="@{/js/newsInfo.js}"></script>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
     <legend>新闻查询条件</legend>
@@ -31,15 +31,15 @@
         <div class="layui-inline">
             <select id="selState" name="modules" lay-verity="required" lay-search="">
                 <option value="">请选择</option>
-                <option value="4">禁用</option>
                 <option value="5">启用</option>
+                <option value="4">禁用</option>
             </select>
         </div>
+        <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+        <button type="button" id="addBtn" class="layui-btn" data-type="reload">新增</button>
     </div>
-    <br>
-    <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
-    <button type="button" id="addBtn" class="layui-btn" data-type="reload">新增</button>
 </center>
+<br>
 
 <!--新增新闻-->
 <div style="display: none;" id="myInf">
@@ -54,33 +54,12 @@
                 </div>
             </div>
             <div class="layui-form-item" style="margin-top:20px">
-                <label class="layui-form-label required">新闻时间</label>
+                <label class="layui-form-label required">新闻内容</label>
                 <div class="layui-input-block">
-                    <input type="text" id="addNewsTime" disabled required lay-verify="required"
-                           autocomplete="off" placeholder="请输入新闻时间" class="layui-input">
+                    <input type="text" id="addNewsMsg" required lay-verify="required" placeholder="请输入新闻内容"
+                           autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <!--            <div class="layui-form-item">-->
-            <!--                <label class="layui-form-label required">站点横坐标</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="addSiteX" required lay-verify="required" placeholder="请输入站点的横坐标"-->
-            <!--                           autocomplete="off" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="layui-form-item">-->
-            <!--                <label class="layui-form-label required">站点纵坐标</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="addSiteY" required lay-verify="required" placeholder="请输入站点的纵坐标"-->
-            <!--                           autocomplete="off" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="layui-form-item">-->
-            <!--                <label class="layui-form-label required">站点人数</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="addPeopleNum" required lay-verify="required" placeholder="请输入站点人数"-->
-            <!--                           autocomplete="off" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button type="button" id="register" class="layui-btn" lay-submit lay-filter="saveSubmit">提交</button>
@@ -110,33 +89,20 @@
                            autocomplete="off" placeholder="请输入新闻标题" class="layui-input">
                 </div>
             </div>
-            <!--            <div class="layui-form-item" style="margin-top:20px">-->
-            <!--                <label class="layui-form-label required">站点横坐标</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="updateSiteX" required lay-verify="required" placeholder="请输入身份证归属地"-->
-            <!--                           autocomplete="off" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="layui-form-item" style="margin-top:20px">-->
-            <!--                <label class="layui-form-label required">站点纵坐标</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="updateSiteY" required lay-verify="required"-->
-            <!--                           autocomplete="off" placeholder="请输入城市区号" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="layui-form-item" style="margin-top:20px">-->
-            <!--                <label class="layui-form-label required">站点人数</label>-->
-            <!--                <div class="layui-input-block">-->
-            <!--                    <input type="text" id="updatePeopleNum" required lay-verify="required" placeholder="请输入城市首字母"-->
-            <!--                           autocomplete="off" class="layui-input">-->
-            <!--                </div>-->
-            <!--            </div>-->
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">新闻内容</label>
+                <div class="layui-input-block">
+                    <input type="text" id="updateNewsMsg" required lay-verify="required"
+                           autocomplete="off" placeholder="请输入新闻内容" class="layui-input">
+                </div>
+            </div>
+
             <div class="layui-form-item" style="margin-top:20px">
                 <div class="layui-input-block">
                     <button type="button" id="sureUpdate" class="layui-btn  layui-btn" lay-submit lay-filter="demo11">
                         确认修改
                     </button>
-                    <button type="button" id="cancel" class="layui-btn layui-btn-primary">取消</button>
+                    <button type="reset" id="resetBtn"class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
         </form>
@@ -160,8 +126,8 @@
             <div class="layui-form-item" style="margin-top:20px">
                 <label class="layui-form-label required">新闻标题</label>
                 <div class="layui-input-block">
-                    <input type="text" id="checkSeeNewTitle" disabled required lay-verify="required"
-                           autocomplete="off" placeholder="请输入新闻标题" class="layui-input">
+                    <input type="text" id="checkSeeNewTitle" disabled required lay-verify="required" autocomplete="off"
+                           placeholder="请输入新闻标题" class="layui-input">
                 </div>
             </div>
 
@@ -170,6 +136,14 @@
                 <div class="layui-input-block">
                     <input type="text" id="checkSeeNewsTime" disabled required lay-verify="required"
                            autocomplete="off" placeholder="请输入新闻时间" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:20px">
+                <label class="layui-form-label required">新闻内容</label>
+                <div class="layui-input-block">
+                    <input type="text" id="checkSeeNewsMsg" disabled required lay-verify="required"
+                           autocomplete="off" placeholder="请输入新闻内容" class="layui-input">
                 </div>
             </div>
 
@@ -199,6 +173,15 @@
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="state">禁用</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } }}
+</script>
+
+<!--点击修改页面的重置按钮时,不让ID清空内容-->
+<script>
+    document.getElementById("resetBtn").onclick = function(){
+        var newsId = document.getElementById("newsId");
+        newsId.defaultValue = newsId.value;
+        document.forms[0].reset()
+    }
 </script>
 
 </body>

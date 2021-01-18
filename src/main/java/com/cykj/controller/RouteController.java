@@ -1,21 +1,18 @@
 package com.cykj.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.cykj.bean.Route;
-import com.cykj.bean.Site;
 import com.cykj.service.RouteService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //线路控制成
 @Controller
@@ -61,4 +58,12 @@ public class RouteController {
         return routeService.addRoute(route);
     }
 
+
+
+//    //查找线路
+//    @RequestMapping("/routeList")
+//    @ResponseBody
+//    public Map<Integer, List<Route>> getRoutes(String startId, String endId) {
+//        return routeService.getRoutes(startId,endId);
+//    }
 }

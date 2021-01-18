@@ -10,14 +10,19 @@ import java.util.List;
 public interface MenuService {
 
     //查询父菜单
-    List<MenuInf> findByPid(int pid);
+    List<MenuInf> findByPid();
+
+    //根据角色返回菜单供加载后台通用
+    HashMap<String,List<MenuInf>> getMenuByRoleId(int roleId);
 
     //查询所有菜单
     HashMap<String,List<MenuInf>> findMenus();
 
-    //根据角色查询菜单
-    HashMap<String,List<MenuInf>> powerByRole(int roleId);
+    //根据角色返回菜单
+    HashMap<String,List<MenuInf>> initMenu(int roleId);
 
     //增加权限
-    public boolean updateRole(int role, String[] menuIds);
+    public boolean updateRole(int roleId, String[] menuIds, int state);
+
+
 }

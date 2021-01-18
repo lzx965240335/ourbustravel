@@ -1,28 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="lzx">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/RouteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/RouteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/RouteServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/clearRoute.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/icon_deleipt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+    <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/layui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/login-sprite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/layer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/mobile/layer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/mobile/need/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/icon-ext.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/layer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/loading-0.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/loading-1.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/theme/default/loading-2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/Jurisdiction.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/AMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/NewsInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/NewsInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/NewsInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/NewsInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WebSocketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WebSocketTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/MenuInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/MenuInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/NewsInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/NewsInfMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/SiteMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/SiteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/SiteServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/util/Station.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/util/TransMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/MenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/MenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/NewsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/NewsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/RouteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/RouteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/NewsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/NewsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/RouteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/RouteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/MenuInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/MenuInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/NewsInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/NewsInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/RouteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/RouteMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/SiteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/SiteMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/beforeCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/beforeCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/City.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/city.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/adminLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/adminLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/news.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/newsInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/shuttle-box.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/shuttle-box.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/site.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/site.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/AdminController.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/AdminController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/AfterView.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/AfterView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/City.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/city.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/bean/Route.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/bean/Route.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/news.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/news.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/site.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/site.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/mapper/MenuInfMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/mapper/MenuInfMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/MenuInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/MenuInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/RouteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/RouteMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mapping/SiteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/SiteMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/beforeCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/beforeCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/newsInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/newsInfMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/map.html" afterDir="false" />
     </list>
@@ -30,6 +59,36 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ourbus" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ourbus" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="ourbus" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="ourbustravel: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -82,6 +141,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -90,7 +150,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static/imgs" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/ourbus" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -111,11 +171,11 @@
       <recent name="com.cykj.util" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static\imgs" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\mapping" />
       <recent name="E:\GZ\ourbustravel\src\main\resources\static\js\layui" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static\json" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\templates" />
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\mapper" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\static" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\static\imgs" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\static\css" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.OurbustravelApplication">
@@ -164,7 +224,17 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:ourbus" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:ourbus" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@3360666e" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -219,7 +289,10 @@
       <workItem from="1610771350494" duration="16300000" />
       <workItem from="1610790753778" duration="4764000" />
       <workItem from="1610858370246" duration="6243000" />
-      <workItem from="1610869542414" duration="590000" />
+      <workItem from="1610869542414" duration="12568000" />
+      <workItem from="1610890736257" duration="2635000" />
+      <workItem from="1610933527834" duration="23898000" />
+      <workItem from="1610972479467" duration="819000" />
     </task>
     <task id="LOCAL-00001" summary="框架">
       <created>1609205717330</created>
@@ -389,7 +462,21 @@
       <option name="project" value="LOCAL" />
       <updated>1610525015298</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="lzx">
+      <created>1610870324575</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1610870324575</updated>
+    </task>
+    <task id="LOCAL-00026" summary="lzx">
+      <created>1610882076577</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1610882076577</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,18 +515,18 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="552" y="186" key="#Project_Structure/0.0.1920.1050@0.0.1920.1050" timestamp="1609230726431" />
-    <state x="414" y="183" width="1165" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609579432345">
+    <state x="414" y="183" width="1165" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610881714055">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="414" y="183" width="1165" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609579432345" />
+    <state x="414" y="183" width="1165" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1610881714055" />
     <state x="717" y="333" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609125818888">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="717" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1609125818888" />
-    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser" timestamp="1610697022399">
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser" timestamp="1610942030937">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1610697022399" />
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1610942030937" />
     <state x="153" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610367269554">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -448,54 +535,54 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1610863794450" />
-    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1610525014553">
+    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1610882076067">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1610525014553" />
+    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1610882076067" />
     <state x="184" y="87" key="DiffContextDialog" timestamp="1609655279282">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="184" y="87" key="DiffContextDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609655279282" />
-    <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1610526657956">
+    <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1610972709179">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="283" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1610526657956" />
+    <state x="740" y="283" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1610972709179" />
     <state x="823" y="423" key="Github.ShareDialog" timestamp="1609226115676">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="823" y="423" key="Github.ShareDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609226115676" />
-    <state width="1877" height="297" key="GridCell.Tab.0.bottom" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.0.center" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.0.left" timestamp="1610867495058">
+    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495058" />
-    <state width="1877" height="297" key="GridCell.Tab.0.right" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.1.bottom" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.1.bottom" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.1.center" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.1.center" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.1.left" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.1.left" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
-    <state width="1877" height="297" key="GridCell.Tab.1.right" timestamp="1610867495059">
+    <state width="1877" height="274" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
+    <state width="1877" height="274" key="GridCell.Tab.1.right" timestamp="1610963115029">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="297" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1610867495059" />
+    <state width="1877" height="274" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1610963115029" />
     <state width="1877" height="352" key="GridCell.Tab.2.bottom" timestamp="1610529696996">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -528,10 +615,18 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1609567924505" />
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1610525017872">
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1610882078183">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1610525017872" />
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1610882078183" />
+    <state x="759" y="305" key="chooseDestDirectoryDialog" timestamp="1610879456218">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="759" y="305" key="chooseDestDirectoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1610879456218" />
+    <state x="669" y="104" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1610936847612">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="669" y="104" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1610936847612" />
     <state x="754" y="443" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610512991274">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -548,9 +643,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1610523138334" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1609651038165">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1610946395192">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1609651038165" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1610946395192" />
   </component>
 </project>

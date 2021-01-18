@@ -1,11 +1,9 @@
 ﻿var roleId;
 var arr=new Array();
 $(function () {
+    //角色拥有的菜单
     // 显示弹框 及初始化
-    var piece_frame;
     $(document).on("click", ".frame-btn", function () {
-        roleId=$(this).next('.roleId').val();
-        console.log(roleId);
         piece_frame = layer.open({
             type: 1,
             title: false,
@@ -16,26 +14,30 @@ $(function () {
             content: $('.freight-frame-wrap'),
             success: function () {
                 $.ajax({
-                    url: '../MenuServlet',
+                    url: '/MenuController/allMenuByRole',
                     type: 'post',
-                    data: 'methodName=allMenuByRole&roleId='+roleId,
+                    data: 'roleId='+roleId,
                     dataType: 'json',
                     success: function (data) {
                         var sourceArr = data;
+                        console.log("右边的值")
+                        console.log(data)
+                        console.log(roleId)
                         for (var $province in sourceArr) {
                             // $(".frame_left .f_list_p" + sourceArr[$province].menuId).parents().show();
                             var i=0;
                             for (var $area in sourceArr[$province]) {
                                 $(".frame_left .f_list_a" + sourceArr[$province][$area].menuId).parents(".f_list").parent().hide();
                                 for (var j = 0; j < arr.length; j++) {
-                                    if (sourceArr[$province][$area].menuPid==arr[j][0]){
+                                    if (sourceArr[$province][$area].pid==arr[j][0]){
                                         if ($area>=arr[j][1]){
                                             $(".frame_left .f_list_a" + sourceArr[$province][$area].menuId).parents(".f_list").parent().parent().parent().hide();
                                             console.log("移除！！！")
+                                            console.log(sourceArr[$province][$area])
                                         }
                                     }else {
-                                        console.log(sourceArr[$province][$area].menuPid);
-                                        console.log(arr[j][0])
+                                        // console.log(sourceArr[$province][$area].pid);
+                                        // console.log(arr[j][0])
                                     }
                                 }
                                 $(".frame_right .f_list_a" + sourceArr[$province][$area].menuId).find(".checkedInput").attr('select', 'selected').parents().show();
@@ -70,11 +72,12 @@ $(function () {
             }
         });
         $.unique(sourceArr2);
-
+        console.log('----------------------------------')
+        console.log(sourceArr2)
         $.ajax({
-            url:'/MenuServlet',
+            url:'/MenuController/updateRole',
             type: 'post',
-            data: 'methodName=updateRole' + "&menuIds=" + sourceArr2 + "&roleId="+roleId,
+            data: 'menuIds=' + sourceArr2 + '&roleId='+2 + '&state='+ 1,
             dataType: 'text',
             success: function (data) {
                 layer.alert(data);
@@ -84,29 +87,31 @@ $(function () {
                     layer.close(piece_frame);
                 }
             }
+
         });
     });
 
     // 关闭弹框
     $(document).on("click", ".freight-frame .cancel, .close-frame-btn", function (e) {
-        location.href="../pages/shuttle-box.html";
+        location.href="localhost:8080/page/shuttle-box";
         layer.close(piece_frame);
     });
 
 //菜单所有数据
 // 生成弹框数据
     $.ajax({
-        url: '/MenuServlet/allMenu',
+        url: '/MenuController/allMenu',
         type: 'post',
-        data: 'methodName=jurisdictionMap&roleId',
+        data: 'powerByRoleMap&roleId=2,3,4,5',
         dataType: 'json',
         success: function (data) {
             var $city = '<ul class="f_province f_city">',
                 $data = data;
+            console.log("左边的值");
             console.log(data);
             //父级菜单
             for (var province in $data) {
-                $city += '<li class="f_province_list' + $data[province][0].menuId + '"><span class="f_list"><label id="' + $data[province][0].menuId + '" class="f_list_p' + $data[province][0].menuId + '"><i></i><input class="checkedInput" type="checkbox" /></label><em>' + $data[province][0].menuName + '</em></span><ul class="f_area">';
+                $city += '<li class="f_province_list' + $data[province][0].menuId + '"><span class="f_list"><label id="' + $data[province][0].menuId + '" class="f_list_p' + $data[province][0].menuId + '"><i></i><input class="checkedInput" type="checkbox" /></label><em>' + $data[province][0].menuName+ '</em></span><ul class="f_area">';
                 for (var area in $data[province]) {
                     if (area == 0) {
                         continue;
@@ -200,6 +205,7 @@ $(function () {
                 $(".frame_right").find('.' + $parents).find('.' + $parent).find(".checkedInput").prop("checked", true).attr('select', 'selected').siblings("i").addClass("checked").parents(".f_list").addClass("active").parent().show().parents("ul").show().siblings(".f_list").addClass("active").parents().show();
                 $(this).parents(".f_list").parent().hide();
             }
+
         });
     });
 
@@ -217,3 +223,7 @@ $(function () {
     });
 });
 
+
+function btnc(node) {
+    roleId =$(node)[0].attributes.value.nodeValue;
+}
