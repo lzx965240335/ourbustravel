@@ -16,7 +16,9 @@ layui.use('table', function () {
                 , {
                 field: 'roleId', width: 150, title: '角色',
                 edit: 'text', sort: true, templet: function (res) {
-                    if (res.roleId == 3) {
+                    if (res.roleId == 2) {
+                        return "司机";
+                    } else if (res.roleId == 3) {
                         return "调度员";
                     } else if (res.roleId == 4) {
                         return "经理";
@@ -69,6 +71,7 @@ layui.use('table', function () {
 
     //监听行工具事件
     table.on('tool(admin)', function (obj) {
+        //删除
         var data = obj.data;
         if (obj.event === 'delete') {
             layer.confirm('您真的要删除人家吗？', function (index) {
@@ -107,7 +110,7 @@ layui.use('table', function () {
                 }
             })
         }else if (obj.event === 'enable'){
-
+            //禁用启用
             var stateChinese=$(obj.tr[0].cells[7].childNodes[0].childNodes[7]).text();
             var state;
             if(stateChinese=='启用'){
@@ -144,6 +147,22 @@ layui.use('table', function () {
                 layer.close(index);
             })
 
+        } else if (obj.event === 'reset') {
+            layer.confirm('确认重置密码么,重置密码为123456', function (index) {
+                $.ajax({
+                    type: "post",
+                    dataType: "text",
+                    url: "/Admin/getResetPwd",
+                    data: {"account": data.account},
+                    success: function (data) {
+                        layer.msg(data);
+                        if (data == "重置密码成功") {
+                            obj.update();
+                            layer.close(index);
+                        }
+                    }
+                })
+            });
         }
 
         //修改数据
@@ -155,7 +174,9 @@ layui.use('table', function () {
             if (roleName == null || roleName == '' || updateName == null || updateName == '') {
                 return;
             }
-            if (roleName == '调度员') {
+            if (roleName == '司机') {
+                roleId = 2;
+            } else if (roleName == '调度员') {
                 roleId = 3;
             } else if (roleName == '经理') {
                 roleId = 4;
@@ -245,7 +266,9 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
             $("#pass").val("");
             return;
         }
-        if (newroleName == '调度员') {
+        if (newroleName == '司机') {
+            role = 2;
+        } else if (newroleName == '调度员') {
             role = 3;
         } else if (newroleName == '经理') {
             role = 4;

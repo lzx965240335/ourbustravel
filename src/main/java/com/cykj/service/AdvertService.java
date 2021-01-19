@@ -23,5 +23,5 @@ public interface AdvertService {
     //改状态
     public int updateState(Advert advert);
     //发送数据
-    public List<Advert> selAdvertMsg();
+    public List<Advert> selAdvertMsg(int advertUrl);
 }

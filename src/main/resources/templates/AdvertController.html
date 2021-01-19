@@ -135,61 +135,25 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button id="resetAffirm" class="layui-btn" lay-submit lay-filter="saveSubmit">修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
 </div>
 <!--广告信息弹窗-->
-<div style="display: none;" id="MyInfs">
-    <form class="layui-form" action="" method="post">
-        <br/>
-        <center>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">广告Id</label>
-            <div class="layui-input-block">
-                <input style="width: 200px" type="text" id="advertIds" required lay-verify="required"
-                       autocomplete="off" class="layui-input" readonly unselectable='on'>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">广告标题</label>
-            <div class="layui-input-block">
-                <input style="width: 200px" type="text" id="resetTitles" required lay-verify="required" placeholder="请输入标题"
-                       autocomplete="off" class="layui-input" readonly unselectable='on'>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">发布时间</label>
-            <div class="layui-input-block">
-                <input style="width: 200px" type="text" id="resetBegTimes" required lay-verify="required" placeholder="请输入发布时间"
-                       autocomplete="off" class="layui-input" readonly unselectable='on'>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">结束时间</label>
-            <div class="layui-input-block">
-                <input style="width: 200px" type="text"  id="resetEndTimes" required lay-verify="required" placeholder="请输入结束时间"
-                       autocomplete="off" class="layui-input" readonly unselectable='on'>
-            </div>
-        </div>
-<!--        <div class="layui-form-item">-->
-<!--            <label class="layui-form-label required">广告金额</label>-->
-<!--            <div class="layui-input-block">-->
-<!--                <input style="width: 200px" type="text"  id="resetAdvertMoneys" required lay-verify="required" placeholder=""-->
-<!--                       autocomplete="off" class="layui-input" readonly unselectable='on'>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="layui-form-item">
-            <label class="layui-form-label required">广告状态:</label>
-            <div class="layui-input-block">
-                <input style="width: 200px" type="text"  id="resetAdvertStates" required lay-verify="required" placeholder="请输入广告状态"
-                       autocomplete="off" class="layui-input" readonly unselectable='on'>
-            </div>
-        </div>
-        </center>
-    </form>
+<div style="display: none;width: 100%;height: 100%" id="MyInfs" >
+
+            <iframe  name="right" id="iframe" src="" style="width: 100%;height: 100%" frameborder="0" ></iframe>
+
 </div>
+
+<script>
+    document.getElementById("reset").onclick = function(){
+        var advertId = document.getElementById("advertId");
+        advertId.defaultValue = advertId.value;
+        document.forms[0].reset()
+    }
+</script>
 
 <script type="text/html" id="barDemo">
     {{# if(d.advertState == '4'){ }}

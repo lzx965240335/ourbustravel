@@ -87,8 +87,8 @@ public class AdvertController {
     //发送数据到前端
     @RequestMapping(value = "/selAdvertMsg")
     @ResponseBody
-    public List<Advert> selAdvertMsg() {
-        List<Advert> list = advertService.selAdvertMsg();
+    public List<Advert> selAdvertMsg(int advertUrl) {
+        List<Advert> list = advertService.selAdvertMsg(advertUrl);
         return list;
     }
 

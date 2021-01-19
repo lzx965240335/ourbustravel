@@ -149,6 +149,7 @@ layui.use('table', function () {
                         if (data == "删除成功") {
                             obj.del();
                             layer.close(index);
+                            location.reload()
                         }
                     }
                 })
@@ -165,11 +166,9 @@ layui.use('table', function () {
                 //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                 type: 1,
                 title: "修改城市信息",
-                area: ['100%', '100%'],
+                area: ['50%', '50%'],
                 content: $("#updateTest"),
-                success: function () {
-                    $("#register");
-                }
+
             })
         }
         $("#sureUpdate").click(function () {
@@ -207,7 +206,7 @@ layui.use('table', function () {
                         //弹出层(显示效果）
                         layer.msg(data);
                         //数据刷新
-                        table.reload('testReload', {}, 'data');
+                       location.reload();
                     }
                 })
             })
@@ -270,7 +269,7 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
                     layer.closeAll();
                 }
                 //数据刷新
-                table.reload('testReload', {}, 'data');
+                location.reload()
             }
         })
     })
@@ -280,15 +279,10 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         layer.open({
             type: 1,
             title: ["新增站点"],
-            area: ['100%', '100%'],
+            area: ['50%', '50%'],
             content: $("#myInf"),
-            cancel: function () {
-            },
-            success: function (layero) {
-                $("#register");
-            }
         })
-        form.render();
+
     })
 
 

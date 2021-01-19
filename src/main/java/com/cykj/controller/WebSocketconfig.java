@@ -1,5 +1,4 @@
-package com.cykj.util;
-
+package com.cykj.controller;
 
 import com.cykj.bean.MySpringConfigurator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

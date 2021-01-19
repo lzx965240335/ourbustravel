@@ -24,14 +24,14 @@
 
 <script type="text/html" id="barDemo">
     {{# if(d.adminState == '4'){ }}
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="reset">重置密码</a>
     <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
-<!--    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="cz">重置密码</a>-->
     <a class="layui-btn layui-btn-xs classSt" lay-event="enable">启用</a>
     {{# } else if(d.adminState == '5'){ }}
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="reset">重置密码</a>
     <a class="layui-btn layui-btn-xs" lay-event="update">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
-<!--    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="cz">重置密码</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs classSt" lay-event="enable">禁用</a>
     {{# } }}
 </script>
@@ -65,6 +65,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">角色</label>
                 <div class="layui-input-block">
+                    <input type="radio" name="newRole" value="司机" title="司机">
                     <input type="radio" name="newRole" value="调度员" title="调度员" checked="">
                     <input type="radio" name="newRole" value="经理" title="经理">
                     <input type="radio" name="newRole" value="客服人员" title="客服人员">
@@ -109,6 +110,7 @@
             <div class="layui-form-item" style="margin-top:20px">
                 <label class="layui-form-label required">角色</label>
                 <div class="layui-input-block">
+                    <input type="radio" name="role" value="司机" title="司机">
                     <input type="radio" name="role" value="调度员" title="调度员">
                     <input type="radio" name="role" value="经理"  title="经理">
                     <input type="radio" name="role" value="客服人员"  title="客服人员">

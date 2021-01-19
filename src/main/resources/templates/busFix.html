@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆维修查看</title>
+        <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">
+        <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/layui/layui.js}" ></script>
+        <script th:src="@{/js/busWeiXiu.js}" type="text/javascript"
+                charset="UTF-8"></script>
+</head>
+<body>
+<center>
+    <div class="demoTable">
+        公交路号：
+        <div class="layui-inline">
+            <input class="layui-input" id="busName" autocomplete="off" placeholder="请输出公交路号">
+        </div>
+        <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+    </div>
+</center>
+
+<script type="text/html" id="barDemo">
+
+</script>
+
+<table class="layui-hide" id="busWeiXiu" lay-filter="busWeiXiu"></table>
+</body>
+</html>

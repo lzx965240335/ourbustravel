@@ -25,4 +25,7 @@ public interface BusInfMapper {
 
     //改状态
     public int updateState(BusInf busInf);
+
+    //查询数据库所有的数据,分页
+    List<BusInf> selectBusWeiXiu(Map<String, Object> condition);
 }

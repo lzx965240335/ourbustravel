@@ -31,7 +31,7 @@ public class SiteServiceImpl implements SiteService {
 
     @Override
     public int updateSite(Site site) {
-        return 0;
+        return siteMapper.updateSite(site);
     }
 
     @Override

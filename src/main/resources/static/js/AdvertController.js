@@ -81,7 +81,11 @@ layui.use('table', function () {
             $("#resetBegTime").val(data.begTime);
             $("#resetEndTime").val(data.endTime);
             $("#resetAdvertMoney").val(data.advertMoney);
-            $("#resetAdvertState").val(data.advertState);
+            if(data.advertState==5){
+                $("#resetAdvertState").val("启用");
+            }else{
+                $("#resetAdvertState").val("禁用");
+            }
             layer.open({
                 type: 1,
                 title: ["修改广告"],
@@ -93,18 +97,15 @@ layui.use('table', function () {
                     var btn = $("#resetAffirm");
                 }
             })
+            //广告信息
         }else if (obj.event === 'detail'){
-            // layer.msg('advertId：' + data.advertId + '的查看操作');
-            $("#advertIds").val(data.advertId);
-            $("#resetTitles").val(data.advertTitle);
-            $("#resetBegTimes").val(data.begTime);
-            $("#resetEndTimes").val(data.endTime);
-            $("#resetAdvertMoneys").val(data.advertMoney);
-            $("#resetAdvertStates").val(data.advertState);
+            // $("#advertIds").val(data.advertId);
+            console.log(data.advertUrl);
+            $("#iframe").attr("src",data.advertUrl)
             layer.open({
                 type: 1,
                 title: ["广告信息"],
-                area: ['30%', '60%'],
+                area: ['80%', '80%'],
                 content: $("#MyInfs"),
             })
         }else if (obj.event === 'enable'){
@@ -242,37 +243,20 @@ layui.use('table', function () {
             , table = layui.table;
         $("#resetAffirm").click(function () {
             var advertIds = $("#advertId").val();
-            var resetTitles = $("#resetTitles").val();
-            var resetBegTimes = $("#resetBegTimes").val();
-            var resetEndTimes = $("#resetEndTimes").val();
-            var resetAdvertMoneys = $("#resetAdvertMoneys").val();
-            var resetAdvertStates = $("#resetAdvertStates").val();
-            if (resetTitles == null || resetTitles == '' ||
-                resetBegTimes == null || resetBegTimes == '' ||
-                resetEndTimes == null || resetEndTimes == '' ||
-                resetAdvertMoneys == null || resetAdvertMoneys == '' ||
-                resetAdvertStates == null || resetAdvertStates == '' ) {
-                return;
-            }
+            var advertUrl =  $("#advertUrl").val();
             var jsonStr = JSON.stringify({
                 "advertId": $("#advertId").val(),
-                "advertTitle": $("#resetTitles").val(),
-                "begTime": $("#resetBegTimes").val(), "endTime": $("#resetEndTimes").val(),
-                "advertMoney": $("#resetAdvertMoneys").val(), "advertState": $("#resetAdvertStates").val()
+                "advertUrl": $("#advertUrl").val()
             });
             $.ajax({
                 contentType: "application/json",
                 type: "post",
                 dataType: "JSON",
-                url: "/Advert/getReset",
+                url: "/Advert/selAdvertMsg",
                 data: jsonStr,
                 success: function (data) {
                     layer.msg(data);
-                    if (data == "修改成功") {
-                        layer.closeAll();
-                        table.reload('testReload', {}, 'data');
                     }
-                }
             })
         })
     })

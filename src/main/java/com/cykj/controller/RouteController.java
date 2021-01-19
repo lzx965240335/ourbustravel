@@ -1,13 +1,17 @@
 package com.cykj.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.bean.Route;
+import com.cykj.bean.Site;
 import com.cykj.service.RouteService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -59,11 +63,39 @@ public class RouteController {
     }
 
 
+    //修改线路页面
+    @RequestMapping("/updateRoutePage")
+    public String updateRoutePage(Model model,String routeId){
+        List<Site> sites = routeService.getSites(routeId);
+        Route route = routeService.getRouteById(routeId);
+        System.out.println("=============================="+sites.size());
+        System.out.println(JSON.toJSONString(sites));
+        model.addAttribute("sites",sites);
+        model.addAttribute("routeId",routeId);
+        model.addAttribute("routeName",route.getRouteName());
+        return "DrawRoute";
+    }
 
-//    //查找线路
-//    @RequestMapping("/routeList")
-//    @ResponseBody
-//    public Map<Integer, List<Route>> getRoutes(String startId, String endId) {
-//        return routeService.getRoutes(startId,endId);
-//    }
+    //修改线路页面
+    @RequestMapping("/updateRoute")
+    @ResponseBody
+    public  List<Site> updateRoute(String routeId){
+        System.out.println(routeId);
+        return routeService.getPosition(routeId);
+    }
+
+    //删除线路
+    @RequestMapping("/deleteRoute")
+    @ResponseBody
+    public boolean deleteRoute(String routeId){
+        System.out.println(routeId);
+        return routeService.deleteRoute(routeId);
+    }
+
+    //查找线路
+    @RequestMapping("/getRoutes")
+    @ResponseBody
+    public Map<Integer, List<Route>> getRoutes(String startId, String endId) {
+        return routeService.getRoutes(startId,endId);
+    }
 }

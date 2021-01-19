@@ -18,6 +18,8 @@ public class Site {
 
     private Integer isDot;
 
+    private Integer pid;
+
     public Site() {
     }
 
@@ -75,5 +77,13 @@ public class Site {
 
     public void setIsDot(Integer isDot) {
         this.isDot = isDot;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 }

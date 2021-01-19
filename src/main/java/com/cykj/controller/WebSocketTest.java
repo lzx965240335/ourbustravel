@@ -31,7 +31,7 @@ public class WebSocketTest {
     // 在线人数
     private static int onlineCount = 0;
     // 在线用户列表
-    private static Map<String, Session> clients = new ConcurrentHashMap<>();
+    private static Map<String, Session> clients = new ConcurrentHashMap<String, Session>();
     // 在线用户对应群聊编号集合
 //    private static Map<String, String> clientGroup = new ConcurrentHashMap<String, String>();
     private Session session;
@@ -41,6 +41,7 @@ public class WebSocketTest {
     @OnOpen
     public void onOpen(@PathParam("username") String username, Session session) throws IOException {
         this.username = username;
+        System.out.println(username + "已上线");
         this.session = session;
         // 在线人数+1
         addOnlineCount();
@@ -66,6 +67,7 @@ public class WebSocketTest {
     // 服务端向客户端推送消息
     @OnMessage
     public void onMessage(String messageJson) throws IOException {
+        System.out.println(messageJson);
         JSONObject json = JSONObject.parseObject(messageJson);
         String type = json.getString("type");
         JSONObject data = json.getJSONObject("data");
@@ -105,12 +107,12 @@ public class WebSocketTest {
      */
     public void sendMessageTo(String message, String To) throws IOException {
         for (String item : clients.keySet()) {
-            System.out.println(message);
             JSONObject msg =JSONObject.parseObject(message);
             JSONObject data = msg.getJSONObject("data");
             JSONObject mine = data.getJSONObject("mine");
             JSONObject to = data.getJSONObject("to");
-            if (item.equals(to.getString("username"))){
+            String userName =to.getString("username");
+            if (item.equals(userName.equals("在线客服")? "zxkf":userName)){
                 Map map = new HashMap<String, String>();
                 map.put("username", mine.getString("username"));
                 map.put("name", mine.getString("name"));
@@ -120,11 +122,8 @@ public class WebSocketTest {
                 map.put("type", to.getString("type"));
                 map.put("content",mine.getString("content"));
                 clients.get(item).getAsyncRemote().sendText(JSON.toJSONString(map));
+                System.out.println(JSON.toJSONString(map));
                 ChatInf chatInf = new ChatInf();
-
-//                if (){
-//
-//                }
                 chatInf.setAdminid(to.getInteger("id"));
             }
         }

@@ -4,8 +4,10 @@
     top: 1rem;
     right: 10px;
 }
-
-
+body .layui-layim-min {
+    /*border: 1px solid rgb(217, 217, 217);*/
+    left: 1200px !important;
+}
 .container{
     width: 420px;
     height: 320px;
@@ -206,7 +208,7 @@ a:hover{
     height: 22px;
 }
 .hide {
-    display:none;
+    display:none !important;
 }
 #loginView li {
 

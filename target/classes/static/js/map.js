@@ -11,6 +11,8 @@ var route;//规划线路
 //距离最近的公交站点数组
 var arr1 = new Array();//起点用
 var arr2 = new Array();//终点用
+//乘车策略map
+var policy;
 //公交站点列表
 var markers = [];
 $(function () {
@@ -508,17 +510,20 @@ function drawLine(Marker) {
                 type: "post",
                 data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
                 dataType: "json",
-                success: function (date) {
+                success: function (data) {
+
+                    console.log(data[0])
                     walkLine(markerStart,markers[oneSite]);
-                    walkLine(markerStart,markers[twoSite]);
+                    walkLine(markers[twoSite],markerEnd);
+                    //绘制第一条线路
                     var polyline = new AMap.Polyline({
                         routeId:1,
-                        path: date,
+                        path: data[0][0].list,
                         // isOutline: true,//显示描边
                         // outlineColor: '#ffeeff',
                         // borderWeight: 3,
                         showDir:true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
-                        strokeColor: "#3366FF",//线条颜色
+                        strokeColor: "#05aa2e",//线条颜色
                         strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
                         strokeWeight: 6,//轮廓线宽度
                         // 折线样式还支持 'dashed'
@@ -571,6 +576,7 @@ function walkLine(marker1,marker2){
     walking.search(marker1.getPosition(), marker2.getPosition(), function(status, result) {
         // result即是对应的步行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_WalkingResult
         if (status === 'complete') {
+            console.log(result);
             log.success('绘制步行路线完成')
         } else {
             log.error('步行路线数据查询失败' + result)

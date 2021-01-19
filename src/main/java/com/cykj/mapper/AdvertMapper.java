@@ -23,5 +23,5 @@ public interface AdvertMapper {
     //改状态
     public int updateState(Advert advert);
     //
-    public List<Advert> selAdvertMsg();
+    public List<Advert> selAdvertMsg(int advertUrl);
 }

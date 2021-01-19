@@ -1,8 +1,11 @@
 package com.cykj.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.bean.ChatInf;
 import com.cykj.bean.UserInf;
 import com.cykj.service.UserInfService;
+import com.cykj.util.AdminChatJson;
+import com.cykj.util.UserChatJson;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -88,15 +92,22 @@ public class UserInfController {
         System.out.println("进来后台了");
         return "backstage";
     }
-    @RequestMapping("/qt")
+
+//    @RequestMapping("/preview")
+//    public String getpreview() {
+//        System.out.println("preview");
+//        return "preview";
+//    }
+
+    @RequestMapping("/map")
     public String getqt() {
-        System.out.println("进来qt.......");
-        return "qt";
+        System.out.println("进来map.......");
+        return "map";
     }
-    @RequestMapping("/ht")
-    public String getht() {
-        System.out.println("进来ht.......");
-        return "Register";
+    @RequestMapping("/wallet")
+    public String getwallet() {
+        System.out.println("进来我的钱包界面");
+        return "wallet";
     }
     @RequestMapping("/userInf")
     public String getUserInf(Model model) {
@@ -104,6 +115,7 @@ public class UserInfController {
         model.addAttribute("userInf",userInfService.getLoginner());
         return "UserInf";
     }
+
     @RequestMapping("/updatePwdView")
     public String getUpdatePwd() {
         System.out.println("进来获取修改密码界面");
@@ -149,5 +161,31 @@ public class UserInfController {
         String result = userInfService.updateUserInf(userInf);
         return result;
     }
-
+    @RequestMapping("/userChat")
+    @ResponseBody
+    public String userChat(HttpSession session){
+        System.out.println("获取聊天界面");
+        String result =JSON.toJSONString(new UserChatJson(session));
+        return result;
+    }
+    @RequestMapping("/adminChat")
+    @ResponseBody
+    public String adminChat(HttpSession session){
+        System.out.println("获取聊天界面");
+        String result =JSON.toJSONString(new AdminChatJson(session));
+        return result;
+    }
+    @RequestMapping(value = "/chatLoad")
+    @ResponseBody
+    public String  chatLoad(@RequestBody ChatInf chatInf){
+        System.out.println(JSON.toJSONString(chatInf));
+        userInfService.chatLoad(chatInf);
+        return "";
+    }
+    @RequestMapping(value = "/userExit")
+    @ResponseBody
+    public String  userExit(HttpSession session){
+        session.removeAttribute("loginner");
+        return "已退出";
+    }
 }

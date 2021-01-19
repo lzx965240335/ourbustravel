@@ -28,5 +28,8 @@ public interface SiteMapper {
     //查询所有站点
     List<Site> getSites(Map map);
 
+    //查询线路所有的点数据
+    List<Site> getDots(Map map);
+
 
 }

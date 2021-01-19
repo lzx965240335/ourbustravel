@@ -16,7 +16,7 @@
     <script src="/js/layui/layui.js" charset="utf-8"></script>
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool,AMap.Geocoder,AMap.Driving,AMap.PolylineEditor,AMap.Walking"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale,AMap.AutoComplete,AMap.StationSearch,AMap.MouseTool,AMap.Geocoder,AMap.Walking"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
 
     <!--引入UI组件库（1.1版本） -->
@@ -467,6 +467,7 @@
 <div class="layui-header">
     <ul class="layui-nav layui-layout-right" style="background-color:transparent">
         <li class="layui-nav-item">
+            <p id="userName" th:if="${session.loginner}"  th:text="${session.loginner.userName}" hidden></p>
             <div id="loginbox">
                 <div class="avatar"></div>
             </div>
@@ -475,15 +476,16 @@
                 <div class="user-head">
                     <div class="login-banner clearfix">
                         <div class="text-notice">
-                            <p>登录后可享受</p>
-                            <p>更多贴心服务</p>
+                            <p id="p1">登录后可享受</p>
+                            <p id="p2">更多贴心服务</p>
                         </div>
-                        <div class="login-btn">登录</div>
+                        <div class="login-btn" id="login">登录</div>
                     </div>
                 </div>
-                <dd><a href="javascript:void(0)">基本资料</a></dd>
-                <dd><a href="javascript:void(0)">我的钱包</a></dd>
-                <dd><a href="javascript:void(0)">我的收藏</a></dd>
+                <dd><a th:href="@{/userMain/userInf}" th:target="_blank" class="hide">基本资料</a></dd>
+                <dd><a th:href="@{/userMain/wallet}" th:target="_blank" class="hide">我的钱包</a></dd>
+                <dd><a href="javascript:void(0)" class="hide">我的收藏</a>
+                </dd><dd><a href="javascript:void(0)" id="kefu" class="hide">联系客服</a></dd>
             </dl>
         </li>
     </ul>
@@ -567,62 +569,7 @@
 
 
 <script>
-    layui.use('element', function () {
-        var element = layui.element;
-    });
-    $(function () {
-        var myTab = document.getElementById("login-type"); //整个div
-        var myUl = myTab.getElementsByTagName("ul")[0]; //一个节点
-        var myLi = myUl.getElementsByTagName("li"); //数组
-        var myDiv = myTab.querySelectorAll('#login-type > div'); //数组
-        for (var i = 0; i < myLi.length; i++) {
-            myLi[i].index = i;
-            myLi[i].onclick = function () {
-                for (var j = 0; j < myLi.length; j++) {
-                    myLi[j].className = "off";
-                    myDiv[j].className = "hide";
 
-                }
-                this.className = "on";
-                myDiv[this.index].className = "show";
-            }
-        }
-    })
-    $(function () {
-        layui.use(['form', 'layedit', 'laydate'], function () {
-            var form = layui.form
-                , layer = layui.layer
-                , layedit = layui.layedit
-                , laydate = layui.laydate;
-            $(".login-btn").click(function () {
-                layer.open({
-                    type: 1,
-                    title: null,
-                    area: ['580px', '300px'],
-                    offset: '300px',
-                    content: $("#loginView"),
-                    cancel: function () {
-                        $(this).css("display", "none")
-                    },
-                    success: function () {
-                    }
-                })
-                form.render();
-            })
-            $(".yzmbtn").click(function () {
-                console.log($("#phoneNum").val())
-                $.ajax({
-                    url: "/userMain/verification",
-                    type: "post",
-                    data: "phoneNum=" + $("#phoneNum").val(),
-                    datatype: "text",
-                    success: function (res) {
-                        layer.msg(res)
-                    }
-                })
-            })
-        });
-    });
 </script>
 
 </html>

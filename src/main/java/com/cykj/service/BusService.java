@@ -18,4 +18,7 @@ public interface BusService {
     LayuiJson selectBus(Map map);
 
     public int updateState(BusInf busInf);
+
+    //车辆维修列表显示
+    LayuiJson selectBusWeiXiu(Map map);
 }

@@ -138,7 +138,7 @@
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button id="resetAffirm" class="layui-btn" lay-submit  lay-filter="saveSubmit">修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
@@ -150,12 +150,23 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="amend">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<!--    <a class="layui-btn layui-btn-xs" lay-event="jurisdiction" onclick="jurisdictionCase(this)">权限配置</a>-->
     <a class="layui-btn layui-btn-xs" lay-event="reset">重置密码</a>
 </script>
+
+
+
 
 <script th:src="@{/js/layui/layui.js}" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script th:src="@{/js/AdminController.js}" charset="utf-8"></script>
 
 </body>
+<script>
+    document.getElementById("reset").onclick = function(){
+        var adminId = document.getElementById("adminId");
+        adminId.defaultValue = adminId.value;
+        document.forms[0].reset()
+    }
+</script>
 </html>

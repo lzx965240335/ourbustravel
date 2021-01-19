@@ -1,6 +1,8 @@
 package com.cykj.service.impl;
 
+import com.cykj.bean.ChatInf;
 import com.cykj.bean.UserInf;
+import com.cykj.mapper.ChatInfMapper;
 import com.cykj.mapper.UserInfMapper;
 import com.cykj.service.UserInfService;
 import com.cykj.util.FromatDate;
@@ -26,6 +28,9 @@ public class UserInfServiceImpl implements UserInfService {
 
     @Autowired
     private UserInfMapper userInfMapper;
+
+    @Autowired
+    private ChatInfMapper chatInfMapper;
 
     @Autowired
     HttpServletRequest request;
@@ -152,9 +157,16 @@ public class UserInfServiceImpl implements UserInfService {
     public String updateUserInf(UserInf userInf) {
         int x = userInfMapper.updateUserInf(userInf);
         if (x>0){
+            login(userInf);
             return "修改成功";
         }
         return "修改失败";
+    }
+
+    @Override
+    public String chatLoad(ChatInf chatInf) {
+        int x = chatInfMapper.insert(chatInf);
+        return null;
     }
 
 }

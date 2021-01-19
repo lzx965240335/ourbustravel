@@ -17,12 +17,14 @@ layui.use('table', function(){
                      edit: 'text', sort: true, templet: function (res) {
                         if (res.busState == 16) {
                             return "维修中";
-                        } else {
+                        } else if (res.busState == 17) {
                             return "正常";
+                        } else {
+                            return "故障";
                         }
                     },
                      }
-                    ,{field:'importTime', title: '引入时间'}
+                    ,{field:'importTime', width: 200, title: '引入时间'}
                     ,{
                      field:'onloadState', title: '行车状态',
                     edit: 'text', sort: true, templet: function (res) {
@@ -31,12 +33,12 @@ layui.use('table', function(){
                         } if (res.onloadState == 14) {
                             return "行驶中";
                         } else {
-                            return "故障";
+                            return "意外事故";
                         }
                     },
                      }
                     ,{field:'driver', title: '司机'}
-                    , {field: 'right', title: '操作', toolbar: '#barDemo'}
+                    , {field: 'right', width: 300, title: '操作', toolbar: '#barDemo'}
                 ]
             ]
             , id: 'testReload'
@@ -94,8 +96,6 @@ layui.use('table', function(){
             //修改
             $("#busId").val(data.busId);
             $("#carNum").val(data.carNum);
-            $("#busState").val(data.busState);
-            $("#onloadState").val(data.onloadState);
             layer.open({
                 type: 1,
                 title: "修改信息",
@@ -106,13 +106,11 @@ layui.use('table', function(){
                 }
             })
         }else if (obj.event === 'enable'){
-
-            var stateChinese=$(obj.tr[0].cells[7].childNodes[0].childNodes[7]).text();
+            //修改状态
+            var stateChinese=$(obj.tr[0].cells[3].childNodes[0].childNodes[0]);
             var state;
-            if(stateChinese=='正常'){
-                state=17;
-            }else {
-                state=16;
+            if(stateChinese==16) {
+                state = '维修中';
             }
             layer.confirm('您真的要这样做么', function (index) {
                 $.ajax({
@@ -123,8 +121,8 @@ layui.use('table', function(){
                     data: JSON.stringify({busId:data.busId,busState:state}),
                     success: function (data) {
                         if (data == 'success') {
-
-                            layer.msg('修改成功', {
+                            $(obj.tr[0].cells[3].childNodes[0].childNodes[0]).text('维修中');
+                            layer.msg('车辆已添加到维修列表', {
                                 time: 3000, //20s后自动关闭
                                 btn: ['明白了']
                             });
@@ -134,7 +132,7 @@ layui.use('table', function(){
                                     curr: $(".layui-laypage-skip").find("input").val()
                                 }
                                 , where: {
-
+                                    busState:16
                                 }
                             }, 'data');
                         }
@@ -143,36 +141,33 @@ layui.use('table', function(){
                 layer.close(index);
             })
 
+        } else if (obj.event === 'peiZhi') {
+            //配置司机
+            layer.open({
+                type: 1,
+                title: ["配置司机"],
+                area: ['60%', '60%'],
+                content: $("#deiver"),
+                cancel: function () {
+                },
+                success: function () {
+                    $("#queRen");
+                }
+            })
         }
 
         //修改数据
         $("#sureUpdate").click(function () {
-            var busStateId;
-            var onloadStateId;
-            var busId = $("#busId").val();
-            var busStateName = $("input[name='busState']:checked").val();
-            var onloadStateName = $("input[name='onloadState']:checked").val();
-            if (busStateName == null || busStateName == '' || onloadStateName == null || onloadStateName == '') {
+            var busId = $("#buId").val();
+            var carNum = $("#carNum").val();
+            if (carNum == null || carNum == '') {
                 return;
-            }
-            if (onloadStateName == '停站') {
-                onloadStateId = 13;
-            } else if (onloadStateName == '行驶中') {
-                onloadStateId = 14;
-            } else {
-                onloadStateId = 15;
-            }
-            if (busStateName == '维修中') {
-                busStateId = 16;
-            } else {
-                busStateId = 17;
             }
             //获取表单数据
             var jsonStr = JSON.stringify(
                 {
-                    "busId": busId,
-                    "busState": busStateId,
-                    "onloadState": onloadStateId,
+                    "busId":$("#busId").val(),
+                    "carNum": $("#carNum").val(),
                 });
             //向后台发送数据
             $.ajax({
@@ -185,7 +180,7 @@ layui.use('table', function(){
                     layer.msg(data);
                     if (data == "修改成功") {
                         layer.msg('修改成功', {
-                            time: 3000, //20s后自动关闭
+                            time: 3000, //3s后自动关闭
                             btn: ['明白了']
                         });
                         layer.closeAll();
@@ -193,7 +188,7 @@ layui.use('table', function(){
                     //数据刷新
                     table.reload('testReload',{
                         page:{
-                            curr:$(".layui-laypage-em").next().html(),
+                            curr: $(".layui-laypage-skip").find("input").val()
                         },
                         where:{
 
@@ -213,35 +208,18 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         , table = layui.table
 
     $("#register").click(function () {
-        var addBusState;
-        var addOnloadState;
+
         var addbusName = $("#addbusName").val();
         var addCarNum = $("#addCarNum").val();
-        var addBusStateName = $("input[name='addBusState']:checked").val();
-        var addOnloadStateName = $("input[name='addOnloadState']:checked").val();
         if (addbusName == null || addbusName == '' || addCarNum == null || addCarNum == '' ) {
 
             return;
-        }
-        if (addOnloadStateName == '停站') {
-            addOnloadState = 13;
-        } else if (addOnloadStateName == '行驶中') {
-            addOnloadState = 14;
-        } else {
-            addOnloadState = 15;
-        }
-        if (addBusStateName == '维修中') {
-            addBusState = 16;
-        } else {
-            addBusState = 17;
         }
         //获取表单数据
         var jsonStr = JSON.stringify(
             {
                 "busName": addbusName,
                 "carNum": addCarNum,
-                "busState": addBusState,
-                "onloadState": addOnloadState,
 
             });
         //向后台发送数据

@@ -4,21 +4,21 @@
 
 
   <insert id="addSite" parameterType="com.cykj.bean.Site">
-    insert into t_site(siteId,siteX,siteY,siteName,setTime,peopleNum)
-    value(#{siteId},#{longitude},#{latitude},#{siteName},#{setTime},#{peopleNum})
+    insert into t_site(siteId,longitude,latitude,siteName,setTime,peopleNum,isDot)
+    value(#{siteId},#{longitude},#{latitude},#{siteName},#{setTime},#{peopleNum},0)
   </insert>
 
   <delete id="deleteSite" parameterType="java.lang.Integer" >
     delete from t_site where siteId = #{siteId}
   </delete>
 
-  <update id="updateSite" parameterType="java.lang.Integer">
+  <update id="updateSite" parameterType="Site">
     update t_site
     <set>
-      <if test="siteX != null and siteX !=''" >
+      <if test="longitude != null and longitude !=''" >
         longitude = #{longitude},
       </if>
-      <if test="siteY != null and siteY !=''" >
+      <if test="latitude != null and latitude !=''" >
         latitude = #{latitude},
       </if>
       <if test="siteName != null and siteName !=''" >
@@ -31,7 +31,7 @@
         peopleNum = #{peopleNum},
       </if>
     </set>
-    where cityId = #{cityId}
+    where siteId = #{siteId}
   </update>
 
   <select id="selectAllSite" resultType="com.cykj.bean.Site" parameterType="HashMap">
@@ -63,8 +63,8 @@
         select * from t_site where isDot=0;
     </select>
 
-  <select id="getDots" resultType="Site" >
-        select * from t_site;
+  <select id="getDots" resultType="Site" parameterType="HashMap">
+    select * from  t_site where siteId>=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot}) a where a.pid=#{startId}) and siteId &lt;=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot}) a where a.pid=#{endId})
     </select>
 
 </mapper>

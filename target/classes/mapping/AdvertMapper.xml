@@ -31,6 +31,7 @@
     <result property="begTime" column="begTime"></result>
     <result property="endTime" column="endTime"></result>
     <result property="advertState" column="advertState"></result>
+    <result property="advertUrl" column="advertUrl"></result>
     <association property="dic" javaType="Dic">
       <result column="dicValue" property="dicValue"></result>
     </association>

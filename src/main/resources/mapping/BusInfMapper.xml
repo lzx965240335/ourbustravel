@@ -4,14 +4,14 @@
 
   <insert id="addBus" parameterType="BusInf">
     insert into t_bus(busId, busName, carNum, importTime, busState, onloadState)value (#{busId}, #{busName}, #{carNum},
-       sysdate(), #{busState}, #{onloadState})
+       sysdate(), 17, 13)
   </insert>
 
     <delete id="deleteBus" parameterType="java.lang.Integer">
     delete from t_bus where busId = #{busId}
   </delete>
 
-    <update id="updateAdmin" parameterType="BusInf">
+    <update id="updateBus" parameterType="BusInf">
         update t_bus
         <set>
             <if test="busName !=null and busName !=''">
@@ -29,6 +29,12 @@
             <if test="onloadState !=null and onloadState !=''">
                 onloadState = #{onloadState},
             </if>
+            <if test="driverName !=null and driverName !=''">
+                driverName = #{driverName},
+            </if>
+            <if test="sixTime !=null and sixTime !=''">
+                sixTime = #{sixTime},
+            </if>
         </set>
         where busId = #{busId}
     </update>
@@ -36,13 +42,30 @@
     <select id="selectBus" resultType="BusInf" parameterType="HashMap">
   select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
         <where>
+                and busState !='16'
+
             <if test="busName != null and busName !=''">
                 and busName like CONCAT('%',#{busName},'%')
             </if>
+
+        </where>
+        limit #{start},#{end};
+  </select>
+
+    <select id="selectBusWeiXiu" resultType="BusInf" parameterType="HashMap">
+        select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
+        <where>
+            and busState ='16'
+
+            <if test="busName != null and busName !=''">
+                and busName like CONCAT('%',#{busName},'%')
+            </if>
+
         </where>
 
         limit #{start},#{end};
-  </select>
+    </select>
+
     <resultMap id="BusInf" type="BusInf">
         <id property="busId" column="busId"></id>
         <result property="busName" column="busName"></result>
@@ -65,7 +88,7 @@
 
     <!--修改状态-->
     <update id="updateState" parameterType="BusInf">
-        update t_bus set busName= #{busName}
+        update t_bus set busState= '16',sixTime=sysdate()
         <where>
             busId=#{busId};
         </where>

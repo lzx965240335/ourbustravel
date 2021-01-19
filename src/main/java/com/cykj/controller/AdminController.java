@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,5 +146,10 @@ public class AdminController {
     @ResponseBody
     public AdminInf getService(HttpServletRequest request){
         return (AdminInf) request.getSession().getAttribute("adminInf");
+    }
+    @RequestMapping("/exit")
+    @ResponseBody
+    public void exit(HttpSession session){
+        session.removeAttribute("adminInf");
     }
 }

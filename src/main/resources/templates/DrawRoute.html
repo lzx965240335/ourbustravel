@@ -33,8 +33,17 @@
             </div>
         </div>
         <div id="route" class="route">
-            <div class="row_container">
+
+            <div th:each="item,itemStat:${sites}" id="routeId" th:routeId="${routeId}" th:routeName="${routeName}" class="row_container">
+                <button type="button" class="selectSite" onclick="clickSiteBtn(this)" th:value="${itemStat.index}">[[${item.siteName}]]</button>
+                <input class="sites" type="hidden" th:siteId="${item.siteId}" th:longitude="${item.longitude}" th:latitude="${item.latitude}" th:siteName="${item.siteName}" >
+            </div>
+
+            <div  th:if="${sites==null}" class="row_container">
                 <button type="button" class="selectSite" onclick="clickSiteBtn(this)" value="0">选择起始站点</button>
+            </div>
+            <div th:if="${sites==null}" class="row_container">
+                <button type="button" class="selectSite" onclick="clickSiteBtn(this)" value="1">选择站点</button>
             </div>
         </div>
     </div>

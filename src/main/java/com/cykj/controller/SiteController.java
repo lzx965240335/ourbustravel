@@ -77,4 +77,18 @@ public class SiteController {
         return (List) layuiJson.get("data");
     }
 
+    /**
+     * 修改
+     *
+     * @param req
+     * @param site
+     * @return
+     */
+    @RequestMapping("/updateSite")
+    @ResponseBody
+    public String updateCity(HttpServletRequest req, @RequestBody Site site ) {
+        int updateResult = siteService.updateSite(site);
+        return updateResult > 0 ? "修改成功" : "修改失败";
+    }
+
 }

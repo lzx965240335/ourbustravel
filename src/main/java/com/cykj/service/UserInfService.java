@@ -1,5 +1,6 @@
 package com.cykj.service;
 
+import com.cykj.bean.ChatInf;
 import com.cykj.bean.UserInf;
 import com.cykj.util.LayuiJson;
 import org.springframework.http.ResponseEntity;
@@ -20,4 +21,5 @@ public interface UserInfService {
     ResponseEntity<byte[]> downLoadFile(HttpServletRequest request, int fileId, String fileName1, String fileType);
     String upLoadFile(HttpServletRequest request, MultipartFile uploadFile, HttpSession session);
     String updateUserInf(UserInf userInf);
+    String chatLoad(ChatInf chatInf);
 }

@@ -20,22 +20,20 @@
                     [[${session.adminInf.adminName}]]
                 </a>
             </li>
-            <li id="but1" class="layui-nav-item">
-                <a href="javascript:void(0)">退出</a></li>
-            </li>
+            <li class="layui-nav-item"><a onclick="exit()" href="javascript:void(0)">退出</a></li>
         </ul>
     </div>
 
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test" >
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <div th:each="hasMap:${hasMap}">
-                    <li class="layui-nav-item" >
-                        <a >[[${hasMap.key}]]</a>
+                    <li class="layui-nav-item">
+                        <a>[[${hasMap.key}]]</a>
                         <dl class="layui-nav-child">
                             <div th:each="menu:${hasMap.value}">
-                                <dd ><a th:href="${menu.url}" target="iframe">[[${menu.menuName}]]</a></dd>
+                                <dd><a th:href="${menu.url}" target="iframe">[[${menu.menuName}]]</a></dd>
                             </div>
                         </dl>
                     </li>
@@ -60,7 +58,7 @@
 <script th:src="@{https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js}"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use('element', function () {
         var element = layui.element;
 
     });
@@ -75,91 +73,99 @@
 </script>
 
 <script>
-    $(function() {
+    $(function () {
         $.ajax({
-            contentType:"application/json",
-            url:"/Admin/getService",
-            type:"post",
-            data:"",
-            dataType:"json",
-            success:function (data) {
-              
-                console.log(data)
-                layui.use('layim', function(layim){
+            contentType: "application/json",
+            url: "/Admin/getService",
+            type: "post",
+            data: "",
+            dataType: "json",
+            success: function (data) {
+                layui.use('layim', function (layim) {
                     var layim = layui.layim;
-                    var socket = new WebSocket('ws://localhost:8080/websocket/'+data.userName);
+                    var socket = new WebSocket('ws://localhost:8080/websocket/zxkf');
                     socket.onopen = function () {
-                        console.log(data.userName+"连接成功")
+                        console.log("zxkf连接成功")
                         // socket.send('XXX连接成功');
                     }
-                    socket.onmessage = function(res){
+                    socket.onmessage = function (res) {
                         res = JSON.parse(res.data);
-                        console.log(res)
                         layim.getMessage(res
                         )
+                        var chatInf = {'msgcontent': res.content, 'msgtype': 'text'}
+                        chatInf.userid = res.id;
+                        chatInf.adminid = data.adminId;
+                        chatInf.msgrole = 'A-to-U'
+                        chatLoad(chatInf)
                     };
-                    if (data.userName=="xx"){
-                        layim.config({
-                            init: {
-                                url: '/json/getList1.json'
-                                ,data: {}
-                            }
+                    layim.config({
+                        init: {
+                            url: '/userMain/adminChat'
+                            , data: {}
+                        }
 
-                            //查看群员接口
-                            ,members: {
-                                url: '/json/getMembers.json'
-                                ,data: {}
-                            }
-                        });
-                    }else {
-                        layim.config({
-                            init: {
-                                url: '/json/getList.json'
-                                ,data: {}
-                            }
-                            //查看群员接口
-                            ,members: {
-                                url: '/json/getMembers.json'
-                                ,data: {}
-                            }
-                        });
-                    }
-                    layim.on('sendMessage', function(res){
+                        //查看群员接口
+                        // ,members: {
+                        //     url: '/json/getMembers.json'
+                        //     ,data: {}
+                        // }
+                    });
+                    layim.on('sendMessage', function (res) {
                         var mine = res.mine;
                         var to = res.to; //对方的信息
                         //监听到上述消息后，就可以轻松地发送socket了，如：
                         socket.send(JSON.stringify({
                             type: 'friendMessage' //随便定义，用于在服务端区分消息类型
-                            ,data: res
-                            ,role : $("#userName").val()
+                            , data: res
+                            , role: $("#userName").val()
                         }));
                     });
                 });
             },
-            error:function () {
+            error: function () {
                 alert('网络繁忙');
             },
         })
     });
-</script>
-</body>
-<script>
-    function getAlert(msg,session,title) {
+
+    function chatLoad(data) {
+        $.ajax({
+            url: "/userMain/chatLoad",
+            contentType: "application/json",
+            type: "post",
+            data: JSON.stringify(data),
+            datatype: "json",
+            success: function (res) {
+            }
+        })
+    }
+
+    function getAlert(msg, session, title) {
         return layer.alert(msg, {
-            title:title===undefined?'信息':title,
+            title: title === undefined ? '信息' : title,
             skin: 'layui-layer-molv' //样式类名  自定义样式
-            ,closeBtn: 1    // 是否显示关闭按钮 0不显示，1  2 样式
-            ,anim: 0 //动画类型
-            ,btn: ['确定','取消'] //按钮
-            ,icon: 6    // icon 5是失败
-            ,yes:session
+            , closeBtn: 1    // 是否显示关闭按钮 0不显示，1  2 样式
+            , anim: 0 //动画类型
+            , btn: ['确定', '取消'] //按钮
+            , icon: 6    // icon 5是失败
+            , yes: session
         });
     }
-    $("#but1").click(function() {
-        getAlert('系统提示，您确定要退出本次登录吗?',function () {
-            location.href = "http://localhost:8080/page/whatPage?pageName=adminLogin";
+
+    function exit() {
+        getAlert('系统提示，您确定要退出本次登录吗?', function () {
+            $.ajax({
+                url: "/Admin/exit",
+                type: "post",
+                data: '',
+                datatype: "text",
+                success: function (res) {
+                    location.href = "/page/whatPage?pageName=adminLogin";
+                }
+            })
         });
-    });
+    }
 </script>
+</body>
 </html>
 

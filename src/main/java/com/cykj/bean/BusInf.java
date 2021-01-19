@@ -3,8 +3,6 @@ package com.cykj.bean;
 public class BusInf {
     private Integer busId;
 
-    private String busName;
-
     private String carNum;
 
     private String importTime;
@@ -12,6 +10,14 @@ public class BusInf {
     private Integer busState;
 
     private Integer onloadState;
+
+    private String busName;
+
+    private String driverName;
+
+    private String sixTime;
+
+    private String fixLoad;//维修进度
 
     public BusInf() {
     }
@@ -62,5 +68,29 @@ public class BusInf {
 
     public void setBusName(String busName) {
         this.busName = busName;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public String getSixTime() {
+        return sixTime;
+    }
+
+    public void setSixTime(String sixTime) {
+        this.sixTime = sixTime;
+    }
+
+    public String getFixLoad() {
+        return fixLoad;
+    }
+
+    public void setFixLoad(String fixLoad) {
+        this.fixLoad = fixLoad;
     }
 }

@@ -30,7 +30,7 @@
         </association>
     </resultMap>
 
-    <select id="getRoutes" resultType="Route" >
+    <select id="getRoutes" resultType="Route" parameterType="HashMap">
         select * from t_route;
     </select>
 
@@ -76,8 +76,8 @@
         insert into
         t_route(routeName,buildTime,routeInf,rightOrLeft,startSite,endSite,position)value(#{routeName},sysdate(),#{routeInf},1,#{startSite},#{endSite},#{position});
         <foreach collection="sites" item="item" separator=";">
-            insert into t_site(longitude,latitude,setTime,isDot) value
-            (#{item.longitude},#{item.latitude},sysdate(),1)
+            insert into t_site(longitude,latitude,setTime,isDot,pid) value
+            (#{item.longitude},#{item.latitude},sysdate(),1,#{item.pid})
         </foreach>
     </insert>
 
@@ -89,6 +89,35 @@
     <select id="getMaxId" resultMap="maxId" parameterType="String">
             show TABLE status like #{tableName};
     </select>
+
+    <!--    获取SiteId-->
+    <select id="getSiteId" parameterType="Integer" resultType="String">
+        select routeInf from t_route where routeId=#{routeId};
+    </select>
+
+    <select id="getPositionId" parameterType="Integer" resultType="String">
+        select position from t_route where routeId=#{routeId};
+    </select>
+
+    <select id="getPosition" parameterType="ArrayList" resultType="Site">
+        select * from t_site where siteId in
+        <foreach collection="list" item="item" open="(" separator="," close=")" >
+            ${item}
+        </foreach>
+    </select>
+
+    <!--    获取route-->
+    <select id="getRouteById" parameterType="Integer" resultType="Route">
+        select * from t_route where routeId=#{routeId};
+    </select>
+
+    <delete id="deleteRoute" parameterType="HashMap">
+        delete from t_route where routeId=#{routeId};
+        delete from t_site where siteId in
+        <foreach collection="list" item="item" open="(" separator="," close=")" >
+            ${item}
+        </foreach>
+    </delete>
 
 
 

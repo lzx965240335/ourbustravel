@@ -53,8 +53,8 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public List<Advert>  selAdvertMsg() {
+    public List<Advert>  selAdvertMsg(int advertUrl) {
 
-        return advertMapper.selAdvertMsg();
+        return advertMapper.selAdvertMsg(advertUrl);
     }
 }

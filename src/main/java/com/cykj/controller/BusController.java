@@ -1,5 +1,7 @@
 package com.cykj.controller;
+import com.cykj.bean.AdminInf;
 import com.cykj.bean.BusInf;
+import com.cykj.bean.MenuInf;
 import com.cykj.service.BusService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/busMain")
@@ -65,7 +69,7 @@ public class BusController {
     @ResponseBody
     public String updateBus(HttpServletRequest req, @RequestBody BusInf busInf) {
         int updateResult = busService.updateBus(busInf);
-        return updateResult > 0 ? "修改成功" : "修改失败";
+        return updateResult != -1 ? "修改成功" : "修改失败";
     }
 
     //修改状态
@@ -77,5 +81,19 @@ public class BusController {
             return "success";
         }
         return "fail";
+    }
+
+
+    //动态菜单
+    @RequestMapping("/addDriver")
+    @ResponseBody
+    public ModelAndView initMenu(HttpServletRequest request) {
+        ModelAndView modelAndView=new ModelAndView();
+//      查询所有司机的list
+//       即将跳转的ifram页面
+//        modelAndView.setViewName("busMain");
+        //传进去的司机列表
+//        modelAndView.addObject("Drivers",list);
+        return  modelAndView;
     }
 }

@@ -14,6 +14,18 @@ public interface RouteService {
     //增加线路
     boolean addRoute(Route route);
 
+    //根据路线查询站点
+    List<Site> getSites(String routeId);
+
+    //根据线路查询所有点
+    public List<Site> getPosition(String routeId);
+
+    //根据id查route
+    Route getRouteById(String routeId);
+
+    //删除线路
+    boolean deleteRoute(String routeId);
+
     //查询乘车方案
     Map<Integer, List<Route>> getRoutes(String startId,String endId);
 }

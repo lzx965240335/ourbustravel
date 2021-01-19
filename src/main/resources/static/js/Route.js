@@ -1,3 +1,5 @@
+
+var route;
 //显示比例尺
 var scale = new AMap.Scale({
         visible: true
@@ -22,6 +24,7 @@ AMap.plugin([
 /*公交站点查询*/
 var markers = [];
 stationSearch();
+
 /*公交站点查询返回数据解析*/
 function stationSearch() {
     // 移除原有marker
@@ -42,10 +45,10 @@ function stationSearch() {
                             imageSize: new AMap.Size(24, 24)
                         }),
                         offset: new AMap.Pixel(-12, -24),
-                        position: [data[i].longitude,data[i].latitude],
+                        position: [data[i].longitude, data[i].latitude],
                         map: map,
                         title: data[i].siteName,
-                        siteId:data[i].siteId
+                        siteId: data[i].siteId
                     });
 
                     marker.info = new AMap.InfoWindow({
@@ -64,7 +67,7 @@ function stationSearch() {
     })
 }
 
-layui.use(['table','layer'], function () {
+layui.use(['table', 'layer'], function () {
     var table = layui.table, layer = layui.layer;
     table.render({
         elem: '#test'
@@ -72,21 +75,29 @@ layui.use(['table','layer'], function () {
         , title: '站点数据表'
         , totalRow: true
         , cols: [[
-                {type: 'numbers'},
-                {checkbox: true}
-                //field后面的值必须跟实体类的属性一致
-                // , {field: 'siteId', title: 'ID', sort: true}
-                , {field: 'routeName', title: '线路名称'}
-                , {field: 'startSiteImpl',templet:res=> {
-                    return res.startSiteImpl==null?'':res.startSiteImpl.siteName;
-                }, title: '起点站'}
-                , {field: 'endSiteImpl', title: '终点站' ,templet:res => {
-                    return res.endSiteImpl==null?'':res.endSiteImpl.siteName;
-                }}
-                , {field: 'peopleNum', title: '方向',templet:res=> {return res.rightOrLeft==1?'西':'东';}}
-                , {field: 'updateTime', title: '更新时间'}
-                , {field: 'operation', title: '操作', toolbar: '#barDemo'}
-            ]
+            {type: 'numbers'},
+            {checkbox: true}
+            //field后面的值必须跟实体类的属性一致
+            // , {field: 'siteId', title: 'ID', sort: true}
+            , {field: 'routeName', title: '线路名称'}
+            , {
+                field: 'startSiteImpl', templet: res => {
+                    return res.startSiteImpl == null ? '' : res.startSiteImpl.siteName;
+                }, title: '起点站'
+            }
+            , {
+                field: 'endSiteImpl', title: '终点站', templet: res => {
+                    return res.endSiteImpl == null ? '' : res.endSiteImpl.siteName;
+                }
+            }
+            , {
+                field: 'peopleNum', title: '方向', templet: res => {
+                    return res.rightOrLeft == 1 ? '正' : '反';
+                }
+            }
+            , {field: 'buildTime', title: '创建时间'}
+            , {field: 'operation', title: '操作', toolbar: '#barDemo'}
+        ]
         ]
         , id: 'testReload'
         , page: true
@@ -127,71 +138,67 @@ layui.use(['table','layer'], function () {
                 $.ajax({
                     type: "post",
                     dataType: "text",
-                    url: "/site/deleteSite",
-                    data: {"siteId": data.siteId},
+                    url: "/routeController/deleteRoute",
+                    data: "routeId=" + obj.data.routeId,
                     success: function (data) {
-                        layer.msg(data);
-                        if (data == "删除成功") {
+                        if (data) {
+                            layer.msg('删除成功');
                             obj.del();
                             layer.close(index);
+                        }else {
+                            layer.msg('删除失败');
                         }
                     }
                 })
             });
         } else if (obj.event === 'update') {
-            $("#siteId").val(data.siteId);
-            $("#updateSiteName").val(data.siteName);
-            $("#updateLongitude").val(data.longitude);
-            $("#updateLatitude").val(data.latitude);
-            $("#updatePeopleNum").val(data.peopleNum);
-            // console.log("点击修改按钮时" + data);
-            // 修改弹出框
-            layer.open({
-                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                type: 1,
-                title: "修改城市信息",
-                area: ['100%', '100%'],
-                content: $("#updateTest"),
-                success: function () {
-                    $("#register");
-                }
-            })
-        }else if (obj.event === 'select') {
-            var routeInf=obj.data.routeInf;
-            $.ajax({
-                type: "post",
-                dataType: "text",
-                url: "/site/deleteSite",
-                data: {"routeInf": routeInf},
-                success: function (data) {
-                    layer.msg(data);
-                    if (data == "删除成功") {
-                        obj.del();
-                        layer.close(index);
+            window.open('/routeController/updateRoutePage?routeId=' + obj.data.routeId + '');
+        } else if (obj.event === 'select') {
+
+            if (route) {
+                route.destroy();
+            }
+            $('.select').text('查看');
+            let node = obj.tr[0].lastChild.children[0].children[0];
+            if ($(node).text() == '查看') {
+                $(node).text('恢复');
+                $.ajax({
+                    url: "/routeController/updateRoute",
+                    type: "post",
+                    data: "routeId=" + obj.data.routeId,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.length < 1) {
+                            layer.msg('服务器旧路线查询失败');
+                        }
+                        let path = [];
+                        for (let i = 0; i < data.length; i++) {
+                            path.push([data[i].longitude, data[i].latitude]);
+                            if (i < data.length - 10) {
+                                i += 10;
+                            }
+                        }
+                        map.plugin("AMap.DragRoute", function () {
+                            route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_DISTANCE); //构造拖拽导航类
+                            route.startMarkerOptions.visible = false;
+                            route.midMarkerOptions.visible = false;
+                            route.endMarkerOptions.visible = false;
+                            route.search(); //查询导航路径并开启拖拽导航
+                            route.on('addway', function (e) {
+                                console.log(e)
+                            })
+                        });
+                    },
+                    error: function () {
+                        layer.msg('服务器旧路线查询失败')
                     }
-                }
-            })
+                });
+            } else {
+                route.destroy();
+                $(node).text('查看');
+            }
         }
     });
-
-
-
-    // 点击新增按钮绑定的事件
-    $("#addBtn").click(function () {
-        layer.open({
-            type: 1,
-            title: ["新增信息"],
-            area: ['80%', '80%'],
-            content: $("#myInf"),
-            cancel: function () {
-            },
-            success: function () {
-                $("#register");
-            }
-        })
-        form.render();
-    })
-
 });
 
 
