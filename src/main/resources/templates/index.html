@@ -1,65 +1,103 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>两点间距离</title>
-    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" type="text/css">
     <style>
         html,body,#container{
-            height:100%;
+            height: 100%
+        }
+        .btn{
+            width: 6rem;
+            margin: 0 1rem 0 4.5rem;
         }
     </style>
+    <title>鼠标工具-距离面积测量</title>
 </head>
 <body>
-<div id="container"></div>
-<div class='info' style='min-width:15rem;'>可拖动Marker调整位置</div>
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=您申请的key值"></script>
+<div id='container'></div>
+<div class="input-card" style='width: 18rem;'>
+    <div class="input-item">
+        <input type="radio" name='func' checked="" value='rule'><span class="input-text">距离测量</span>
+        <input type="radio" name='func' value='measureArea'><span class="input-text">面积测量</span>
+    </div>
+    <div class="input-item">
+        <input id="close" type="button" class="btn" value="关闭" />
+    </div>
+</div>
+<script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&plugin=AMap.MouseTool"></script>
 <script type="text/javascript">
-    //初始化地图对象，加载地图
-    var map = new AMap.Map("container", {
-        resizeEnable: true,
-        zoom: 13
+    var map = new AMap.Map('container',{
+        zoom:15
     });
-    var m1 = new AMap.Marker({
-        map: map,
-        draggable:true,
-        position: new AMap.LngLat(116.368904, 39.923423)
-    });
-    var m2 = new AMap.Marker({
-        map: map,
-        draggable:true,
-        position:new AMap.LngLat(116.387271, 39.922501)
-    });
-    map.setFitView();
 
-    var line = new AMap.Polyline({
-        strokeColor:'#80d8ff',
-        isOutline:true,
-        outlineColor:'white'
-    });
-    line.setMap(map);
-    var text = new AMap.Text({
-        text:'',
-        style:{'background-color':'#29b6f6',
-            'border-color':'#e1f5fe',
-            'font-size':'12px'}
-    });
-    text.setMap(map)
-    function computeDis(){
-        var p1 = m1.getPosition();
-        var p2 = m2.getPosition();
-        var textPos = p1.divideBy(2).add(p2.divideBy(2));
-        var distance = Math.round(p1.distance(p2));
-        var path = [p1,p2];
-        line.setPath(path);
-        text.setText('两点相距'+distance+'米')
-        text.setPosition(textPos)
+    var mouseTool = new AMap.MouseTool(map);
+
+    function draw(type){
+        switch(type){
+            case 'rule':{
+                mouseTool.rule({
+                    startMarkerOptions : {//可缺省
+                        icon: new AMap.Icon({
+                            size: new AMap.Size(19, 31),//图标大小
+                            imageSize:new AMap.Size(19, 31),
+                            image: "//webapi.amap.com/theme/v1.3/markers/b/start.png"
+                        }),
+                        offset: new AMap.Pixel(-9, -31)
+                    },
+                    endMarkerOptions : {//可缺省
+                        icon: new AMap.Icon({
+                            size: new AMap.Size(19, 31),//图标大小
+                            imageSize:new AMap.Size(19, 31),
+                            image: "//webapi.amap.com/theme/v1.3/markers/b/end.png"
+                        }),
+                        offset: new AMap.Pixel(-9, -31)
+                    },
+                    midMarkerOptions : {//可缺省
+                        icon: new AMap.Icon({
+                            size: new AMap.Size(19, 31),//图标大小
+                            imageSize:new AMap.Size(19, 31),
+                            image: "//webapi.amap.com/theme/v1.3/markers/b/mid.png"
+                        }),
+                        offset: new AMap.Pixel(-9, -31)
+                    },
+                    lineOptions : {//可缺省
+                        strokeStyle: "solid",
+                        strokeColor: "#FF33FF",
+                        strokeOpacity: 1,
+                        strokeWeight: 2
+                    }
+                    //同 RangingTool 的 自定义 设置，缺省为默认样式
+                });
+                break;
+            }
+            case 'measureArea':{
+                mouseTool.measureArea({
+                    strokeColor:'#80d8ff',
+                    fillColor:'#80d8ff',
+                    fillOpacity:0.3
+                    //同 Polygon 的 Option 设置
+                });
+                break;
+            }
+        }
     }
-    computeDis();
-    m1.on('dragging', computeDis)
-    m2.on('dragging', computeDis)
+    var radios = document.getElementsByName('func');
+    for(var i=0;i<radios.length;i+=1){
+        radios[i].onchange = function(e){
+            draw(e.target.value)
+        }
+    }
+    draw('rule')
+
+    document.getElementById('close').onclick = function(){
+        mouseTool.close(true)//关闭，并清除覆盖物
+        for(var i=0;i<radios.length;i+=1){
+            radios[i].checked = false;
+        }
+    }
 </script>
 </body>
 </html>

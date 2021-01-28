@@ -18,10 +18,26 @@ AMap.plugin([
     // 添加 3D 罗盘控制
     map.addControl(new AMap.ControlBar());
 });
+//为地图注册click事件获取鼠标点击出的经纬度坐标
+map.on('click', function (e) {
 
+    //左键获取经纬度
+    document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat();
+    $("#addLongitude").val(e.lnglat.getLng());
+    $("#addLatitude").val(e.lnglat.getLat());
+    var layer = layui.layer;
+    layer.open({
+        type: 1,
+        title: ["新增站点"],
+        area: ['35%', '45%'],
+        content: $("#myInf"),
+    })
+
+});
 /*公交站点查询*/
 var markers = [];
 stationSearch();
+
 /*公交站点查询返回数据解析*/
 function stationSearch() {
     // 移除原有marker
@@ -42,10 +58,10 @@ function stationSearch() {
                             imageSize: new AMap.Size(24, 24)
                         }),
                         offset: new AMap.Pixel(-12, -24),
-                        position: [data[i].longitude,data[i].latitude],
+                        position: [data[i].longitude, data[i].latitude],
                         map: map,
                         title: data[i].siteName,
-                        siteId:data[i].siteId
+                        siteId: data[i].siteId
                     });
                     marker.info = new AMap.InfoWindow({
                         content: data[i].siteName,
@@ -64,7 +80,6 @@ function stationSearch() {
 }
 
 
-
 layui.use('table', function () {
     var table = layui.table;
     table.render({
@@ -75,7 +90,7 @@ layui.use('table', function () {
         , totalRow: true
         , cols: [
             [
-                {type: 'numbers',title:'序号'},
+                {type: 'numbers', title: '序号'},
                 {checkbox: true}
                 //field后面的值必须跟实体类的属性一致
                 // , {field: 'siteId', title: 'ID', sort: true}
@@ -206,7 +221,7 @@ layui.use('table', function () {
                         //弹出层(显示效果）
                         layer.msg(data);
                         //数据刷新
-                       location.reload();
+                        location.reload();
                     }
                 })
             })
@@ -279,11 +294,11 @@ layui.use(['form', 'layedit', 'laydate', 'layer', 'table'], function () {
         layer.open({
             type: 1,
             title: ["新增站点"],
-            area: ['50%', '50%'],
+            area: ['35%', '45%'],
             content: $("#myInf"),
         })
 
     })
 
 
-})
+});

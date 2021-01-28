@@ -1,5 +1,3 @@
-
-var route;
 //显示比例尺
 var scale = new AMap.Scale({
         visible: true
@@ -129,7 +127,7 @@ layui.use(['table', 'layer'], function () {
         active[type] ? active[type].call(this) : '';
     });
 
-
+var route;
     //监听行工具事件
     table.on('tool(test)', function (obj) {
         var data = obj.data;
@@ -154,13 +152,13 @@ layui.use(['table', 'layer'], function () {
         } else if (obj.event === 'update') {
             window.open('/routeController/updateRoutePage?routeId=' + obj.data.routeId + '');
         } else if (obj.event === 'select') {
-
             if (route) {
                 route.destroy();
             }
-            $('.select').text('查看');
+
             let node = obj.tr[0].lastChild.children[0].children[0];
             if ($(node).text() == '查看') {
+                $('.select').text('查看');
                 $(node).text('恢复');
                 $.ajax({
                     url: "/routeController/updateRoute",
@@ -172,12 +170,25 @@ layui.use(['table', 'layer'], function () {
                             layer.msg('服务器旧路线查询失败');
                         }
                         let path = [];
+                        let size=parseInt(parseInt(data.length)/16);
+                        console.log(data,'s');
+                        path.push([data[0].longitude, data[0].latitude]);
+                        let number=0;
                         for (let i = 0; i < data.length; i++) {
-                            path.push([data[i].longitude, data[i].latitude]);
-                            if (i < data.length - 10) {
-                                i += 10;
+                            if (data[i].pid!=-1){
+                                console.log("找到一个",data[i])
+                                path.push([data[i].longitude, data[i].latitude]);
+                                number=0;
+                            }else {
+                                number++;
+                            }
+                            if (number===size && path.length<14){
+                                path.push([data[i].longitude, data[i].latitude]);
+                                number=0;
                             }
                         }
+                        path.push([data[parseInt(data.length) - 1].longitude, data[parseInt(data.length) - 1].latitude]);
+                        console.log(path,'path')
                         map.plugin("AMap.DragRoute", function () {
                             route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_DISTANCE); //构造拖拽导航类
                             route.startMarkerOptions.visible = false;
@@ -195,7 +206,7 @@ layui.use(['table', 'layer'], function () {
                 });
             } else {
                 route.destroy();
-                $(node).text('查看');
+                $('.select').text('查看');
             }
         }
     });

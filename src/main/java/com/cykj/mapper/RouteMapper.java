@@ -10,6 +10,8 @@ import java.util.Map;
 
 @Repository
 public interface RouteMapper {
+   List<Route> getRoutes(Map map);
+
    //条件查询线路
    List<Route> selectRoutes(Map map);
 
@@ -35,6 +37,10 @@ public interface RouteMapper {
 
    //删除线路
    int deleteRoute(Map map);
+
    //查询某条线路
    List<Route> getRoutes();
+
+   int updateRoute(Map map);
+
 }

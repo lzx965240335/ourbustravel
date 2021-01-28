@@ -74,7 +74,7 @@
 
     <insert id="addRoute" parameterType="Route">
         insert into
-        t_route(routeName,buildTime,routeInf,rightOrLeft,startSite,endSite,position)value(#{routeName},sysdate(),#{routeInf},1,#{startSite},#{endSite},#{position});
+        t_route(routeName,buildTime,routeInf,rightOrLeft,startSite,endSite,position)value(#{routeName},sysdate(),#{routeInf},#{rightOrLeft},#{startSite},#{endSite},#{position});
         <foreach collection="sites" item="item" separator=";">
             insert into t_site(longitude,latitude,setTime,isDot,pid) value
             (#{item.longitude},#{item.latitude},sysdate(),1,#{item.pid})
@@ -101,12 +101,16 @@
 
     <select id="getPosition" parameterType="ArrayList" resultType="Site">
         select * from t_site where siteId in
-        <foreach collection="list" item="item" open="(" separator="," close=")" >
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+        order by  field(siteId,
+        <foreach collection="list" item="item" separator="," close=")">
             ${item}
         </foreach>
     </select>
 
-    <!--    获取route-->
+    <!-- 获取route-->
     <select id="getRouteById" parameterType="Integer" resultType="Route">
         select * from t_route where routeId=#{routeId};
     </select>
@@ -114,11 +118,40 @@
     <delete id="deleteRoute" parameterType="HashMap">
         delete from t_route where routeId=#{routeId};
         delete from t_site where siteId in
-        <foreach collection="list" item="item" open="(" separator="," close=")" >
+        <foreach collection="list" item="item" open="(" separator="," close=")">
             ${item}
         </foreach>
     </delete>
 
-
+    <update id="updateRoute"  parameterType="HashMap">
+        update t_route
+        <set>
+            <if test="routeName != null and routeName !=''" >
+                routeName=#{routeName},updateTime=sysdate(), rightOrLeft=#{rightOrLeft},
+            </if>
+            <if test="startSite != null and startSite !=''" >
+                startSite=#{startSite},
+            </if>
+            <if test="endSite != null and endSite !=''" >
+                endSite=#{endSite},
+            </if>
+            <if test="routeInf != null and routeInf !=''" >
+                routeInf=#{routeInf},
+            </if>
+            <if test="position != null and position !=''" >
+                position=#{position}
+            </if>
+        </set>
+        where routeId=#{routeId};
+        delete from t_site where siteId in
+        <foreach collection="list" item="item" open="(" separator="," close=")" >
+            ${item}
+        </foreach>
+        ;
+        <foreach collection="sites" item="item" separator=";">
+            insert into t_site(longitude,latitude,setTime,isDot,pid) value
+            (#{item.longitude},#{item.latitude},sysdate(),1,#{item.pid})
+        </foreach>
+    </update>
 
 </mapper>

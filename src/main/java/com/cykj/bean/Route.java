@@ -32,9 +32,27 @@ public class Route {
     //路线集合
     List<Site> sites;
 
+    //点集合
+    List<Site> positions;
+
     //搜索数据线路坐标集合
     List<String[]> list;
 
+    public List<Site> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Site> positions) {
+        this.positions = positions;
+    }
+
+    public List<String[]> getList() {
+        return list;
+    }
+
+    public void setList(List<String[]> list) {
+        this.list = list;
+    }
 
     public Integer getRightOrLeft() {
         return rightOrLeft;
@@ -133,13 +151,6 @@ public class Route {
         this.position = position;
     }
 
-    public List<String[]> getList() {
-        return list;
-    }
-
-    public void setList(List<String[]> list) {
-        this.list = list;
-    }
 
     @Override
     public String toString() {

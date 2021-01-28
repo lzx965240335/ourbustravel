@@ -8,9 +8,7 @@ var to = "";//定义终点
 var myAddress;
 var path = [];//线路规划数组
 var route;//规划线路
-//距离最近的公交站点数组
-var arr1 = new Array();//起点用
-var arr2 = new Array();//终点用
+
 //乘车策略map
 var policy;
 //公交站点列表
@@ -53,7 +51,12 @@ auto = new AMap.AutoComplete({
 //     // 添加 3D 罗盘控制
 //     map.addControl(new AMap.ControlBar());
 // });
-
+//步行导航
+var walking = new AMap.Walking({
+    map: map,
+    hideMarkers: true,
+    autoFitView: true,
+});
 
 //根据ip精确定位
 var options = {
@@ -171,10 +174,10 @@ function AllStation() {
                             imageSize: new AMap.Size(24, 24)
                         }),
                         offset: new AMap.Pixel(-12, -24),
-                        position: [data[i].longitude,data[i].latitude],
+                        position: [data[i].longitude, data[i].latitude],
                         map: map,
                         title: data[i].siteName,
-                        siteId:data[i].siteId
+                        siteId: data[i].siteId
                     });
                     marker.info = new AMap.InfoWindow({
                         content: data[i].siteName,
@@ -183,7 +186,6 @@ function AllStation() {
                     marker.on('click', function (e) {
                         e.target.info.open(map, e.target.getPosition())
                     });
-                    console.log(marker)
                     markers.push(marker);
                 }
 
@@ -354,11 +356,12 @@ ContextMenu.prototype.addStart = function () {  //右键菜单添加起点标记
         position: this.contextMenuPositon //基点位置
     });
     //绘制路线起点
-    drawLine(markerStart);
+
     getPlace([markerStart._position.lng, markerStart._position.lat], 2);
     setTimeout(function () {
         openSeach();
     }, 500);
+    drawLine();
     this.contextMenu.close();
 };
 ContextMenu.prototype.addEnd = function () {  //右键菜单添加终点标记
@@ -375,11 +378,12 @@ ContextMenu.prototype.addEnd = function () {  //右键菜单添加终点标记
         position: this.contextMenuPositon //基点位置
     });
     //绘制路线终点
-    drawLine(markerEnd);
+
     getPlace([markerEnd._position.lng, markerEnd._position.lat], 3);
     setTimeout(function () {
         openSeach();
     }, 500);
+    drawLine();
     this.contextMenu.close();
 };
 ContextMenu.prototype.clearRoute = function () {  //清除记录
@@ -418,11 +422,11 @@ map.on('click', function (e) {
 function reversal() {
     $("#dir_from_ipt").val(to);
     $("#dir_to_ipt").val(from);
-    from=$("#dir_from_ipt").val();
-    to= $("#dir_to_ipt").val();
+    from = $("#dir_from_ipt").val();
+    to = $("#dir_to_ipt").val();
     if (markerStart != undefined) {
         var markerStart1 = markerEnd;
-        var markerStart2=markerStart;
+        var markerStart2 = markerStart;
         map.remove(markerStart);
     }
     markerStart = new AMap.Marker({
@@ -435,7 +439,7 @@ function reversal() {
         position: markerStart1._position //基点位置
     });
     //绘制路线起点
-    drawLine(markerStart);
+    drawLine();
     setTimeout(function () {
         if (markerEnd != undefined) {
             var markerEnd1 = markerStart2;
@@ -451,98 +455,16 @@ function reversal() {
             position: markerEnd1._position //基点位置
         });
         //绘制路线终点
-        drawLine(markerEnd);
-    },500)
+        drawLine();
+    }, 500)
 }
 
 
 //绘制初始路径
 
-function drawLine(Marker) {
-    switch (Marker._opts.icon._opts.image) {
-        case "/imgs/start_marker.png":
-            switch (path.length) {
-                case 0:
-                    path.splice(0, 0, [Marker._position.lng, Marker._position.lat]);
-                    break;
-                default:
-                    path.splice(0, 1, [Marker._position.lng, Marker._position.lat]);
-                    break;
-            }
-            break;
-        case "/imgs/end_marker.png":
-            switch (path.length) {
-                case 0:
-                    path.splice(1, 0, [Marker._position.lng, Marker._position.lat]);
-                    break;
-                default:
-                    path.splice(1, 1, [Marker._position.lng, Marker._position.lat]);
-                    break;
-            }
-            path.splice(1, 1, [Marker._position.lng, Marker._position.lat]);
-            break;
-    }
-    if (path.length == 2) {
-        //一、清除原始路线
-
-        //二、绘制最新路线、先步行，后公交，再步行
-        for (i = 0, len = markers.length; i < len; i++) {
-          let m= computeDis(markerStart,markers[i]);
-          let n=computeDis(markerEnd,markers[i]);
-            arr1.push(Number(m));
-            arr2.push(Number(n));
-        }
-        console.log(arr1);
-        console.log(arr2);
-        let min1 = Math.min.apply(null, arr1);
-        let min2 = Math.min.apply(null, arr2);
-        console.log(min1);
-        console.log(min2);
-        let oneSite=arr1.indexOf(min1);
-        let twoSite=arr2.indexOf(min2);
-        console.log(oneSite);
-        console.log(twoSite);
-        if (markers[oneSite]._originOpts.siteId!=markers[twoSite]._originOpts.siteId){
-            //同步请求数据
-            $.ajax({
-                async: false,
-                url: "/routeController/getRoutes",
-                type: "post",
-                data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
-                dataType: "json",
-                success: function (data) {
-
-                    console.log(data[0])
-                    walkLine(markerStart,markers[oneSite]);
-                    walkLine(markers[twoSite],markerEnd);
-                    //绘制第一条线路
-                    var polyline = new AMap.Polyline({
-                        routeId:1,
-                        path: data[0][0].list,
-                        // isOutline: true,//显示描边
-                        // outlineColor: '#ffeeff',
-                        // borderWeight: 3,
-                        showDir:true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
-                        strokeColor: "#05aa2e",//线条颜色
-                        strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
-                        strokeWeight: 6,//轮廓线宽度
-                        // 折线样式还支持 'dashed'
-                        strokeStyle: "solid",
-                        // strokeStyle是dashed时有效
-                        // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
-                        lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
-                        lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
-                        zIndex: 50,
-                    });
-                    map.add(polyline);
-                    map.setFitView();
-                },
-            });
-        }else {
-
-        }
-
-
+function drawLine() {
+    if (markerStart != undefined && markerEnd != undefined) {
+        busPolicy(markerStart, markerEnd)
     }
 }
 
@@ -564,16 +486,10 @@ function clearInput(node) {
 }
 
 
-
 //根据起终点坐标规划步行路线
-function walkLine(marker1,marker2){
-    //步行导航
-    var walking = new AMap.Walking({
-        map: map,
-        hideMarkers: true,
-        autoFitView: true,
-    });
-    walking.search(marker1.getPosition(), marker2.getPosition(), function(status, result) {
+function walkLine(marker1, marker2) {
+
+    walking.search(marker1.getPosition(), marker2.getPosition(), function (status, result) {
         // result即是对应的步行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_WalkingResult
         if (status === 'complete') {
             console.log(result);
@@ -585,10 +501,111 @@ function walkLine(marker1,marker2){
 }
 
 
-
 //根据两点计算之间的距离，用于判断位置与公交站之间哪个近
-function computeDis(marker1,marker2){
-    return  Math.round(marker1.getPosition().distance(marker2.getPosition()));
+function computeDis(marker1, marker2) {
+    return Math.round(marker1.getPosition().distance(marker2.getPosition()));
 }
 
 
+// function  busPolicy(startMarker,endMarker) {
+//     //距离最近的公交站点数组
+//     let arr1 = new Array();//起点用
+//     let arr2 = new Array();//终点用
+//     //一、清除原始路线
+//
+//     //二、绘制最新路线、先步行，后公交，再步行
+//     for (let i = 0, len = markers.length; i < len; i++) {
+//         //判断起点终点离每个站的距离并添加到数组中
+//         let m= computeDis(startMarker,markers[i]);
+//         let n=computeDis(endMarker,markers[i]);
+//         arr1.push(Number(m));
+//         arr2.push(Number(n));
+//     }
+//     for (let i1 = 0;i1<arr1.length;i1++){
+//         for (let i2 = 0;i2<arr2.length;i2++){
+//             if (arr1[i1]<=1000&&arr2[i2]<=1000){
+//                 let oneSite=arr1.indexOf(arr1[i1]);
+//                 let twoSite=arr2.indexOf(arr2[i2]);
+//                 if (markers[oneSite]._originOpts.siteId!=markers[twoSite]._originOpts.siteId){
+//                     //同步请求数据
+//                     $.ajax({
+//                         async: false,
+//                         url: "/routeController/getRoutes",
+//                         type: "post",
+//                         data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
+//                         dataType: "json",
+//                         success: function (data) {
+//                             console.log(data)
+//                             //判断传来的数据是否为空
+//                             if (data[0]!=null){
+//
+//                             }else {
+//
+//                             }
+//                         }
+//                     });
+//             }
+//         }
+//     }
+//
+//
+//         //同步请求数据
+//         // $.ajax({
+//         //     async: false,
+//         //     url: "/routeController/getRoutes",
+//         //     type: "post",
+//         //     data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
+//         //     dataType: "json",
+//         //     success: function (data) {
+//         //
+//         //         console.log(data[0])
+//         //         walkLine(markerStart,markers[oneSite]);
+//         //         walkLine(markers[twoSite],markerEnd);
+//         //         //绘制第一条线路
+//         //         var polyline = new AMap.Polyline({
+//         //             routeId:1,
+//         //             path: data[0][0].list,
+//         //             // isOutline: true,//显示描边
+//         //             // outlineColor: '#ffeeff',
+//         //             // borderWeight: 3,
+//         //             showDir:true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
+//         //             strokeColor: "#05aa2e",//线条颜色
+//         //             strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
+//         //             strokeWeight: 6,//轮廓线宽度
+//         //             // 折线样式还支持 'dashed'
+//         //             strokeStyle: "solid",
+//         //             // strokeStyle是dashed时有效
+//         //             // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
+//         //             lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
+//         //             lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
+//         //             zIndex: 50,
+//         //         });
+//         //         map.add(polyline);
+//         //         map.setFitView();
+//         //     },
+//         // });
+//     }
+// }
+
+//后台处理返回方案数据
+function busPolicy(startMarker, endMarker) {
+    //起点终点坐标数组
+    console.log(startMarker);
+    console.log(endMarker);
+    let startPos =[startMarker._position.lng,startMarker._position.lat];//起点用
+    let endPos =[endMarker._position.lng,endMarker._position.lat];//终点用
+    console.log(startPos);
+    console.log(endPos)
+    //同步请求数据
+    $.ajax({
+        async: false,
+        url: "/routeController/getRoutes",
+        type: "post",
+        data: {"startPos": startPos, "endPos": endPos},
+        dataType: "json",
+        traditional:true,
+        success: function (data) {
+            console.log(data)
+        }
+    });
+}

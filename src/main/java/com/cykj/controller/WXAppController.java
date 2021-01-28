@@ -1,9 +1,12 @@
 package com.cykj.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.cykj.bean.City;
 import com.cykj.bean.Route;
 import com.cykj.bean.Site;
 import com.cykj.service.CityService;
+import com.cykj.service.RouteService;
 import com.cykj.service.SiteService;
 import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/WXAppController")
@@ -25,6 +29,8 @@ public class WXAppController {
     @Autowired
     private SiteService siteService;
 
+    @Autowired
+    private RouteService routeService;
 
     @RequestMapping("/login")
     public void login(String account){
@@ -49,15 +55,30 @@ public class WXAppController {
         return (List<Site>)layuiJson.get("data");
     }
 
+    //查询所有站点
+    @RequestMapping("/selectPaths")
+    @ResponseBody
+    public List<Map<String, Object>> selectPaths(String startSites, String endSites){
+        List<Site> startList = JSONArray.parseArray(startSites, Site.class);
+        List<Site> endList = JSONArray.parseArray(endSites, Site.class);
+        System.out.println(JSON.toJSON(startList));
+        System.out.println("------------------------------------------");
+        System.out.println(JSON.toJSON(endList));
+        return routeService.selectRoutePath(startList, endList);
+    }
 
 
     //路线查询
     @RequestMapping("/selectPath")
     @ResponseBody
-    public List<Route> selectPath(String startLon, String startLat, String endLon, String endLat){
+    public List<Route> selectPath(String startSiteId, String endSiteId, String type){
         System.out.println("查询站点");
-        System.out.println("开始"+startLon+","+startLat);
-        System.out.println("结束"+endLon+","+endLat);
+        System.out.println("开始"+startSiteId);
+        System.out.println("结束"+endSiteId);
+        System.out.println("类型"+type);
+//        Map<Integer, List<Route>> routes = routeService.getRoutes(startSiteId, endSiteId);
+//        System.out.println(routes.toString());;
+//        System.out.println(routes);;
         List<Route> routes=new ArrayList<>();
         Route route = new Route();
         route.setRouteName("129");

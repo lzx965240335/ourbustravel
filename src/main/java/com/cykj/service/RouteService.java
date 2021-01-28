@@ -26,6 +26,10 @@ public interface RouteService {
     //删除线路
     boolean deleteRoute(String routeId);
 
+    boolean updateRoute(Route route);
+
+    public List<Map<String, Object>> selectRoutePath(List<Site> startId, List<Site> endIds);
+
     //查询乘车方案
-    Map<Integer, List<Route>> getRoutes(String startId,String endId);
+    Map<Integer, List<Route>> getRoutes(String[] startPos, String[] endPos);
 }

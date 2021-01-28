@@ -40,7 +40,7 @@ public class SiteServiceImpl implements SiteService {
         if (map!=null){
             sites = siteMapper.selectAllSite(map);
         }else {
-            sites=siteMapper.getSites(map);
+            sites=siteMapper.getSites(null);
             return new LayuiJson(0,sites);
         }
         int count = siteMapper.siteCount(map);

@@ -7,7 +7,6 @@ layui.use('table', function(){
             ,url: '/busMain/getBusTable'
             ,cols: [
                 [
-
                     //field后面的值必须跟实体类的属性一致
                     ,{field:'busId', title: 'ID'}
                     ,{field:'busName', title: '公交路号'}

@@ -84,6 +84,18 @@ public class RouteController {
         return routeService.getPosition(routeId);
     }
 
+    //保存修改
+    //保存新增线路
+    @RequestMapping("/updateRouteById")
+    @ResponseBody
+    public boolean updateRouteById(@RequestBody Route route){
+        System.out.println("进来修改！");
+        return routeService.updateRoute(route);
+    }
+
+
+
+
     //删除线路
     @RequestMapping("/deleteRoute")
     @ResponseBody
@@ -91,11 +103,10 @@ public class RouteController {
         System.out.println(routeId);
         return routeService.deleteRoute(routeId);
     }
-
     //查找线路
     @RequestMapping("/getRoutes")
     @ResponseBody
-    public Map<Integer, List<Route>> getRoutes(String startId, String endId) {
-        return routeService.getRoutes(startId,endId);
+    public Map<Integer, List<Route>> getRoutes(String[] startPos, String[] endPos) {
+        return routeService.getRoutes(startPos,endPos);
     }
 }

@@ -4,21 +4,21 @@
 
 
   <insert id="addSite" parameterType="com.cykj.bean.Site">
-    insert into t_site(siteId,longitude,latitude,siteName,setTime,peopleNum,isDot)
-    value(#{siteId},#{longitude},#{latitude},#{siteName},#{setTime},#{peopleNum},0)
+    insert into t_site(siteId,siteX,siteY,siteName,setTime,peopleNum)
+    value(#{siteId},#{longitude},#{latitude},#{siteName},#{setTime},#{peopleNum})
   </insert>
 
   <delete id="deleteSite" parameterType="java.lang.Integer" >
     delete from t_site where siteId = #{siteId}
   </delete>
 
-  <update id="updateSite" parameterType="Site">
+  <update id="updateSite" parameterType="java.lang.Integer">
     update t_site
     <set>
-      <if test="longitude != null and longitude !=''" >
+      <if test="siteX != null and siteX !=''" >
         longitude = #{longitude},
       </if>
-      <if test="latitude != null and latitude !=''" >
+      <if test="siteY != null and siteY !=''" >
         latitude = #{latitude},
       </if>
       <if test="siteName != null and siteName !=''" >
@@ -31,7 +31,7 @@
         peopleNum = #{peopleNum},
       </if>
     </set>
-    where siteId = #{siteId}
+    where cityId = #{cityId}
   </update>
 
   <select id="selectAllSite" resultType="com.cykj.bean.Site" parameterType="HashMap">
@@ -43,10 +43,13 @@
       <if test="peopleNum != null and peopleNum !=''">
         and peopleNum = #{peopleNum}
       </if>
-      and isDot=0
+      <if test="isDot != null and isDot !=''">
+        and isDot = #{isDot}
+      </if>
     </where>
     limit #{start},#{end}
   </select>
+
 
   <select id="siteCount" resultType="int" parameterType="HashMap">
     select count(*) from t_site where 1=1
@@ -56,15 +59,29 @@
     <if test="peopleNum != null and peopleNum !=''">
       and peopleNum = #{peopleNum}
     </if>
-    and isDot=0
   </select>
 
   <select id="getSites" resultType="Site" parameterType="HashMap">
         select * from t_site where isDot=0;
     </select>
 
+
   <select id="getDots" resultType="Site" parameterType="HashMap">
-    select * from  t_site where siteId>=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot}) a where a.pid=#{startId}) and siteId &lt;=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot}) a where a.pid=#{endId})
+    select * from  t_site where siteId>=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot}) a
+    where a.pid=#{startId}) and siteId &lt;=(select a.siteId from(select * from t_site where isDot = 1 and siteId>=#{startDot} and siteId &lt;=#{endDot})
+     a where a.pid=#{endId})
     </select>
+
+  <select id="selectSiteByIds" parameterType="ArrayList" resultType="Site">
+    select * from t_site where siteId in
+    <foreach collection="sitesId" item="item"  open="(" separator="," close=")">
+      ${item}
+    </foreach>
+    order by  field(siteId,
+    <foreach collection="sitesId" item="item" separator="," close=")">
+      ${item}
+    </foreach>
+  </select>
+
 
 </mapper>
