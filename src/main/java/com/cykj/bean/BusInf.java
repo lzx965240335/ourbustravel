@@ -19,6 +19,10 @@ public class BusInf {
 
     private String fixLoad;//维修进度
 
+    private Integer speed;//速度
+
+    private Integer routeId;//行驶线路
+
     public BusInf() {
     }
 
@@ -92,5 +96,21 @@ public class BusInf {
 
     public void setFixLoad(String fixLoad) {
         this.fixLoad = fixLoad;
+    }
+
+    public Integer getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Integer speed) {
+        this.speed = speed;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Integer routeId) {
+        this.routeId = routeId;
     }
 }

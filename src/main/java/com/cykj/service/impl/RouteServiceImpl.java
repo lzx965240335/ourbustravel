@@ -146,12 +146,15 @@ public class RouteServiceImpl implements RouteService {
             if (i<MAX_START_SITE){
                 for (int j = 0; j < endIds.size(); j++) {
                     if (j<MAX_END_SITE){
-                        List<Map<String, Object>> maps = selectRoute(startIds.get(i).getSiteId() + "", endIds.get(j).getSiteId() + "");
-                        for (int k = 0; k < maps.size(); k++) {
-                            //累计添加站点
-                            list.add(maps.get(k));
-                            if (list.size()>MAX_ROUTE){
-                                return;
+                        boolean existRoute = isExistRoute(list, startIds.get(i).getSiteId() + "", endIds.get(j).getSiteId() + "");
+                        if (!existRoute){
+                            List<Map<String, Object>> maps = selectRoute(startIds.get(i).getSiteId() + "", endIds.get(j).getSiteId() + "");
+                            for (int k = 0; k < maps.size(); k++) {
+                                //累计添加站点
+                                list.add(maps.get(k));
+                                if (list.size()>MAX_ROUTE){
+                                    return;
+                                }
                             }
                         }
                     }
@@ -159,6 +162,28 @@ public class RouteServiceImpl implements RouteService {
             }
         }
     }
+
+    //判断线路是否存在
+    private boolean isExistRoute(List<Map<String, Object>> list,String startId,String endId){
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> map=list.get(i);
+            //判断是否为转车
+            if (map.get("type").equals("2")){
+                Route startRoute= (Route) map.get("startRoute");
+                Route endRoute= (Route) map.get("endRoute");
+                int start = getIndexOf(startRoute.getRouteInf().split("#"), startId);
+                int end= getIndexOf(endRoute.getRouteInf().split("#"), endId);
+                if (start!=-1 && end!=-1){
+                    System.out.println("该条线路已存在");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
 
     //获取线路
     public List<Map<String, Object>> selectRoute(String startId, String endId) {
@@ -182,6 +207,7 @@ public class RouteServiceImpl implements RouteService {
                 if (j != -1 && k < j) {
                     String position = routes.get(i).getPosition();
                     System.out.println("包含了起始站和终点站！！"+routeInf);
+                    System.out.println("本次的站点："+startId+"======="+endId);
                     String[] strings = position.split("#");
                     //两个线路都包含
                     Map<String, String> resultMap = new HashMap<>();
@@ -191,19 +217,19 @@ public class RouteServiceImpl implements RouteService {
                     resultMap.put("endId", endId);
                     //查询出对应路段的所有点集合
                     List<Site> positions = siteMapper.getDots(resultMap);
-                    ArrayList<Integer> sitesId = getSiteId(split, i, j);
+                    ArrayList<Integer> sitesId = getSiteId(split, i, j+1);
 
                     List<Site> sites = siteMapper.selectSiteByIds(sitesId);
                     Route route = routes.get(i);
-                    routeMap.put("type", 1);
+                    routeMap.put("type","1");
                     routeMap.put("route", route);
                     routeMap.put("sites", sites);//站点
-
                     routeMap.put("positions", positions);//所有点
                     list.add(routeMap);//添加进线路集合
                     //判断起始站是否为终点站
                 } else if (k < split.length) {
-                    System.out.println("包含了起始站！");
+                    System.out.println("包含了起始站！"+routeInf);
+                    System.out.println("本次的站点："+startId+"======="+endId);
                     //包含了其中起始线路
                     Map<String, Object> startMap = new HashMap<>();
                     ArrayList<Integer> siteId = getSiteId(split, k, split.length);
@@ -213,11 +239,12 @@ public class RouteServiceImpl implements RouteService {
                     startList.add(startMap);
                 }
             } else if (j > 0) {
-                System.out.println("包含了终点站！");
+                System.out.println("包含了终点站！"+routeInf);
+                System.out.println("本次的站点："+startId+"======="+endId);
                 //包含了其中终点线路
                 Map<String, Object> endMap = new HashMap<>();
                 //只包含终点线路
-                ArrayList<Integer> siteId = getSiteId(split, 0, j);
+                ArrayList<Integer> siteId = getSiteId(split, 0, j+1);
                 System.out.println("siteId" + siteId.size());
                 endMap.put("route", routes.get(i));
                 endMap.put("siteId", siteId);
@@ -227,14 +254,6 @@ public class RouteServiceImpl implements RouteService {
         getTransferRoute(list, startList, endList);
         return list;
     }
-
-//    //判断这个站点是否已经在方案中存在,防止一条线路有多个站点方案
-//    private boolean isExistRoute(){
-//
-//        return false;
-//    }
-
-
 
     //索引遍历
     private int getIndexOf(String[] strings,String id){
@@ -247,9 +266,10 @@ public class RouteServiceImpl implements RouteService {
         return indeOf;
     }
 
-
     //根据索引拿id
     private ArrayList<Integer> getSiteId(String[] split, int start, int end) {
+        System.out.println("开始站点："+start);
+        System.out.println("结束站点："+end);
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = start; i < end; i++) {
             if (split[i].length()>0){
@@ -280,13 +300,10 @@ public class RouteServiceImpl implements RouteService {
         List<Integer> endId = (ArrayList<Integer>) endMap.get("siteId");
         for (int i = 0; i < siteId.size(); i++) {
             for (int j = 0; j < endId.size(); j++) {
-                System.out.println("开始的id：" + siteId.get(i));
-                System.out.println("结束的id：" + endId.get(j));
                 if (siteId.get(i).equals(endId.get(j))) {
                     System.out.println("开始判断相交");
                     //拿到开始点到相交点的集合
                     Route startRoute = (Route) startMap.get("route");
-                    System.out.println("开始的站：" + startRoute.getPosition());
                     String[] position = startRoute.getPosition().split("#");
                     List<Site> startSites = selectSiteByScope(position, siteId.get(0).toString(), siteId.get(i).toString());
                     //到相交点到结束点
@@ -297,7 +314,7 @@ public class RouteServiceImpl implements RouteService {
                     String[] endPosition = endRoute.getPosition().split("#");
                     List<Site> endSites = selectSiteByScope(endPosition, endId.get(j).toString(), endId.get(endId.size() - 1).toString());
                     //获取封装map
-                    return jointRouteInfo(startRoute, endRoute, startSites, endSites);
+                    return jointRouteInfo(startRoute, endRoute, startSites, endSites,siteId, endId);
                 }
             }
         }
@@ -317,19 +334,22 @@ public class RouteServiceImpl implements RouteService {
     }
 
     //拼接id和点集合
-    private Map<String, Object> jointRouteInfo(Route startRoute, Route endRoute, List<Site> startSites, List<Site> endSites) {
+    private Map<String, Object> jointRouteInfo(Route startRoute, Route endRoute, List<Site> startSites, List<Site> endSites,List<Integer> siteId,List<Integer> endId) {
         System.out.println("开始拼接");
         Map<String, Object> map = new HashMap<>();
         List<Site> sites = startSites;
         for (int i = 0; i < endSites.size(); i++) {
             sites.add(endSites.get(i));
         }
-        map.put("type", 2);
+        map.put("type", "2");
         map.put("startRoute", startRoute);
         map.put("endRoute", endRoute);
         map.put("positions", sites);
+        map.put("siteIds", siteId);
+        map.put("endIds", endId);
         return map;
     }
+
     //乘车策略
     @Override
     public Map<Integer, List<Route>> getRoutes(String[] startPos, String[] endPos) {
@@ -337,8 +357,8 @@ public class RouteServiceImpl implements RouteService {
         //查询所有的站点
         List<Site> sites = siteMapper.getSites(null);
         //创建起点距离list和终点距离list
-        Map<Site,Double> startDistance=new HashMap<>();
-        Map<Site,Double> endDistance=new HashMap<>();
+        Map<Site, Double> startDistance = new HashMap<>();
+        Map<Site, Double> endDistance = new HashMap<>();
 //        List<Double> startDistance = new ArrayList();
 //        List<Double> endDistance = new ArrayList();
         //查询所有的线路
@@ -351,39 +371,32 @@ public class RouteServiceImpl implements RouteService {
         Map<Integer, List<Route>> map = new HashMap<>();
         //遍历所有站点,取距离
         for (Site site : sites) {
-            double sjuli= getDistance(Double.valueOf(startPos[0]),Double.valueOf(startPos[1]),Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
-
+            double sjuli = getDistance(Double.valueOf(startPos[0]), Double.valueOf(startPos[1]), Double.valueOf(site.getLongitude()), Double.valueOf(site.getLatitude()));
 //            double sjuli = Math.sqrt(Math.abs((Double.valueOf(startPos[0]) - Double.valueOf(site.getLongitude())) * ((Double.valueOf(startPos[0]) - Double.valueOf(site.getLongitude()))) + ((Double.valueOf(startPos[1]) - Double.valueOf(site.getLatitude()))) * (Double.valueOf(startPos[1]) - Double.valueOf(site.getLatitude()))));
 //            double ejuli = Math.sqrt(Math.abs((Double.valueOf(endPos[0]) - Double.valueOf(site.getLongitude())) * ((Double.valueOf(endPos[0]) - Double.valueOf(site.getLongitude()))) + ((Double.valueOf(endPos[1]) - Double.valueOf(site.getLatitude()))) * (Double.valueOf(endPos[1]) - Double.valueOf(site.getLatitude()))));
-            System.out.println("起点距离" + sjuli);
-            startDistance.put(site,sjuli);
+            startDistance.put(site, sjuli);
 
         }
         for (Site site : sites) {
-            double ejuli= getDistance(Double.valueOf(endPos[0]),Double.valueOf(endPos[1]),Double.valueOf(site.getLongitude()),Double.valueOf(site.getLatitude()));
-            System.out.println("终点距离" + ejuli);
-            endDistance.put(site,ejuli);
+            double ejuli = getDistance(Double.valueOf(endPos[0]), Double.valueOf(endPos[1]), Double.valueOf(site.getLongitude()), Double.valueOf(site.getLatitude()));
+            endDistance.put(site, ejuli);
         }
         //获取最小值
 //        int oneSite = startDistance.indexOf(Collections.min(startDistance));
 //        int twoSite = endDistance.indexOf(Collections.min(endDistance));
-        for (Map.Entry<Site,Double> entry1 : startDistance.entrySet()) {
-            for (Map.Entry<Site,Double> entry2 : endDistance.entrySet()) {
-                if (entry1.getValue()<1000.0){
-                    if (entry2.getValue()<1000.0){
-                        Map<Route,Integer> resultMap=getPolicy(entry1.getKey(),entry2.getKey(),list);
-                        System.out.println(resultMap);
-                        if (resultMap!=null){
-                            for (Map.Entry<Route,Integer> entry : resultMap.entrySet()) {
-                                if (entry.getValue()==1){
+        for (Map.Entry<Site, Double> entry1 : startDistance.entrySet()) {
+            for (Map.Entry<Site, Double> entry2 : endDistance.entrySet()) {
+                if (entry1.getValue() < 1000.0) {
+                    if (entry2.getValue() < 1000.0) {
+                        Map<Route, Integer> resultMap = getPolicy(entry1.getKey(), entry2.getKey(), list);
+                        if (resultMap != null) {
+                            for (Map.Entry<Route, Integer> entry : resultMap.entrySet()) {
+                                if (entry.getValue() == 1) {
                                     routeListR.add(entry.getKey());
-                                }else {
+                                } else {
                                     routeListL.add(entry.getKey());
                                 }
-                                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
                             }
-                        }else {
-
                         }
                     }
                 }
@@ -395,8 +408,8 @@ public class RouteServiceImpl implements RouteService {
         return map;
     }
 
-    public Map<Route,Integer> getPolicy(Site oneSite, Site twoSite, List<Route> routes) {
-        Map<Route,Integer> result=new HashMap<>();
+    public Map<Route, Integer> getPolicy(Site oneSite, Site twoSite, List<Route> routes) {
+        Map<Route, Integer> result = new HashMap<>();
         //遍历所有线路
         for (Route route : routes) {
             int flag = 0;
@@ -404,13 +417,13 @@ public class RouteServiceImpl implements RouteService {
             int b = 0;
             String[] arr = route.getRouteInf().split("#");
             for (int i = 0; i < arr.length; i++) {
-                if (oneSite.getSiteId().equals(arr[i])) {
+                if (oneSite.getSiteId() == Integer.parseInt(arr[i])) {
                     flag = 1;
                     a = i;
                 }
             }
             for (int i = 0; i < arr.length; i++) {
-                if (twoSite.getSiteId().equals(arr[i])) {
+                if (twoSite.getSiteId() == Integer.parseInt(arr[i])) {
                     flag = 2;
                     b = i;
                 }
@@ -434,19 +447,21 @@ public class RouteServiceImpl implements RouteService {
                 }
                 //创建线路及对应需要的该线路的数组集合map
                 route.setList(pos);
-                if (a > b&&route.getRightOrLeft()==1) {
+                if (a < b && route.getRightOrLeft() == 1) {
                     //表示是正向路线
-                    result.put(route,1);
-                } else if (a > b&&route.getRightOrLeft()==0) {
+                    result.put(route, 1);
+                } else if (a < b && route.getRightOrLeft() == 0) {
                     //表示是反向路线
-                    result.put(route,0);
+                    result.put(route, 0);
                 }
 
             }
         }
         return result;
     }
+
     public static final double R = 6378137; // 地球半径
+
     /**
      * 坐标之间的距离
      *
@@ -456,7 +471,7 @@ public class RouteServiceImpl implements RouteService {
      * @param lng2
      * @return 单位米
      */
-    public static double getDistance(double lng1,double lat1 ,double lng2 ,double lat2 ) {
+    public static double getDistance(double lng1, double lat1, double lng2, double lat2) {
         lat1 = Math.toRadians(lat1);
         lng1 = Math.toRadians(lng1);
         lat2 = Math.toRadians(lat2);

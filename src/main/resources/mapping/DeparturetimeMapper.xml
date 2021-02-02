@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.DeparturetimeMapper" >
+
+
+    <!--表格查询-->
+    <select id="departuretimeSelectTable" resultMap="Departuretime" parameterType="Map">
+         select * from t_departuretime where 1=1
+        <if test="busName!=null and busName!=''">
+            and busName like CONCAT('%',#{busName},'%')
+        </if>
+    </select>
+    <resultMap id="Departuretime" type="Departuretime">
+        <id property="id" column="id"></id>
+        <result property="busName" column="busName"></result>
+        <result property="departureTime" column="departureTime"></result>
+        <result property="afterSite" column="afterSite"></result>
+    </resultMap>
+    <select id="departuretimeSelectCount" resultType="int">
+            select count(*) from t_departuretime
+    </select>
+
+</mapper>

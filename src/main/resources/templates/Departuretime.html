@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}" />
+    <script th:src="@{/js/jquery-3.5.1.js}" charset="utf-8"></script>
+</head>
+<body>
+<center>
+    <div class="layui-form">
+        <div class="layui-inline">
+            巴士名称:
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="busName">
+            </div>
+        </div>
+        <button id="search_state" class="layui-btn" data-type="reload">搜索</button>
+    </div>
+</center>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+    <iframe  name="right" id="iframe" src="" style="width: 100%;height: 100%" frameborder="0" ></iframe>
+
+</div>
+
+<script>
+    document.getElementById("reset").onclick = function(){
+        var advertId = document.getElementById("advertId");
+        advertId.defaultValue = advertId.value;
+        document.forms[0].reset()
+    }
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+
+
+<script th:src="@{/js/layui/layui.js}" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script th:src="@{/js/Departuretime.js}" charset="utf-8"></script>
+
+</body>
+</html>

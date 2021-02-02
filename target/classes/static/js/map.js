@@ -51,13 +51,18 @@ auto = new AMap.AutoComplete({
 //     // 添加 3D 罗盘控制
 //     map.addControl(new AMap.ControlBar());
 // });
-//步行导航
-var walking = new AMap.Walking({
+//步行导航1
+var walking1 = new AMap.Walking({
     map: map,
     hideMarkers: true,
     autoFitView: true,
 });
-
+//步行导航2
+var walking2 = new AMap.Walking({
+    map: map,
+    hideMarkers: true,
+    autoFitView: true,
+});
 //根据ip精确定位
 var options = {
     // 'showButton': true,//是否显示定位按钮
@@ -94,9 +99,9 @@ AMap.plugin(["AMap.Geolocation"], function () {
 
     });
     geolocation.getCityInfo(function (status, result) {
-
         if (status === 'complete') {
             $(".city-title>b").text(result.city);
+            $(".layui-field-title>legend").text("当前城市：" + result.city);
             nowCity = result.citycode;
             nowCityName = result.city;
             //加载天气查询插件
@@ -157,7 +162,6 @@ function stationSearch() {
 
 /*公交站点查询返回数据解析*/
 function AllStation() {
-
 //从本地获取公交站点数据
     $.ajax({
         url: "/site/getSite",
@@ -188,12 +192,10 @@ function AllStation() {
                     });
                     markers.push(marker);
                 }
-
                 map.setFitView();
             }
         },
     })
-
 }
 
 
@@ -201,7 +203,6 @@ function AllStation() {
 layui.use('layer', function () { //独立版的layer无需执行这一句
     var $ = layui.jquery, layer = layui.layer;
     $("#citybox").click(function () {
-
         layer.open({
             type: 1,
             title: "城市列表",
@@ -236,14 +237,11 @@ function chooseCity(cityName) {
 
     $(".layui-field-title>legend").text("当前城市：" + cityName.innerText);
     AMap.plugin(['AMap.PlaceSearch'], function () {
-
         var placeSearch = new AMap.PlaceSearch({
             map: map
         });  //构造地点查询类
         for (var key in cityList) {
-
             if (cityList[key].cityName == cityName.innerText) {
-
                 placeSearch.setCity(cityList[key].adcode);
                 placeSearch.search(cityName.innerText)
             }
@@ -251,7 +249,6 @@ function chooseCity(cityName) {
     });
     //改变天气变化
     $(".city-title>b").text(cityName.innerText);
-
     //加载天气查询插件
     AMap.plugin('AMap.Weather', function () {
         //创建天气查询实例
@@ -317,7 +314,7 @@ function getLnglat(place) {
 
 var markerStart;
 var markerEnd;
-
+var polyline;//线路
 //自定义菜单类
 function ContextMenu(map) {
     var me = this;
@@ -349,14 +346,13 @@ ContextMenu.prototype.addStart = function () {  //右键菜单添加起点标记
     markerStart = new AMap.Marker({
         icon: new AMap.Icon({
             image: '/imgs/start_marker.png',
-            size: new AMap.Size(32, 40),
             imageSize: new AMap.Size(32, 40)
         }),
+        offset: new AMap.Pixel(-16, -40),
         map: map,
         position: this.contextMenuPositon //基点位置
     });
     //绘制路线起点
-
     getPlace([markerStart._position.lng, markerStart._position.lat], 2);
     setTimeout(function () {
         openSeach();
@@ -371,14 +367,13 @@ ContextMenu.prototype.addEnd = function () {  //右键菜单添加终点标记
     markerEnd = new AMap.Marker({
         icon: new AMap.Icon({
             image: '/imgs/end_marker.png',
-            size: new AMap.Size(32, 40),
             imageSize: new AMap.Size(32, 40)
         }),
+        offset: new AMap.Pixel(-16, -40),
         map: map,
         position: this.contextMenuPositon //基点位置
     });
     //绘制路线终点
-
     getPlace([markerEnd._position.lng, markerEnd._position.lat], 3);
     setTimeout(function () {
         openSeach();
@@ -395,7 +390,9 @@ ContextMenu.prototype.clearRoute = function () {  //清除记录
         map.remove(markerEnd);
     }
     //清除路线
-
+    map.remove(polyline);
+    walking1.clear()
+    walking2.clear();
     //清除搜索框
     $("#dir_from_ipt").val("");
     $("#dir_to_ipt").val("");
@@ -461,9 +458,13 @@ function reversal() {
 
 
 //绘制初始路径
-
 function drawLine() {
     if (markerStart != undefined && markerEnd != undefined) {
+        if (polyline){
+            map.remove(polyline);
+        }
+        walking1.clear();
+        walking2.clear();
         busPolicy(markerStart, markerEnd)
     }
 }
@@ -487,8 +488,7 @@ function clearInput(node) {
 
 
 //根据起终点坐标规划步行路线
-function walkLine(marker1, marker2) {
-
+function walkLine(marker1, marker2,walking) {
     walking.search(marker1.getPosition(), marker2.getPosition(), function (status, result) {
         // result即是对应的步行路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_WalkingResult
         if (status === 'complete') {
@@ -500,102 +500,26 @@ function walkLine(marker1, marker2) {
     });
 }
 
-
 //根据两点计算之间的距离，用于判断位置与公交站之间哪个近
 function computeDis(marker1, marker2) {
     return Math.round(marker1.getPosition().distance(marker2.getPosition()));
 }
 
 
-// function  busPolicy(startMarker,endMarker) {
-//     //距离最近的公交站点数组
-//     let arr1 = new Array();//起点用
-//     let arr2 = new Array();//终点用
-//     //一、清除原始路线
-//
-//     //二、绘制最新路线、先步行，后公交，再步行
-//     for (let i = 0, len = markers.length; i < len; i++) {
-//         //判断起点终点离每个站的距离并添加到数组中
-//         let m= computeDis(startMarker,markers[i]);
-//         let n=computeDis(endMarker,markers[i]);
-//         arr1.push(Number(m));
-//         arr2.push(Number(n));
-//     }
-//     for (let i1 = 0;i1<arr1.length;i1++){
-//         for (let i2 = 0;i2<arr2.length;i2++){
-//             if (arr1[i1]<=1000&&arr2[i2]<=1000){
-//                 let oneSite=arr1.indexOf(arr1[i1]);
-//                 let twoSite=arr2.indexOf(arr2[i2]);
-//                 if (markers[oneSite]._originOpts.siteId!=markers[twoSite]._originOpts.siteId){
-//                     //同步请求数据
-//                     $.ajax({
-//                         async: false,
-//                         url: "/routeController/getRoutes",
-//                         type: "post",
-//                         data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
-//                         dataType: "json",
-//                         success: function (data) {
-//                             console.log(data)
-//                             //判断传来的数据是否为空
-//                             if (data[0]!=null){
-//
-//                             }else {
-//
-//                             }
-//                         }
-//                     });
-//             }
-//         }
-//     }
-//
-//
-//         //同步请求数据
-//         // $.ajax({
-//         //     async: false,
-//         //     url: "/routeController/getRoutes",
-//         //     type: "post",
-//         //     data: {"startId":markers[oneSite]._originOpts.siteId,"endId":markers[twoSite]._originOpts.siteId},
-//         //     dataType: "json",
-//         //     success: function (data) {
-//         //
-//         //         console.log(data[0])
-//         //         walkLine(markerStart,markers[oneSite]);
-//         //         walkLine(markers[twoSite],markerEnd);
-//         //         //绘制第一条线路
-//         //         var polyline = new AMap.Polyline({
-//         //             routeId:1,
-//         //             path: data[0][0].list,
-//         //             // isOutline: true,//显示描边
-//         //             // outlineColor: '#ffeeff',
-//         //             // borderWeight: 3,
-//         //             showDir:true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
-//         //             strokeColor: "#05aa2e",//线条颜色
-//         //             strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
-//         //             strokeWeight: 6,//轮廓线宽度
-//         //             // 折线样式还支持 'dashed'
-//         //             strokeStyle: "solid",
-//         //             // strokeStyle是dashed时有效
-//         //             // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
-//         //             lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
-//         //             lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
-//         //             zIndex: 50,
-//         //         });
-//         //         map.add(polyline);
-//         //         map.setFitView();
-//         //     },
-//         // });
-//     }
-// }
-
 //后台处理返回方案数据
 function busPolicy(startMarker, endMarker) {
     //起点终点坐标数组
     console.log(startMarker);
     console.log(endMarker);
-    let startPos =[startMarker._position.lng,startMarker._position.lat];//起点用
-    let endPos =[endMarker._position.lng,endMarker._position.lat];//终点用
+    let startPos = [startMarker._position.lng, startMarker._position.lat];//起点用
+    let endPos = [endMarker._position.lng, endMarker._position.lat];//终点用
     console.log(startPos);
-    console.log(endPos)
+    console.log(endPos);
+    var near = 0;//最短路线
+    var index;//下标
+    var type;//哪个数据
+    let marker1 = new AMap.Marker();
+    let marker2 = new AMap.Marker();
     //同步请求数据
     $.ajax({
         async: false,
@@ -603,9 +527,97 @@ function busPolicy(startMarker, endMarker) {
         type: "post",
         data: {"startPos": startPos, "endPos": endPos},
         dataType: "json",
-        traditional:true,
+        traditional: true,
         success: function (data) {
-            console.log(data)
+            console.log(data);
+            if (data[0] != null) {
+                for (let i = 0; i < data[0].length; i++) {
+                    marker1.setPosition(data[0][i].list[0]);
+                    marker2.setPosition(data[0][i].list[list.length - 1]);
+                    let all = computeDis(startMarker, marker1) + computeDis(endMarker, marker2);
+                    if (near === 0 || near > all) {
+                        near = all;
+                        index = i;
+                        type = false;
+                    }
+                }
+            }
+            if (data[1] != null) {
+                for (let i = 0; i < data[1].length; i++) {
+                    marker1.setPosition(data[1][i].list[0]);
+                    marker2.setPosition(data[1][i].list[data[1][i].list.length - 1]);
+                    let all = computeDis(startMarker, marker1) + computeDis(endMarker, marker2);
+                    if (near === 0 || near > all) {
+                        near = all;
+                        index = i;
+                        type = true;
+                    }
+                }
+            }
+            if (data[0] != null || data[1] != null) {
+                //显示路线
+                if (type = true) {
+                    marker1.setPosition(data[1][index].list[0]);
+                    marker2.setPosition(data[1][index].list[data[1][index].list.length - 1]);
+                    //绘制第一条线路
+                     polyline = new AMap.Polyline({
+                        routeId: 1,
+                        path: data[1][index].list,
+                        // isOutline: true,//显示描边
+                        // outlineColor: '#ffeeff',
+                        // borderWeight: 3,
+                        showDir: true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
+                        strokeColor: "#05aa2e",//线条颜色
+                        strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
+                        strokeWeight: 6,//轮廓线宽度
+                        // 折线样式还支持 'dashed'
+                        strokeStyle: "solid",
+                        // strokeStyle是dashed时有效
+                        // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
+                        lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
+                        lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
+                        zIndex: 50,
+                    });
+                    map.add(polyline);
+                    map.setFitView();
+                    walkLine(startMarker, marker1,walking1);
+                    walkLine(marker2, endMarker,walking2);
+                } else {
+                    marker1.setPosition(data[0][index].list[0]);
+                    marker2.setPosition(data[0][index].list[data[1][index].list.length - 1]);
+                    //绘制第一条线路
+                     polyline = new AMap.Polyline({
+                        routeId: 1,
+                        path: data[0][index].list,
+                        // isOutline: true,//显示描边
+                        // outlineColor: '#ffeeff',
+                        // borderWeight: 3,
+                        showDir: true,//是否延路径显示白色方向箭头,默认false。建议折线宽度大于6时使用
+                        strokeColor: "#05aa2e",//线条颜色
+                        strokeOpacity: 1,//轮廓线透明度，取值范围 [0,1] ，0表示完全透明，1表示不透明。默认为0.5
+                        strokeWeight: 6,//轮廓线宽度
+                        // 折线样式还支持 'dashed'
+                        strokeStyle: "solid",
+                        // strokeStyle是dashed时有效
+                        // strokeDasharray: [10, 5],  //勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在ie9+浏览器有效 取值： 实线： [0,0,0] 虚线： [10,10] ， [10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线 点画线： [10,2,10] ， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实线和10个像素的空白 （如此反复）组成的虚线
+                        lineJoin: 'round',//折线拐点的绘制样式，默认值为'miter'尖角，其他可选值：'round'圆角、'bevel'斜角
+                        lineCap: 'round',//折线两端线帽的绘制样式，默认值为'butt'无头，其他可选值：'round'圆头、'square'方头
+                        zIndex: 50,
+                    });
+                    map.add(polyline);
+                    map.setFitView();
+                    walkLine(startMarker, marker1,walking1);
+                    walkLine(marker2, endMarker,walking2);
+                }
+
+
+
+            }
         }
     });
+}
+
+//方案显示
+function busPolicyView(){
+
 }
