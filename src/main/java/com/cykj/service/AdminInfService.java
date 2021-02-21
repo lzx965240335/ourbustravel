@@ -37,4 +37,6 @@ public interface AdminInfService {
 
     AdminInf selectAdminInf(AdminInf adminInf);
 
+    String chatLoad(int adminId);
+
 }

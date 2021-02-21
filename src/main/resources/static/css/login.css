@@ -97,6 +97,7 @@ a:hover{
     width: 46px;
     height: 46px;
     background: url(/imgs/defavatar.png) 50% no-repeat;
+    background-size: contain !important;
     cursor: pointer;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;

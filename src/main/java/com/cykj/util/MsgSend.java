@@ -103,7 +103,7 @@ public class MsgSend {
         if (code.equals("200")) {
             // 发送成功
             System.out.println("验证码发送成功");
-            return "验证码发送成功";
+            return obj;
         } else {
             // 发送失败
             System.out.println("验证码发送失败");

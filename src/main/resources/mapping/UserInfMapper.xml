@@ -7,7 +7,13 @@
       phoneNum, updateTime, money, point)value (#{userid}, #{account}, #{password}, #{username}, #{usersex},
        #{userage},  #{avatar}, #{idcardnum}, sysdate(), #{phonenum}, #{updatetime}, #{money},  #{point})
   </insert>
-
+  <insert id="addWxUser" parameterType="String">
+     insert into t_user(openId, regTime,updateTime, money, point)value ( #{openId},sysdate(),sysdate(), 100,0)
+  </insert>
+  <select id="selectUserByOpenId" parameterType="String" resultType="UserInf">
+    select * from t_user where openId=#{openId};
+    update t_user set updateTime=sysdate() where openId=#{openId};
+  </select>
   <delete id="deleteUser" parameterType="java.lang.Integer">
     delete from t_user where userId = #{userId}
   </delete>
@@ -49,7 +55,7 @@
         money = #{money},
       </if>
       <if test="point !=null and point !=''">
-        avatar = #{avatar},
+        point = #{point},
       </if>
     </set>
       where userId = #{userId}
@@ -242,5 +248,9 @@
       </if>
     </trim>
   </select>
+
+  <update id="updatePwd" parameterType="com.cykj.bean.UserInf" >
+    update t_user set password = #{password} where phoneNum = #{phoneNum}
+  </update>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.cykj.bean;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Route {
@@ -13,11 +14,16 @@ public class Route {
 
     private String updateTime;
 
+    private double money;
+
     //起点站
     private Integer startSite;
-
+    //起点站名
+    private String startName;
     //终点站
     private Integer endSite;
+    //终点站名
+    private String endName;
 
     //方向
     private Integer rightOrLeft;
@@ -30,13 +36,35 @@ public class Route {
     private String position;
 
     //路线集合
-    List<Site> sites;
+    private List<Site> sites;
 
     //点集合
-    List<Site> positions;
+    private List<Site> positions;
 
     //搜索数据线路坐标集合
-    List<String[]> list;
+    private List<String[]> list;
+
+    //发车时刻表
+    private Departuretime departuretime;
+
+    //公交信息
+    private List<BusInf> busInfs;
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public List<BusInf> getBusInfs() {
+        return busInfs;
+    }
+
+    public void setBusInfs(List<BusInf> busInfs) {
+        this.busInfs = busInfs;
+    }
 
     public List<Site> getPositions() {
         return positions;
@@ -150,6 +178,43 @@ public class Route {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public Departuretime getDeparturetime() {
+        return departuretime;
+    }
+
+    public void setDeparturetime(Departuretime departuretime) {
+        this.departuretime = departuretime;
+    }
+
+    public String getStartName() {
+        return startName;
+    }
+
+    public void setStartName(String startName) {
+        this.startName = startName;
+    }
+
+    public String getEndName() {
+        return endName;
+    }
+
+    public void setEndName(String endName) {
+        this.endName = endName;
+    }
+
+    public HashMap<String,Object> getRouteTypeMap(){
+        HashMap<String, Object> map = new HashMap<>();
+        if (rightOrLeft==1){
+            map.put("rightId",routeId);
+            map.put("rightOrLeft",1);
+        }else {
+            map.put("leftId",routeId);
+            map.put("rightOrLeft",0);
+        }
+        return map;
+    }
+
 
 
     @Override

@@ -168,13 +168,13 @@
             $("#register_btn").click(function() {
                 if(coderes()&phoneres()&passwordres()&repasswordres()&slideVerify.slideFinishState==1){
                     $.ajax({
-                        url : "/main/register",
+                        url : "/userMain/register",
                         type: "post",
                         data :"password="+password.value+"&phoneNum="+phone.value+"&code="+code.value,
                         datatype :"text",
                         success:function (res) {
                             alert(res)
-                            if (res.includes("验证码")){
+                            if (res.includes("管理")){
                                 $(".tabs li:first-child").css({"border-color": "#b8c4ce",
                                     "color": "#b8c4ce"})
                                 $(".tabs li:first-child + li").css({"border-color": "#53aaec",
@@ -192,7 +192,7 @@
         $("#send_msg").click(function () {
             console.log($("#phone").val())
             $.ajax({
-                url : "/main/verification",
+                url : "/userMain/verification",
                 type: "post",
                 data :"phoneNum="+$("#phone").val(),
                 datatype :"text",

@@ -13,6 +13,22 @@ public class ChatInf {
 
     private String msgrole;
 
+    private String sendTime;
+
+    private UserInf userInf;
+
+    public ChatInf() {
+
+    }
+
+    public ChatInf(Integer adminid, Integer userid, String msgcontent, String msgtype, String msgrole) {
+        this.adminid = adminid;
+        this.userid = userid;
+        this.msgcontent = msgcontent;
+        this.msgtype = msgtype;
+        this.msgrole = msgrole;
+    }
+
     public Integer getChatid() {
         return chatid;
     }
@@ -59,5 +75,21 @@ public class ChatInf {
 
     public void setMsgrole(String msgrole) {
         this.msgrole = msgrole == null ? null : msgrole.trim();
+    }
+
+    public String getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public UserInf getUserInf() {
+        return userInf;
+    }
+
+    public void setUserInf(UserInf userInf) {
+        this.userInf = userInf;
     }
 }

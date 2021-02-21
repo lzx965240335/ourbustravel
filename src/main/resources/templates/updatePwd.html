@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layim - layui</title>
     <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>
+    <script type="text/javascript" src="/js/jquery-3.5.1.js" charset="utf-8"></script>
     <link rel="stylesheet" th:href="@{/src/css/layui.css}">
     <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
 <body>
 <div class="wrap passport">
-    <h1 class="title01-logo"><a th:href="@{/main/getView}"><img th:src="@{/imgs/logo_blue.png}" style="width: 250px"></a></h1>
+    <h1 class="title01-logo"><a th:href="@{/main/getView}"><img th:src="@{/imgs/log_blue.png}" style="width: 250px"></a></h1>
     <div class="main register">
         <ul class="tabs">
-            <li><span>1</span>填写修改信息</li>
+            <li><span>1</span>填写信息</li>
             <li><span>2</span>修改成功</li>
         </ul><!-- /ul.tabs -->
         <form class="form layui-form" action="/" method="post" id="register_form">
@@ -53,7 +54,7 @@
                 <tr>
                     <td>密码</td>
                     <td>
-                        <input type="password" name="password" id="password" placeholder="密码需8-16位字母、数字或特殊字符，区分大小写" maxlength="16">
+                        <input type="password" name="password" id="password" placeholder="密码需8-16位字母、数字并区分大小写" maxlength="16">
                     </td>
                     <td class="info_td">
 
@@ -71,7 +72,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="button" id="register_btn" class="btn" value="完成注册">
+                        <input type="button" id="register_btn" class="btn" value="修改">
                     </td>
                     <td class="info_td"></td>
                 </tr>
@@ -80,7 +81,7 @@
 
         <div class="register_success none" id="register_success">
             <h1 class="success_h1">
-                <span class="checkmark">修改成功！</span>
+                <span class="checkmark">恭喜您，您已经成功修改密码！</span>
             </h1>
 
             <ul class="suggest_list">
@@ -90,7 +91,7 @@
     </div><!-- /.main -->
 </div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 <script th:src="@{/js/jq-slideVerify.js}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     $(function(){
@@ -165,16 +166,15 @@
                 return true
             }
             $("#register_btn").click(function() {
-                alert(coderes()&phoneres()&passwordres()&repasswordres()&slideVerify.slideFinishState==1)
                 if(coderes()&phoneres()&passwordres()&repasswordres()&slideVerify.slideFinishState==1){
                     $.ajax({
-                        url : "/main/updatePwd",
+                        url : "/userMain/updatePwd",
                         type: "post",
                         data :"password="+password.value+"&phoneNum="+phone.value+"&code="+code.value,
                         datatype :"text",
                         success:function (res) {
                             alert(res)
-                            if (res.includes("成功")){
+                            if (res.includes("验证码")){
                                 $(".tabs li:first-child").css({"border-color": "#b8c4ce",
                                     "color": "#b8c4ce"})
                                 $(".tabs li:first-child + li").css({"border-color": "#53aaec",
@@ -192,7 +192,7 @@
         $("#send_msg").click(function () {
             console.log($("#phone").val())
             $.ajax({
-                url : "/main/verification",
+                url : "/userMain/verification",
                 type: "post",
                 data :"phoneNum="+$("#phone").val(),
                 datatype :"text",
@@ -203,7 +203,7 @@
         })
     })
     function jumpurl(){
-        location='/';
+        location='/userMain/map';
     }
 </script>
 </body>

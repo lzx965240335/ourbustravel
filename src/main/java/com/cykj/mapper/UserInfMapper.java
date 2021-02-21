@@ -24,9 +24,18 @@ public interface UserInfMapper {
 
     UserInf selectByPrimaryKey(Integer userid);
 
+    int updatePwd(UserInf record);
+
     int updateUserInf(UserInf record);
 
     int updateByPrimaryKey(UserInf record);
 
     List<UserInf> selectUsers(UserInf userInf);
+
+
+    //新增微信用户
+    int addWxUser(String openId);
+
+    //查找用户根据openId
+    UserInf selectUserByOpenId(String openId);
 }

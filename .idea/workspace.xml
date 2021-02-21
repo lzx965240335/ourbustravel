@@ -2,21 +2,168 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d0057e3-d913-48b7-b884-8c4884aecb0c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Departuretime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/DeparturetimeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DeparturetimeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/DeparturetimeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/DeparturetimeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/DeparturetimeMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/Departuretime.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/layui/layer/DrawRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/Departuretime.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/ArticleProcessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/DrivSign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WXDriverController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/ArticleMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/ArticleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/DriverService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/DriverServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/BusTravel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/BusTravelThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/BusTravelTime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/MyRoot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/SpringDataPipeline.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/wxapp/AesUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/wxapp/HttpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapping/ArticleMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/imgs/bus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/bird.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/55.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/Bird.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_11_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_4_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_api_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_22.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_10_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_10_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_41.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_41.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_18_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jakarta_el_3_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_1_6_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_1_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_6_28.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_6_28.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_3_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_mybatis_spring_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_autoconfigure_2_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mybatis_spring_boot_mybatis_spring_boot_starter_2_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_3_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_log4j12_1_7_26.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_4_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_27.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ourbustravel.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ourbustravel.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/BusInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/ChatInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/ChatInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Departuretime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Departuretime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Driver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/Site.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/bean/UserInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/RouteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/RouteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/UserInfController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/UserInfController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WXAppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WXAppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WebSocketTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/controller/WebSocketTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mainmethod/OurbustravelApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mainmethod/OurbustravelApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/BusInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/BusInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/ChatInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/ChatInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DriverMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/DriverMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/RouteMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/UserInfMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/mapper/UserInfMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/AdminInfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/AdminInfService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/BusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/BusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/RouteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/RouteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/UserInfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/UserInfService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/AdminInfServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/AdminInfServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/BusServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/BusServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/RouteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/RouteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/UserInfServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/service/impl/UserInfServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/util/AdminChatJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/AdminChatJson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cykj/util/MsgSend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cykj/util/MsgSend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/BusInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/BusInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/ChatInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/ChatInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/DriverMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/DriverMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/RouteMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/RouteMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/UserInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapping/UserInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/beforeCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/beforeCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/DrawRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/DrawRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/AfterView.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/AfterView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/DrawRoute.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/DrawRoute.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/UserInf.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/UserInf.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/updatePwd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/updatePwd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/bean/BusInf.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/bean/BusInf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/bean/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/bean/Driver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/bean/UserInf.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/bean/UserInf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/mainmethod/OurbustravelApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/mainmethod/OurbustravelApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/mapper/BusInfMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/mapper/BusInfMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/mapper/DriverMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/mapper/DriverMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/cykj/mapper/UserInfMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/cykj/mapper/UserInfMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/BusInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/BusInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/DriverMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/DriverMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapping/UserInfMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/UserInfMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/beforeCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/beforeCss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/map.html" afterDir="false" />
     </list>
@@ -55,14 +202,17 @@
     </expand>
     <select />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="ourbustravel" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -115,19 +265,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/cykj/service/impl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/cykj/mainmethod" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\service\impl" />
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\service" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj" />
+      <recent name="E:\GZ\ourbustravel\src" />
+      <recent name="E:\GZ\ourbustravel\src\main" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\templates" />
       <recent name="E:\GZ\ourbustravel\src\main\resources\mapping" />
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\mapper" />
-      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.cykj.controller" />
@@ -136,12 +286,12 @@
       <recent name="com.cykj.mapper" />
       <recent name="com.cykj.bean" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\mainmethod" />
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\util" />
+      <recent name="E:\GZ\ourbustravel\src\main\resources\static\imgs" />
       <recent name="E:\GZ\ourbustravel\src\main\resources\templates" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\mapping" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static\css" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static\js" />
-      <recent name="E:\GZ\ourbustravel\src\main\resources\static" />
+      <recent name="E:\GZ\ourbustravel\src\main\java\com\cykj\bean" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.OurbustravelApplication">
@@ -190,7 +340,22 @@
       <list>
         <serviceView>
           <treeState>
-            <expand />
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:ourbus" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:ourbus" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@6d4667ae" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:ourbus" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@419f8a35" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
             <select />
           </treeState>
         </serviceView>
@@ -273,7 +438,24 @@
       <workItem from="1612146971824" duration="347000" />
       <workItem from="1612185024925" duration="348000" />
       <workItem from="1612246217740" duration="782000" />
-      <workItem from="1612261489526" duration="1301000" />
+      <workItem from="1612261489526" duration="10701000" />
+      <workItem from="1612342818102" duration="383000" />
+      <workItem from="1612413179819" duration="9993000" />
+      <workItem from="1612498321552" duration="1808000" />
+      <workItem from="1612518264561" duration="7070000" />
+      <workItem from="1612531380491" duration="4634000" />
+      <workItem from="1613609662036" duration="10097000" />
+      <workItem from="1613696381887" duration="10210000" />
+      <workItem from="1613710044328" duration="501000" />
+      <workItem from="1613710604813" duration="2908000" />
+      <workItem from="1613713651611" duration="1243000" />
+      <workItem from="1613722499483" duration="1401000" />
+      <workItem from="1613729930807" duration="595000" />
+      <workItem from="1613734603077" duration="3991000" />
+      <workItem from="1613782668311" duration="8793000" />
+      <workItem from="1613792866507" duration="10566000" />
+      <workItem from="1613826579133" duration="7327000" />
+      <workItem from="1613867735398" duration="19255000" />
     </task>
     <task id="LOCAL-00001" summary="框架">
       <created>1609205717330</created>
@@ -478,7 +660,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611828078730</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="lzx">
+      <created>1612264520524</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1612264520524</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,10 +698,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="lzx" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="186" key="#Notifications" timestamp="1610513013780">
+    <state x="552" y="186" key="#Notifications" timestamp="1613713751278">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="186" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1610513013780" />
+    <state x="552" y="186" key="#Notifications/0.0.1920.1050@0.0.1920.1050" timestamp="1613713751278" />
     <state x="552" y="186" key="#Project_Structure" timestamp="1609230726431">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -525,14 +714,18 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="717" y="333" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1609125818888" />
-    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser" timestamp="1612261591729">
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser" timestamp="1613878596715">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1612261591729" />
-    <state x="744" y="391" width="431" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1611039520164">
+    <state x="765" y="218" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1613878596715" />
+    <state x="658" y="453" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1613722823094">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="744" y="391" width="431" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050@0.0.1920.1050" timestamp="1611039520164" />
+    <state x="658" y="453" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1613722823094" />
+    <state x="744" y="391" width="431" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1613883631621">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="744" y="391" width="431" height="273" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050@0.0.1920.1050" timestamp="1613883631621" />
     <state x="153" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610367269554">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -541,54 +734,54 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="690" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1610863794450" />
-    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1611828078128">
+    <state x="462" y="115" key="CommitChangelistDialog2" timestamp="1612264519697">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1611828078128" />
+    <state x="462" y="115" key="CommitChangelistDialog2/0.0.1920.1050@0.0.1920.1050" timestamp="1612264519697" />
     <state x="184" y="87" key="DiffContextDialog" timestamp="1609655279282">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="184" y="87" key="DiffContextDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609655279282" />
-    <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1610973563088">
+    <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1613710524259">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="283" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1610973563088" />
+    <state x="740" y="283" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1613710524259" />
     <state x="823" y="423" key="Github.ShareDialog" timestamp="1609226115676">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="823" y="423" key="Github.ShareDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1609226115676" />
-    <state width="1877" height="249" key="GridCell.Tab.0.bottom" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.0.bottom" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
-    <state width="1877" height="249" key="GridCell.Tab.0.center" timestamp="1612013078451">
+    <state width="1877" height="493" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.0.center" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078451" />
-    <state width="1877" height="249" key="GridCell.Tab.0.left" timestamp="1612013078451">
+    <state width="1877" height="493" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.0.left" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078451" />
-    <state width="1877" height="249" key="GridCell.Tab.0.right" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.0.right" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
-    <state width="1877" height="249" key="GridCell.Tab.1.bottom" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.1.bottom" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
-    <state width="1877" height="249" key="GridCell.Tab.1.center" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.1.center" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
-    <state width="1877" height="249" key="GridCell.Tab.1.left" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.1.left" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
-    <state width="1877" height="249" key="GridCell.Tab.1.right" timestamp="1612013078452">
+    <state width="1877" height="493" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
+    <state width="1877" height="493" key="GridCell.Tab.1.right" timestamp="1613893173999">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="249" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1612013078452" />
+    <state width="1877" height="493" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1613893173999" />
     <state width="1877" height="351" key="GridCell.Tab.2.bottom" timestamp="1611835694633">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -621,10 +814,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="170" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1609567924505" />
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1611828082764">
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2" timestamp="1612264522196">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1611828082764" />
+    <state x="552" y="261" key="Vcs.Push.Dialog.v2/0.0.1920.1050@0.0.1920.1050" timestamp="1612264522196" />
     <state x="759" y="305" key="chooseDestDirectoryDialog" timestamp="1610879456218">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

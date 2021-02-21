@@ -10,6 +10,7 @@
         <result property="startSite" column="startSite"></result>
         <result property="endSite" column="endSite"></result>
         <result property="rightOrLeft" column="rightOrLeft"></result>
+        <result property="money" column="money"></result>
         <association property="startSiteImpl" javaType="Site">
             <id property="ssiteId" column="siteId"></id>
             <result column="slongitude" property="longitude"></result>
@@ -31,7 +32,7 @@
     </resultMap>
 
     <select id="getRoutes" resultType="Route" parameterType="HashMap">
-        select * from t_route;
+        select r.*,s.siteName startName,si.siteName endName from t_route r left join t_site s on r.startSite=s.siteId left join t_site si on r.endSite=si.siteId;
     </select>
 
     <select id="selectRoutes" resultMap="RouteMap" parameterType="HashMap">
@@ -154,4 +155,32 @@
         </foreach>
     </update>
 
+
+    <resultMap id="routeTime" type="Route">
+        <id property="routeId" column="routeId"></id>
+        <result property="routeName" column="routeName"></result>
+        <result property="buildTime" column="buildTime"></result>
+        <result property="routeInf" column="routeInf"></result>
+        <result property="startSite" column="startSite"></result>
+        <result property="endSite" column="endSite"></result>
+        <result property="rightOrLeft" column="rightOrLeft"></result>
+        <result property="position" column="position"></result>
+        <result property="money" column="money"></result>
+        <association property="departuretime" javaType="Departuretime">
+            <id property="id" column="id"></id>
+            <result property="routeId" column="routeId"></result>
+            <result property="startTime" column="startTime"></result>
+            <result property="endTime" column="endTime"></result>
+            <result property="intervalTime" column="intervalTime"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectRouteAll" resultMap="routeTime">
+        select * from t_route r inner join t_departuretime td on r.routeId = td.routeId;
+    </select>
+
+    <select id="selectRouteTimeById" parameterType="Integer" resultMap="routeTime">
+        select * from t_route r left join t_departuretime td on r.routeId = td.routeId
+        where r.routeId=#{routeId}
+    </select>
 </mapper>

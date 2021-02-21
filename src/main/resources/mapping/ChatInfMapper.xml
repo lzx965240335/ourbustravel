@@ -12,17 +12,38 @@
   <sql id="Base_Column_List" >
     chatId, adminId, userId, msgcontent, msgType, msgRole
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+  <select id="selectByUserId" resultType="com.cykj.bean.ChatInf" parameterType="java.lang.Integer" >
+    select *
     from t_chat
-    where chatId = #{chatid,jdbcType=INTEGER}
+    where msgRole = 'A' and chatState = 1 and userId = #{userId}
+  </select>
+
+
+  <resultMap id="ChatUserResultMap" type="com.cykj.bean.ChatInf">
+    <id column="chatId" property="chatid" jdbcType="INTEGER" />
+    <result column="adminId" property="adminid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="msgcontent" property="msgcontent" jdbcType="VARCHAR" />
+    <result column="msgType" property="msgtype" jdbcType="VARCHAR" />
+    <result column="msgRole" property="msgrole" jdbcType="VARCHAR" />
+    <result column="sendTime" property="sendTime" jdbcType="VARCHAR" />
+    <association property="userInf" javaType="com.cykj.bean.UserInf">
+      <result column="userName" property="userName" jdbcType="VARCHAR" />
+      <result column="account" property="account" jdbcType="VARCHAR" />
+      <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+
+  <select id="selectByAdminId" resultMap="ChatUserResultMap" >
+    select c.*,u.*
+    from t_chat c,t_user u
+    where msgRole = 'U' and chatState = 1 and adminId = #{adminId} and c.userId = u.userId
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_chat
     where chatId = #{chatid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cykj.bean.ChatInf" >
+  <insert id="insertSelective" parameterType="com.cykj.bean.ChatInf" >
     insert into t_chat (chatId, adminId, userId, 
       msgcontent, msgType, msgRole
       )
@@ -30,7 +51,7 @@
       #{msgcontent,jdbcType=VARCHAR}, #{msgtype,jdbcType=VARCHAR}, #{msgrole,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cykj.bean.ChatInf" >
+  <insert id="insert" parameterType="com.cykj.bean.ChatInf" >
     insert into t_chat
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="chatid != null" >
@@ -94,13 +115,21 @@
     </set>
     where chatId = #{chatid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cykj.bean.ChatInf" >
+  <update id="updateByAdminId" >
     update t_chat
-    set adminId = #{adminid,jdbcType=INTEGER},
-      userId = #{userid,jdbcType=INTEGER},
-      msgcontent = #{msgcontent,jdbcType=VARCHAR},
-      msgType = #{msgtype,jdbcType=VARCHAR},
-      msgRole = #{msgrole,jdbcType=VARCHAR}
-    where chatId = #{chatid,jdbcType=INTEGER}
+    set adminId = #{adminid},chatState = 2
+    where adminId = 101 and msgRole = 'U'
   </update>
+
+  <update id="updateByUserId" >
+    update t_chat
+    set chatState = 2
+    where userId = #{userId} and msgRole = 'A'
+  </update>
+  <update id="updateOneToOne" >
+    update t_chat
+    set chatState = 2
+    where userId = #{userId} and msgRole = #{role} and adminId = #{adminId}
+  </update>
+
 </mapper>

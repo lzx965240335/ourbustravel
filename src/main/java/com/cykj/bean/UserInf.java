@@ -27,7 +27,17 @@ public class UserInf {
 
     private Integer point;//积分
 
+    private String openId;
+
     public UserInf() {
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public Integer getUserId() {

@@ -34,7 +34,7 @@
         </div>
         <div id="route" class="route">
 
-            <div th:each="item,itemStat:${sites}" id="routeId" th:routeId="${routeId}" th:routeName="${routeName}" class="row_container">
+            <div th:each="item,itemStat:${sites}" id="routeId" th:routeId="${routeId}" th:routeName="${routeName}" th:money="${money}" class="row_container">
                 <button type="button" class="selectSite" onclick="clickSiteBtn(this)" th:value="${itemStat.index}">[[${item.siteName}]]</button>
                 <input class="sites" type="hidden" th:siteId="${item.siteId}" th:longitude="${item.longitude}" th:latitude="${item.latitude}" th:siteName="${item.siteName}" >
             </div>

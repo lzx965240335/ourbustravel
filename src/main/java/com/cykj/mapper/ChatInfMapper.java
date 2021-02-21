@@ -3,6 +3,8 @@ package com.cykj.mapper;
 import com.cykj.bean.ChatInf;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ChatInfMapper {
     int deleteByPrimaryKey(Integer chatid);
@@ -11,9 +13,15 @@ public interface ChatInfMapper {
 
     int insertSelective(ChatInf record);
 
-    ChatInf selectByPrimaryKey(Integer chatid);
+    List<ChatInf> selectByUserId(int userId);
 
-    int updateByPrimaryKeySelective(ChatInf record);
+    List<ChatInf> selectByAdminId(int adminId);
+
+    int updateByAdminId(int adminId);
+
+    int updateByUserId(int userId);
+
+    int updateOneToOne(int userId, int adminId, char role);
 
     int updateByPrimaryKey(ChatInf record);
 }

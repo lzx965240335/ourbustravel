@@ -56,7 +56,7 @@ $(function () {
                                     success: function (data) {
                                         if (data > '0') {
                                             // location.href="/userMain/qt";
-                                            $(".layui-layer").css("display", "none")
+                                            location.href="/userMain/map";
                                         } else {
                                             layer.msg("手机号或者验证码错误")
                                         }
@@ -108,11 +108,13 @@ $(function () {
 
         }
         if ($("#userName").html()){
+            console.log($("#avatar").text())
             $(".layui-layer").css("display", "none")
             $(".login-btn").html("退出")
             $(".login-btn").attr('id','exit')
             $("#p1").html("您好："+$('#userName').text())
             $("#p2").html("欢迎回来")
+            $(".avatar").css("background","url("+$("#avatar").text()+") 50% no-repeat")
             $("dd a").removeClass('hide')
             document.getElementById('exit').addEventListener('click',function () {
                 exit();
@@ -132,28 +134,46 @@ $(function () {
                             var layim = layui.layim;
                             var socket = new WebSocket('ws://localhost:8080/websocket/'+data.account);
                             socket.onopen = function () {
-                                console.log(data.userName+"连接成功")
-                                // socket.send('XXX连接成功');
+                                console.log(data.userName+"连接成功");
+                                $.ajax({
+                                    url: "/userMain/chatLoad",
+                                    type: "post",
+                                    data: "userId="+data.userId,
+                                    datatype: "text",
+                                    success: function (res) {
+                                        res=JSON.parse(res);
+                                        console.log(res.length)
+                                        for (let i = 0; i < res.length ; i++) {
+                                            // var chatInf ={'msgcontent':res[i].msgcontent,'msgtype':'text'};
+                                            var chatInf ={
+                                                content:res[i].msgcontent,
+                                                id: 101,
+                                                name: "在线客服",
+                                                timestamp: res[i].sendTime,
+                                                type: "friend",
+                                                username: data.account
+                                            }
+                                            layim.getMessage(chatInf
+                                            )
+                                        }
+                                    }
+                                })
                             }
                             socket.onmessage = function(res){
-                                var chatInf ={'msgcontent':res.content,'msgtype':'text'};
+                                console.log(res)
                                 res=JSON.parse(res.data);
-                                console.log(res);
+                                var adminId =res['id'];
                                 if (res.username=="admin"){
-                                    chatInf.adminid=res.id;
-                                    chatInf.userid=data.userId;
-                                    chatInf.msgrole='A-to-U'
                                     res['name']="在线客服";
                                     res['username']="在线客服";
+                                    res['avatar']="http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
                                     res['id']='101';
-                                }else{
-                                    chatInf.userid=res.id;
-                                    chatInf.adminid=data.userId;
-                                    chatInf.msgrole='U-to-A'
                                 }
+                                console.log(res);
+                                console.log(data['userId']+"====="+adminId)
                                 layim.getMessage(res
-                                )
-                                chatLoad(chatInf)
+                                );
+                                chatLoadOne(data['userId'],adminId);
                             };
                             layim.config({
                                 init: {
@@ -174,7 +194,7 @@ $(function () {
                                 socket.send(JSON.stringify({
                                     type: 'friendMessage' //随便定义，用于在服务端区分消息类型
                                     ,data: res
-                                    ,role : $("#userName").val()
+                                    ,role : 'user'
                                 }));
                             });
                         });
@@ -197,15 +217,6 @@ $(function () {
                     // alert(data)
                     if (data>'0'){
                         location.href="/userMain/map";
-                        // $(".layui-layer").css("display", "none")
-                        // $(".login-btn").html("退出")
-                        // $("#p1").html("您好："+$('#userName').text())
-                        // $("#p2").html("欢迎回来")
-                        //
-                        // $(".login-btn").attr('id','exit')
-                        // document.getElementById('exit').addEventListener('click',function () {
-                        //     exit();
-                        // })
                     }else{
                         layer.msg("账号或者密码错误")
                     }
@@ -219,13 +230,13 @@ $(function () {
 
 });
 
-function chatLoad(data) {
+function chatLoadOne(userId,adminId) {
+    console.log(userId+"====="+adminId)
     $.ajax({
-        url: "/userMain/chatLoad",
-        contentType:"application/json",
+        url: "/userMain/chatLoadOne",
         type: "post",
-        data: JSON.stringify(data),
-        datatype: "json",
+        data: "role=A&userId="+userId+"&adminId="+adminId,
+        datatype: "text",
         success: function (res) {
         }
     })

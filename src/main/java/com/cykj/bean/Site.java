@@ -86,4 +86,18 @@ public class Site {
     public void setPid(Integer pid) {
         this.pid = pid;
     }
+
+    @Override
+    public String toString() {
+        return "Site{" +
+                "siteId=" + siteId +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", siteName='" + siteName + '\'' +
+                ", setTime='" + setTime + '\'' +
+                ", peopleNum=" + peopleNum +
+                ", isDot=" + isDot +
+                ", pid=" + pid +
+                '}';
+    }
 }

@@ -2,19 +2,22 @@ package com.cykj.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.cykj.bean.City;
-import com.cykj.bean.Route;
-import com.cykj.bean.Site;
-import com.cykj.service.CityService;
-import com.cykj.service.RouteService;
-import com.cykj.service.SiteService;
+import com.alibaba.fastjson.JSONObject;
+import com.cykj.bean.*;
+import com.cykj.mapper.BusInfMapper;
+import com.cykj.service.*;
 import com.cykj.util.LayuiJson;
+import com.cykj.util.wxapp.AesUtil;
+import com.cykj.util.wxapp.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +35,58 @@ public class WXAppController {
     @Autowired
     private RouteService routeService;
 
+    @Autowired
+    private BusService busService;
+
+    @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    private UserInfService userInfService;
+
+    /**
+     * 获取微信小程序的openid
+     * @param code
+     * @param encryptedData
+     * @param iv
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getOpenid")
+    public Map<String,Object> getOpenid(String code, String encryptedData, String iv ){
+        Map<String, Object> map = userInfService.getOpenid(code, encryptedData, iv);
+        int status = (int) map.get("status");
+        if (status==1){
+            Map<String,Object> userInfo = (Map<String, Object>) map.get("userInfo");
+            String openId = (String) userInfo.get("openId");
+            HashMap<String, Object> map1 = userInfService.wxLogin(openId);
+            return map1;
+        }
+        return map;
+    }
+
+//    登录
     @RequestMapping("/login")
-    public void login(String account){
-        System.out.println(account);
+    @ResponseBody
+    public Map<String,Object> login(String openId){
+        return userInfService.wxLogin(openId);
+    }
+
+
+    //获取文章信息
+    @RequestMapping("/getArticles")
+    @ResponseBody
+    public List<Article> getArticles(String page){
+      return articleService.selectArticles(page);
+    }
+
+
+    //获取文章信息
+    @RequestMapping("/getArticleById")
+    @ResponseBody
+    public Article       getArticleById(String articleId){
+        return articleService.selectArticleById(articleId);
     }
 
 
@@ -68,34 +120,47 @@ public class WXAppController {
     }
 
 
-    //路线查询
-    @RequestMapping("/selectPath")
+    //获取下一站信息
+    @RequestMapping("/getBusLocation")
     @ResponseBody
-    public List<Route> selectPath(String startSiteId, String endSiteId, String type){
-        System.out.println("查询站点");
-        System.out.println("开始"+startSiteId);
-        System.out.println("结束"+endSiteId);
-        System.out.println("类型"+type);
-//        Map<Integer, List<Route>> routes = routeService.getRoutes(startSiteId, endSiteId);
-//        System.out.println(routes.toString());;
-//        System.out.println(routes);;
-        List<Route> routes=new ArrayList<>();
-        Route route = new Route();
-        route.setRouteName("129");
-        route.setRouteId(1);
-        List<Site> list = new ArrayList<>();
-        String str="118.172796,24.493084,118.172897,24.493031,118.172961,24.493004,118.173218,24.492883,118.173352,24.492829,118.173681,24.492682,118.174218,24.492423,118.174581,24.49227" +
-                ",118.174892,24.492126,118.174966,24.491899,118.175002,24.491604";
-        String[] strs=str.split(",");
-        for (int i = 0; i < strs.length; i+=2) {
-            Site site = new Site();
-            site.setLongitude(strs[i]);
-            site.setLatitude(strs[i+1]);
-            list.add(site);
-        }
-        route.setSites(list);
-        routes.add(route);
-        return routes;
+    public List<HashMap<String, Object>> getBusLocation(@RequestBody List<Route> routes){
+        System.out.println("开始================================================================");
+        System.out.println(routes.toString());
+        List<HashMap<String, Object>> list = busService.getMinimumBus(routes);
+        return list;
     }
 
+    //获取线路公交位置与时刻表信息
+        @RequestMapping("/getBusInfoTime")
+    @ResponseBody
+    public Route getBusInfoTime(String routeId){
+        System.out.println("获取线路公交位置与时刻表信息"+routeId);
+        return routeService.selectRouteTime(routeId);
+    }
+
+    //更新公交信息
+    @RequestMapping("/refreshBusInf")
+    @ResponseBody
+    public  HashMap<String, Object> refreshBusInf(String routeId,String siteId){
+        System.out.println("更新公交信息"+routeId);
+        return busService.refreshBusInf(routeId,siteId);
+    }
+
+    //获取行驶时间列表
+    @RequestMapping("/getBusInfs")
+    @ResponseBody
+    public  HashMap<String, Object> getBusInfs(String routeId){
+        System.out.println("定时更新所有公交信息"+routeId);
+        return busService.getBusInfs(routeId);
+    }
+
+
+    //根据线路Id查找路线所有点
+    @RequestMapping("/selectRouteById")
+    @ResponseBody
+    public Map<String, Object> selectRouteById(String routeId){
+        return routeService.selectRouteById(routeId);
+    }
+
+    //
 }

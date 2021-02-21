@@ -31,5 +31,12 @@ public interface RouteService {
     public List<Map<String, Object>> selectRoutePath(List<Site> startId, List<Site> endIds);
 
     //查询乘车方案
-    Map<Integer, List<Route>> getRoutes(String[] startPos, String[] endPos);
+    List<Route> getRoutes(String[] startPos, String[] endPos);
+
+    //查询乘车方案
+    List<Route> Routes();
+
+    Route selectRouteTime(String routeId);
+
+    Map<String, Object> selectRouteById(String routeId);
 }

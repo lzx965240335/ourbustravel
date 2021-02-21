@@ -16,7 +16,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <img th:src="${session.adminInf.avatar}" class="layui-nav-img">
                     [[${session.adminInf.adminName}]]
                 </a>
             </li>
@@ -85,18 +85,43 @@
                     var layim = layui.layim;
                     var socket = new WebSocket('ws://localhost:8080/websocket/zxkf');
                     socket.onopen = function () {
+                        console.log(data)
                         console.log("zxkf连接成功")
                         // socket.send('XXX连接成功');
+                        $.ajax({
+                            url: "/Admin/chatLoad",
+                            type: "post",
+                            data: "adminId="+data.adminId,
+                            datatype: "text",
+                            success: function (res) {
+                                res=JSON.parse(res);
+                                console.log(res)
+                                for (let i = 0; i < res.length ; i++) {
+                                    // var chatInf ={'msgcontent':res[i].msgcontent,'msgtype':'text'};
+                                    var chatInf ={
+                                        content:res[i].msgcontent,
+                                        id: res[i].userid,
+                                        name: res[i].userInf.userName,
+                                        avatar:res[i].userInf.avatar,
+                                        historyTime: res[i].sendTime,
+                                        timestamp:new Date().valueOf(),
+                                        temporary: true,
+                                        type: "friend",
+                                        username: res[i].userInf.account
+                                    }
+                                    console.log(chatInf)
+                                    layim.getMessage(chatInf
+                                    )
+                                }
+                            }
+                        })
                     }
                     socket.onmessage = function (res) {
                         res = JSON.parse(res.data);
+                        console.log(res)
                         layim.getMessage(res
                         )
-                        var chatInf = {'msgcontent': res.content, 'msgtype': 'text'}
-                        chatInf.userid = res.id;
-                        chatInf.adminid = data.adminId;
-                        chatInf.msgrole = 'A-to-U'
-                        chatLoad(chatInf)
+                      chatLoadOne(res['id'],101)
                     };
                     layim.config({
                         init: {
@@ -117,7 +142,7 @@
                         socket.send(JSON.stringify({
                             type: 'friendMessage' //随便定义，用于在服务端区分消息类型
                             , data: res
-                            , role: $("#userName").val()
+                            , role: 'admin'
                         }));
                     });
                 });
@@ -128,13 +153,13 @@
         })
     });
 
-    function chatLoad(data) {
+    function chatLoadOne(userId,adminId) {
+        console.log(userId+"====="+adminId)
         $.ajax({
-            url: "/userMain/chatLoad",
-            contentType: "application/json",
+            url: "/userMain/chatLoadOne",
             type: "post",
-            data: JSON.stringify(data),
-            datatype: "json",
+            data: "role=U&userId="+userId+"&adminId="+adminId,
+            datatype: "text",
             success: function (res) {
             }
         })

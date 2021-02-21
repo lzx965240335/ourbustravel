@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cykj.mapper.BusInfMapper" >
 
-  <insert id="addBus" parameterType="BusInf">
+    <insert id="addBus" parameterType="BusInf">
     insert into t_bus(busId, busName, carNum, importTime, busState, onloadState)value (#{busId}, #{busName}, #{carNum},
        sysdate(), 17, 13)
   </insert>
@@ -35,22 +35,32 @@
             <if test="sixTime !=null and sixTime !=''">
                 sixTime = #{sixTime},
             </if>
+            <if test="stopSiteId !=null and stopSiteId !=''">
+                stopSiteId = #{stopSiteId},
+            </if>
+            <if test="siteId !=null and siteId !=''">
+                siteId = #{siteId},
+            </if>
+            <if test="rightOrLeft !=null and rightOrLeft !=''">
+                rightOrLeft = #{rightOrLeft},
+            </if>
+            <if test="isDepart !=null and isDepart !=''">
+                isDepart = #{isDepart},
+            </if>
         </set>
         where busId = #{busId}
     </update>
 
     <select id="selectBus" resultType="BusInf" parameterType="HashMap">
-  select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
+        select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
         <where>
-                and busState !='16'
-
+            and busState !='16'
             <if test="busName != null and busName !=''">
                 and busName like CONCAT('%',#{busName},'%')
             </if>
-
         </where>
         limit #{start},#{end};
-  </select>
+    </select>
 
     <select id="selectBusWeiXiu" resultType="BusInf" parameterType="HashMap">
         select b.*,d.dicValue from t_bus b left join t_dic d on b.busState = d.dicId left join t_dic d1 on b.onloadState = d1.dicId
@@ -66,15 +76,40 @@
         limit #{start},#{end};
     </select>
 
-    <resultMap id="BusInf" type="BusInf">
+    <resultMap id="BusInfs" type="BusInf">
         <id property="busId" column="busId"></id>
         <result property="busName" column="busName"></result>
         <result property="carNum" column="carNum"></result>
         <result property="importTime" column="importTime"></result>
         <result property="busState" column="busState"></result>
         <result property="onloadState" column="onloadState"></result>
+        <result property="speed" column="speed"></result>
+        <result property="leftId" column="leftId"></result>
+        <result property="rightId" column="rightId"></result>
+        <result property="siteId" column="siteId"></result>
+        <result property="rightOrLeft" column="rightOrLeft"></result>
+        <result property="stopSiteId" column="stopSiteId"></result>
+        <result property="stopTime" column="stopTime"></result>
         <association property="dic" javaType="Dic">
             <result column="dicValue" property="dicValue"></result>
+        </association>
+        <association property="site" javaType="Site">
+            <id property="siteId" column="siteId"></id>
+            <result column="longitude" property="longitude"></result>
+            <result column="latitude" property="latitude"></result>
+            <result column="siteName" property="siteName"></result>
+            <result column="setTime" property="setTime"></result>
+            <result column="peopleNum" property="peopleNum"></result>
+            <result column="isDot" property="isDot"></result>
+        </association>
+        <association property="stopSite" javaType="Site">
+            <id property="siteId" column="siteIds"></id>
+            <result column="longitudes" property="longitude"></result>
+            <result column="latitudes" property="latitude"></result>
+            <result column="siteNames" property="siteName"></result>
+            <result column="setTimes" property="setTime"></result>
+            <result column="peopleNums" property="peopleNum"></result>
+            <result column="isDots" property="isDot"></result>
         </association>
     </resultMap>
 
@@ -93,4 +128,47 @@
             busId=#{busId};
         </where>
     </update>
+
+    <!--    查找驶的公交-->
+    <select id="selectBusByMap" resultMap="BusInfs" parameterType="HashMap">
+        select b.*,si.*,s.siteId siteIds,s.longitude longitudes,s.latitude latitudes,s.isDot isDots
+        from t_bus b inner join t_site s on b.stopSiteId=s.siteId inner join t_site si on b.siteId=si.siteId
+        <where>
+            <if test="busState != null and busState !=''">
+                and  b.busState=#{busState}
+            </if>
+            <if test="isDepart != null and isDepart !=''">
+                and b.isDepart=#{isDepart}
+            </if>
+            <if test="leftId != null and leftId !=''">
+                and b.leftId=#{leftId}
+            </if>
+            <if test="rightId != null and rightId !=''">
+                and b.rightId=#{rightId}
+            </if>
+            <if test="rightOrLeft != null and rightOrLeft !=''">
+                and b.rightOrLeft=#{rightOrLeft}
+            </if>
+        </where>
+    </select>
+
+    <!--    根据线路查找公交信息-->
+    <select id="selectBusByRouteId" resultMap="BusInfs" parameterType="HashMap">
+        select b.*,si.*,s.siteId siteIds,s.longitude longitudes,s.latitude latitudes,s.isDot isDots
+        from t_bus b inner join t_site s on b.stopSiteId=s.siteId inner join t_site si on b.siteId=si.siteId
+        <where>
+            b.busState=17 and b.isDepart=21 and b.onloadState!=15
+            <if test="leftId != null and leftId !=''">
+                and b.leftId=#{leftId}
+            </if>
+            <if test="rightId != null and rightId !=''">
+                and b.rightId=#{rightId}
+            </if>
+            <if test="rightOrLeft != null and rightOrLeft !=''">
+                and b.rightOrLeft=#{rightOrLeft}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>

@@ -106,7 +106,14 @@ public class RouteController {
     //查找线路
     @RequestMapping("/getRoutes")
     @ResponseBody
-    public Map<Integer, List<Route>> getRoutes(String[] startPos, String[] endPos) {
+    public List<Route> getRoutes(String[] startPos, String[] endPos) {
         return routeService.getRoutes(startPos,endPos);
+    }
+
+    //查找线路
+    @RequestMapping("/Routes")
+    @ResponseBody
+    public List<Route> Routes() {
+        return routeService.Routes();
     }
 }

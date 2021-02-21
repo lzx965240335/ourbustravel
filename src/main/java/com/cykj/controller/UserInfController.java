@@ -10,19 +10,23 @@ import com.cykj.util.LayuiJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/userMain")
@@ -45,7 +49,7 @@ public class UserInfController {
         if (userName != null && !userName.equals("")){
             map.put("userName",userName);
         }
-         LayuiJson LayuiJson = userInfService.selectUser(map);
+        LayuiJson LayuiJson = userInfService.selectUser(map);
         return LayuiJson;
     }
 
@@ -161,6 +165,49 @@ public class UserInfController {
         String result = userInfService.updateUserInf(userInf);
         return result;
     }
+
+
+    @RequestMapping("/upladFile")
+    @ResponseBody
+    public synchronized void upladFile(MultipartHttpServletRequest request,HttpSession session){
+        MultipartHttpServletRequest multipartRequest =  request;
+        /** 构建文件保存的目录* */
+        UserInf userInf =(UserInf)session.getAttribute("loginner");
+        String logoPathDir = "/"+userInf.getAccount()+"/";
+        /** 得到文件保存目录的真实路径* */
+        String logoRealPathDir = request.getSession().getServletContext()
+                .getRealPath(logoPathDir);
+        /** 根据真实路径创建目录* */
+        File logoSaveFile = new File(logoRealPathDir);
+        if (!logoSaveFile.exists())
+            logoSaveFile.mkdirs();
+        /** 页面控件的文件流* */
+        MultipartFile multipartFile = multipartRequest.getFile("file");
+        /** 获取文件的后缀* */
+        String suffix = multipartFile.getOriginalFilename().substring(
+                multipartFile.getOriginalFilename().lastIndexOf("."));
+        /** 使用UUID生成文件名称* */
+        String logImageName = UUID.randomUUID().toString() + suffix;// 构建文件名称
+        /** 拼成完整的文件保存路径加文件* */
+        String fileName = null;
+        try {
+            fileName = ResourceUtils.getURL("classpath:").getPath() + "static/imgs/" + logImageName;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        userInf.setAvatar("/imgs/"+logImageName);
+        userInfService.updateUserInf(userInf);
+        System.out.println("upload-》文件保存全路径" + fileName);
+        File file = new File(fileName);
+        try {
+            Map map = new HashMap<String,String>();
+            map.put("code","0");
+            map.put("msg","");
+            multipartFile.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @RequestMapping("/userChat")
     @ResponseBody
     public String userChat(HttpSession session){
@@ -173,14 +220,20 @@ public class UserInfController {
     public String adminChat(HttpSession session){
         System.out.println("获取聊天界面");
         String result =JSON.toJSONString(new AdminChatJson(session));
+        System.out.println(result);
         return result;
     }
     @RequestMapping(value = "/chatLoad")
     @ResponseBody
-    public String  chatLoad(@RequestBody ChatInf chatInf){
-        System.out.println(JSON.toJSONString(chatInf));
-        userInfService.chatLoad(chatInf);
-        return "";
+    public String  chatLoad(int userId){
+        System.out.println(JSON.toJSONString(userId));
+        return userInfService.chatLoad(userId);
+    }
+    @RequestMapping(value = "/chatLoadOne")
+    @ResponseBody
+    public String  chatLoadOne(int userId,int adminId,char role){
+        System.out.println(userId+"===="+adminId);
+        return userInfService.chatLoadOne(userId,adminId,role);
     }
     @RequestMapping(value = "/userExit")
     @ResponseBody
@@ -188,4 +241,23 @@ public class UserInfController {
         session.removeAttribute("loginner");
         return "已退出";
     }
+
+//    public Boolean newFileInf(HttpServletRequest request, String fileName){
+//        String[] fileNames = fileName.split("\\.");
+//        System.out.println(fileName);
+//        String type = "."+fileNames[fileNames.length-1];
+//        if (Arrays.asList(types).contains(type)) {
+//            String fileName1 = fileName.split("." + type)[0];
+//            User loginner = (User) request.getSession().getAttribute("loginner");
+//            FileInf fileInf = new FileInf();
+//            fileInf.setAccount(loginner.getAccount());
+//            fileInf.setFileType(type);
+//            fileInf.setFileName(fileName1);
+//            fileInf.setUploadTime(f.format(new Date()));
+//            if (fileMapper.uploadFile(fileInf)>0){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 }

@@ -28,4 +28,10 @@ public interface BusInfMapper {
 
     //查询数据库所有的数据,分页
     List<BusInf> selectBusWeiXiu(Map<String, Object> condition);
+
+    //    <!--    查找驶的公交-->
+    List<BusInf> selectBusByMap(Map map);
+
+    List<BusInf> selectBusByRouteId(Map map);
+
 }

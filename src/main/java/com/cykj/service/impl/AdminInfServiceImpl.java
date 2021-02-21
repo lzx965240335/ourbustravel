@@ -1,5 +1,7 @@
 package com.cykj.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.cykj.mapper.ChatInfMapper;
 import com.cykj.service.AdminInfService;
 import com.cykj.bean.AdminInf;
 import com.cykj.mapper.AdminInfMapper;
@@ -16,6 +18,8 @@ public class AdminInfServiceImpl implements AdminInfService {
 
     @Autowired
     AdminInfMapper adminInfMapper;
+    @Autowired
+    ChatInfMapper chatInfMapper;
 
     @Override
     public List<AdminInf> adminSelectTable(Map<String, Object> hasMap, RowBounds rb) {
@@ -89,5 +93,13 @@ public class AdminInfServiceImpl implements AdminInfService {
     @Override
     public AdminInf selectAdminInf(AdminInf adminInf) {
         return adminInfMapper.selectAdminInf(adminInf);
+    }
+
+    @Override
+    public String chatLoad(int adminId) {
+        String result = JSON.toJSONString(chatInfMapper.selectByAdminId(101));
+        System.out.println(result);
+        chatInfMapper.updateByAdminId(adminId);
+        return result;
     }
 }

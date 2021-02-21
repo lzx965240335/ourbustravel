@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>城市公交鸟瞰图</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+<!--    <link rel="stylesheet" th:href="@{/js/layui/css/layui.css}">-->
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/layui/layui.js}"></script>-->
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=e3414d925e633d9acc327de720e02e5e&&plugin=AMap.Scale"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="container" style="height: 100%;width: 100%"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/bird.js}"></script>
+</html>

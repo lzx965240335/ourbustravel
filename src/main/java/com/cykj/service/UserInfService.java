@@ -9,17 +9,19 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Map;
 
 public interface UserInfService {
-
+    Map<String,Object> getOpenid(String code, String encryptedData, String iv );
+    HashMap<String,Object> wxLogin(String openId);
     LayuiJson selectUser(HashMap map);
     int login(UserInf userInf);
     UserInf getLoginner();
     String sendMSG(String mobile, HttpSession session);
-    String register(String phoneNum , String code , String password , HttpSession session);
-    String updatePwd(String phoneNum , String code , String password , HttpSession session);
-    ResponseEntity<byte[]> downLoadFile(HttpServletRequest request, int fileId, String fileName1, String fileType);
+    String register(String phoneNum, String code, String password, HttpSession session);
+    String updatePwd(String phoneNum, String code, String password, HttpSession session);
     String upLoadFile(HttpServletRequest request, MultipartFile uploadFile, HttpSession session);
     String updateUserInf(UserInf userInf);
-    String chatLoad(ChatInf chatInf);
+    String chatLoad(int userId);
+    String chatLoadOne(int userId, int adminId, char role);
 }

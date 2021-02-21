@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cykj.mapper.ArticleMapper">
+
+  <insert id="addArticle" parameterType="Article">
+          insert into t_article(title, content, issueTime) VALUES (#{title},#{content},#{issueTime});
+  </insert>
+
+
+   <select id="selectArticles" parameterType="HashMap" resultType="Article">
+     select articleId, title, issueTime from t_article order by str_to_date(issueTime, '%Y-%m-%d %H:%i:%s') desc limit #{start},#{end}
+   </select>
+
+    <select id="selectArticleById" parameterType="Integer" resultType="Article">
+     select * from t_article where articleId=#{articleId}
+   </select>
+
+</mapper>

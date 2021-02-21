@@ -22,9 +22,6 @@
     <!--引入UI组件库（1.1版本） -->
     <!--<script src="//webapi.amap.com/ui/1.1/main.js"></script>-->
     <title>地图</title>
-    <style>
-
-    </style>
 </head>
 <body>
 <div id="container"></div>
@@ -74,13 +71,20 @@
     </div>
 </div>
 <!--工具类-->
-<div class="input-card">
-    <h4>左击获取经纬度：</h4>
-    <div class="input-item">
-        <input type="text" readonly="true" id="lnglat">
-    </div>
-</div>
+<!--<div class="input-card">-->
+<!--    <h4>左击获取经纬度：</h4>-->
+<!--    <div class="input-item">-->
+<!--        <input type="text" readonly="true" id="lnglat">-->
+<!--    </div>-->
+<!--</div>-->
+<!--公交信息表-->
+    <div style="display: none;" id="busTime">
+    <div class="layui-layout-body" style="overflow:inherit;height: 100%">
+            <span  id="busBox" class="layui-breadcrumb" style="margin-left: 20px;float: left">
 
+            </span>
+        </div>
+</div>
 <!--信息搜索栏-->
 <div class="info">
     <div class="input-item">
@@ -134,311 +138,14 @@
                     <div class="dirtips_item dirlocSug" style="display: none;"><a href="javascript:void(0)"
                                                                                   id="locsug">我的位置</a></div>
                 </div>
-                <div class="plan_wrap_item dirHistory" id="dirHistory" style="display: none;"><h2><i
-                        class="iconfont icon-history"></i>路线搜索记录 </h2> <a class="dirhisclear" style="display: none"
-                                                                          href="javascript:void(0)">清空历史记录</a>
+                <div class="plan_wrap_item dirHistory" id="dirHistory" style="display: none;">
+                    <h2><i class="iconfont icon-history"></i>路线搜索记录 </h2>
+                    <a class="dirhisclear" style="display: none" href="javascript:void(0)">清空历史记录</a>
                     <ul class="dir_history_list"></ul>
                 </div>
-                <div class="plan_wrap_item plan_list" id="planList" style="display: block;">
+
                     <div class="planlist_wrap planlist_bus ps-container ps-theme-default" style="max-height: 605px;">
 
-                        <!-- 出行计划由js生成 -->
-                        <div class="planTitle current" index="0" id="plantitle_0">
-                            <h3>
-                <span class="line busline  ">
-                    751路/18路等
-                    <i class="risk_time"></i>
-                </span>
-                            </h3>
-                            <p>20分钟（1.0公里）| 步行463米
-                                | <span class="red"> 1元 </span>
-                            </p>
-                            <ul class="route_info clearfix">
-                                <li class="route_min_tag min_lesstime">时间短</li>
-                                <li class="route_up_station">
-                                    <span>上车站</span>
-                                    <span class="up_station">软件园南门</span>
-                                </li>
-                            </ul>
-                            <div class="sidebar">
-                                <a class="icon-arrow-up" href="javascript:void(0)">
-                                    <i class="iconfont icon-arrowup"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <ol class="p_route" id="plan_0">
-                            <li class="p_start busstop" id="marker-plan-0">
-                                <em class="p_icon">起</em>
-                                <div class="info">
-                                    <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>
-                                </div>
-                            </li>
-
-
-                            <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">
-                                <div class="info">
-
-                                    <p class="">步行 <span class="distance">223米</span> 至&nbsp;软件园南门(约4分钟)</p>
-                                </div>
-                            </li>
-
-
-                            <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1"
-                                style="background-color: rgba(65,138,236,0.15)">
-                                <div class="p_icon">
-                                    <em class="point point_1" style="border: 1px solid #418AEC;"></em>
-                                    <div class="traffic_background" style="background-color: #418AEC"></div>
-                                    <em class="point point_2" style="border: 1px solid #418AEC;"></em>
-                                </div>
-                                <div class="info" style="border-left-color: rgba(65,138,236,0.5)">
-
-                                    <p class="direct"><span style="color: #418AEC" class="">751路</span>（厦大翔安校区方向）</p>
-                                    <div class="p_content">
-                                        <h4>
-                                            <a href="javascript:void(0)" class="busstop" id="marker-plan-1">
-                                                软件园南门
-                                            </a>&nbsp;
-                                            <span>上车</span>
-                                        </h4>
-                                        <ol>
-                                        </ol>
-                                        <h4>
-                                            <a href="javascript:void(0)" class="busstop" id="marker-plan-2">
-                                                岭兜佳园站
-                                            </a>&nbsp;
-                                            <span>下车</span>
-                                        </h4>
-                                    </div>
-
-                                    <p class="time_and_num"><span class="time_start ">首：06:40</span>&nbsp;&nbsp;<span
-                                            class="time_end ">末：22:20</span>&nbsp;&nbsp;约25分钟/趟
-                                        <span class="num1">1站</span>
-                                    </p>
-
-
-                                    <p class="alter_bus">或
-                                        <span class="alter_busline" busid="350200011156" alter-index="0-0-0">18路</span>
-                                    </p>
-
-                                </div>
-                            </li>
-
-                            <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">
-                                <div class="info">
-
-                                    <p class="endwalk">步行 <span class="distance">240米</span> 至&nbsp;终点(约4分钟)</p>
-                                </div>
-                            </li>
-
-                            <li class="p_end busstop" id="marker-plan-3">
-                                <em class="p_icon">终</em>
-                                <div class="info">
-                                    <p class="address" title="厦门市金山路">厦门市金山路</p>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <!-- <div class="planTitle offline"> -->
-                        <!--                            <div class="planTitle" index="1" id="plantitle_1">-->
-                        <!--                                <h3>-->
-                        <!--                <span class="line busline  ">-->
-                        <!--                    656路-->
-                        <!--                    <i class="risk_time"></i>-->
-                        <!--                </span>-->
-
-                        <!--                                </h3>-->
-                        <!--                                <p>25分钟（2.2公里）| 步行457米 | <span class="red"> 1元 </span>-->
-
-                        <!--                                </p>-->
-                        <!--                                <ul class="route_info clearfix">-->
-                        <!--                                    <li class="route_min_tag min_"></li>-->
-                        <!--                                    <li class="route_up_station">-->
-                        <!--                                        <span>上车站</span>-->
-                        <!--                                        <span class="up_station">软件园南门站</span>-->
-                        <!--                                    </li>-->
-
-                        <!--                                </ul>-->
-                        <!--                                <div class="sidebar">-->
-                        <!--                                    <a class="icon-arrow-up" href="javascript:void(0)">-->
-                        <!--                                        <i class="iconfont icon-arrowup"></i>-->
-                        <!--                                    </a>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <ol class="p_route" id="plan_1">-->
-                        <!--                                <li class="p_start busstop" id="marker-plan-0">-->
-                        <!--                                    <em class="p_icon">起</em>-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">-->
-                        <!--                                    <div class="info">-->
-
-                        <!--                                        <p class="">步行 <span class="distance">217米</span> 至&nbsp;软件园南门站(约4分钟)</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-
-                        <!--                                <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1" style="background-color: rgba(65,138,236,0.15)">-->
-                        <!--                                    <div class="p_icon">-->
-                        <!--                                        <em class="point point_1" style="border: 1px solid #418AEC;"></em>-->
-                        <!--                                        <div class="traffic_background" style="background-color: #418AEC"></div>-->
-                        <!--                                        <em class="point point_2" style="border: 1px solid #418AEC;"></em>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="info" style="border-left-color: rgba(65,138,236,0.5)">-->
-
-                        <!--                                        <p class="direct"><span style="color: #418AEC" class="">656路</span>（五显公交场站方向）</p>-->
-                        <!--                                        <div class="p_content">-->
-                        <!--                                            <h4>-->
-                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-1">-->
-                        <!--                                                    软件园南门站-->
-                        <!--                                                </a>&nbsp;-->
-                        <!--                                                <span>上车</span>-->
-                        <!--                                            </h4>-->
-                        <!--                                            <ol>-->
-                        <!--                                                <li>岭兜二里</li>-->
-                        <!--                                                <li>前埔路岭兜</li>-->
-                        <!--                                            </ol>-->
-                        <!--                                            <h4>-->
-                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-2">-->
-                        <!--                                                    岭兜佳园-->
-                        <!--                                                </a>&nbsp;-->
-                        <!--                                                <span>下车</span>-->
-                        <!--                                            </h4>-->
-                        <!--                                        </div>-->
-
-                        <!--                                        <p class="time_and_num">-->
-                        <!--                                            运营时间：06:30-21:00-->
-                        <!--                                            约25分钟/趟-->
-                        <!--                                            <span class="station_num">3站-->
-                        <!--                            <a class="icon-arrow-up" href="javascript:void(0)">-->
-                        <!--                                <i class="iconfont icon-arrowup"></i>-->
-                        <!--                            </a>-->
-                        <!--                        </span>-->
-                        <!--                                        </p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="endwalk">步行 <span class="distance">240米</span> 至&nbsp;终点(约4分钟)</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_end busstop" id="marker-plan-3">-->
-                        <!--                                    <em class="p_icon">终</em>-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="address" title="厦门市金山路">厦门市金山路</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                            </ol>-->
-
-                        <!--                            &lt;!&ndash; <div class="planTitle offline"> &ndash;&gt;-->
-                        <!--                            <div class="planTitle" index="2" id="plantitle_2">-->
-                        <!--                                <h3>-->
-                        <!--                <span class="line busline  ">-->
-                        <!--                    123路/127路/94路等-->
-                        <!--                    <i class="risk_time"></i>-->
-                        <!--                </span>-->
-
-                        <!--                                </h3>-->
-                        <!--                                <p>25分钟（1.4公里）| 步行768米 | <span class="red"> 1元 </span>-->
-                        <!--                                </p>-->
-                        <!--                                <ul class="route_info clearfix">-->
-
-                        <!--                                    <li class="route_min_tag min_"></li>-->
-
-                        <!--                                    <li class="route_up_station">-->
-                        <!--                                        <span>上车站</span>-->
-                        <!--                                        <span class="up_station">软件园南门</span>-->
-                        <!--                                    </li>-->
-                        <!--                                </ul>-->
-                        <!--                                <div class="sidebar">-->
-                        <!--                                    <a class="icon-arrow-up" href="javascript:void(0)">-->
-                        <!--                                        <i class="iconfont icon-arrowup"></i>-->
-                        <!--                                    </a>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <ol class="p_route" id="plan_2">-->
-                        <!--                                <li class="p_start busstop" id="marker-plan-0">-->
-                        <!--                                    <em class="p_icon">起</em>-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="address" title="厦门市吕岭路">厦门市吕岭路</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-0">-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="">步行 <span class="distance">223米</span> 至&nbsp;软件园南门(约4分钟)</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_traffic p_bus p_bus_seg" id="poly-plan-1" style="background-color: rgba(65,138,236,0.15)">-->
-                        <!--                                    <div class="p_icon">-->
-                        <!--                                        <em class="point point_1" style="border: 1px solid #418AEC;"></em>-->
-                        <!--                                        <div class="traffic_background" style="background-color: #418AEC"></div>-->
-                        <!--                                        <em class="point point_2" style="border: 1px solid #418AEC;"></em>-->
-                        <!--                                    </div>-->
-                        <!--                                    <div class="info" style="border-left-color: rgba(65,138,236,0.5)">-->
-
-                        <!--                                        <p class="direct"><span style="color: #418AEC" class="">123路</span>（思明区政府方向）</p>-->
-                        <!--                                        <div class="p_content">-->
-                        <!--                                            <h4>-->
-                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-1">-->
-                        <!--                                                    软件园南门-->
-                        <!--                                                </a>&nbsp;-->
-                        <!--                                                <span>上车</span>-->
-                        <!--                                            </h4>-->
-                        <!--                                            <ol></ol>-->
-                        <!--                                            <h4>-->
-                        <!--                                                <a href="javascript:void(0)" class="busstop" id="marker-plan-2">明发园</a>&nbsp;-->
-                        <!--                                                <span>下车</span>-->
-                        <!--                                            </h4>-->
-                        <!--                                        </div>-->
-
-                        <!--                                        <p class="time_and_num"><span class="time_start ">首：06:00</span>&nbsp;&nbsp;<span class="time_end ">末：23:00</span>&nbsp;&nbsp;约15分钟/趟-->
-
-                        <!--                                            <span class="num1">1站</span>-->
-                        <!--                                        </p>-->
-
-
-                        <!--                                        <p class="alter_bus">或-->
-                        <!--                                            <span class="alter_busline" busid="350200010372" alter-index="2-0-0">127路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="350200010525" alter-index="2-0-1">94路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="350200011187" alter-index="2-0-2">38路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="350200011190" alter-index="2-0-3">39路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="350200011220" alter-index="2-0-4">68路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="350200011261" alter-index="2-0-5">88路</span>-->
-                        <!--                                            ,-->
-                        <!--                                            <span class="alter_busline" busid="900000085719" alter-index="2-0-6">403路</span>-->
-                        <!--                                        </p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_traffic p_walk p_bus_seg" id="poly-plan-2">-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="endwalk">步行 <span class="distance">545米</span> 至&nbsp;终点(约8分钟)</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-
-                        <!--                                <li class="p_end busstop" id="marker-plan-3">-->
-                        <!--                                    <em class="p_icon">终</em>-->
-                        <!--                                    <div class="info">-->
-                        <!--                                        <p class="address" title="厦门市金山路">厦门市金山路</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </li>-->
-                        <!--                            </ol>-->
-                        <!--                            <div class="dir_bottom"></div>-->
                     </div>
                     <div class="route_ctrl">
                         <ul class="route_ctrl_list clearfix">
@@ -455,7 +162,6 @@
                                     class="ctrl_lbl">分享</span></a></li>
                         </ul>
                     </div>
-                </div>
                 <div id="amap_panel_model"></div>
             </div>
         </div>
@@ -468,8 +174,9 @@
     <ul class="layui-nav layui-layout-right" style="background-color:transparent">
         <li class="layui-nav-item">
             <p id="userName" th:if="${session.loginner}"  th:text="${session.loginner.userName}" hidden></p>
+            <p id="avatar" th:if="${session.loginner}"  th:text="${session.loginner.avatar}" hidden></p>
             <div id="loginbox">
-                <div class="avatar"></div>
+                <div class="avatar" ></div>
             </div>
             <dl class="layui-nav-child" style="width: 200px ; padding: 0;right: 0;left: unset">
 
@@ -525,7 +232,7 @@
                         </button>
                     </div>
                 </div>
-                <a href="" class="font-set">忘记密码?</a>
+                <a th:href="@{/page/whatPage?pageName=updatePwd}" class="font-set">忘记密码?</a>
                 <a id="butt" class="font-set" th:href="@{/page/whatPage?pageName=register}">立即注册</a>
             </form>
         </div>

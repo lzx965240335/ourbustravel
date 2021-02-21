@@ -1,5 +1,6 @@
 package com.cykj.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.bean.AdminInf;
 import com.cykj.service.AdminInfService;
 import com.cykj.util.LayuiJson;
@@ -54,21 +55,21 @@ public class AdminController {
     //重置密码
     @RequestMapping(value = "/getResetPwd")
     @ResponseBody
-    public String getResetPwd(HttpServletRequest request,String account){
-       int flag = adminInfService.resetPwd(account);
+    public String getResetPwd(HttpServletRequest request, String account){
+        int flag = adminInfService.resetPwd(account);
         return flag > 0 ? "重置密码成功" : "重置密码失败";
     }
     //新增
     @RequestMapping(value = "/getAdd")
     @ResponseBody
-    public String getAdd(HttpServletRequest request,@RequestBody AdminInf adminInf){
+    public String getAdd(HttpServletRequest request, @RequestBody AdminInf adminInf){
         boolean flag = adminInfService.insertAdminInf(adminInf);
         return flag == true ? "新增成功" : "新增失败";
     }
     //修改
     @RequestMapping(value = "/getReset")
     @ResponseBody
-    public String getReset(HttpServletRequest request,@RequestBody AdminInf adminInf){
+    public String getReset(HttpServletRequest request, @RequestBody AdminInf adminInf){
         boolean flag = adminInfService.updateAdminInf(adminInf);
         return flag == true ? "修改成功" : "修改失败";
     }
@@ -151,5 +152,12 @@ public class AdminController {
     @ResponseBody
     public void exit(HttpSession session){
         session.removeAttribute("adminInf");
+    }
+
+    @RequestMapping(value = "/chatLoad")
+    @ResponseBody
+    public String  chatLoad(int adminId){
+        System.out.println(JSON.toJSONString(adminId));
+        return adminInfService.chatLoad(adminId);
     }
 }

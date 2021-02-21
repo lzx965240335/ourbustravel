@@ -1,5 +1,7 @@
 package com.cykj.bean;
 
+import java.util.List;
+
 public class Driver {
     private Integer drivId;
 
@@ -8,6 +10,8 @@ public class Driver {
     private String drivPassword;
 
     private String drivName;
+
+    private List<DrivSign> drivSigns;
 
     public Driver() {
     }
@@ -42,5 +46,13 @@ public class Driver {
 
     public void setDrivName(String drivName) {
         this.drivName = drivName;
+    }
+
+    public List<DrivSign> getDrivSigns() {
+        return drivSigns;
+    }
+
+    public void setDrivSigns(List<DrivSign> drivSigns) {
+        this.drivSigns = drivSigns;
     }
 }

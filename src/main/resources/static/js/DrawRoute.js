@@ -6,13 +6,15 @@ var ruler1, ruler2;
 var clickSelectBtn = null;
 
 var routeNmae = '';
-
+var method=0;
 var isUpdate = 0;//0不是修改页面进来  1是
 var route;
+var money;
 $(function () {
     let sites = $('.sites');
     if (sites.length > 1) {
         isUpdate = 1;
+        method=1;
         clickSites = [];
         $(sites).each(function (obj) {
             let siteId = $(this)[0].attributes.siteId.nodeValue;
@@ -29,6 +31,7 @@ $(function () {
         console.log(clickSites);
         //获取线路名
         routeNmae = $('#routeId')[0].attributes.routeName.nodeValue;
+        money = $('#routeId')[0].attributes.money.nodeValue;
     }
 });
 
@@ -145,6 +148,9 @@ layui.use('element', function () {
 
 //点击的选择按钮
 function clickSiteBtn(e) {
+
+    setUpdate(function () {},function () {});
+
     $(clickSelectBtn).attr('class', 'selectSite');
     if ($(clickSelectBtn).val() == $(e).val()) {
         clickSelectBtn = null;
@@ -157,7 +163,6 @@ function clickSiteBtn(e) {
 // 增加按钮
 function addSelectBtn() {
     setUpdate(function () {
-
         if (clickSelectBtn == null) {
             let value = $('.selectSite').length;
             $('#route').append(
@@ -232,8 +237,6 @@ function deleteSelectBtn() {
     }, function () {
         deleteSelectBtn();
     });
-
-
 }
 
 //设置修改
@@ -391,7 +394,7 @@ function startDraw(path) {
 
 //保存路线
 function saveRoute() {
-    let index = layer.alert("<div><input style=\"margin-bottom: 20px;\" id='area' placeholder='请输入线路名称' value='" + routeNmae + "' type='text'/> <select id=\"rightOrLeft\"> <option value=\"1\">正</option><option value=\"0\">反</option></select>\n</div>", {
+    let index = layer.alert("<div><input style=\"margin-bottom: 20px;\" id='area' placeholder='请输入线路名称' value='" + routeNmae + "' type='text'/> <select id=\"rightOrLeft\"> <option value=\"1\">正</option><option value=\"0\">反</option></select>\n<input style=\"margin-bottom: 20px;\" id='money' placeholder='请输入乘车金额/元' value='" + 0 + "' type='text'/> </div>", {
         skin: 'layui-layer-molv' //样式类名  自定义样式
         , title: '保存路线'
         , closeBtn: 1    // 是否显示关闭按钮 0不显示，1  2 样式
@@ -401,6 +404,7 @@ function saveRoute() {
         , yes: function () {
             let title = $('#area').val().replace(/\s+/g, "");
             let rightOrLeft = $('#rightOrLeft').val();
+            let money = $('#money').val();
             if (title.length < 1) {
                 $('#area').attr('placeholder', '请输入有效的线路名称')
             } else {
@@ -429,6 +433,7 @@ function saveRoute() {
                     startSite: startSite,
                     endSite: endSite,
                     rightOrLeft: rightOrLeft,
+                    money:money,
                     sites: []
                 };
                 $(route.getRoute()).each(function (i, obj) {
@@ -449,7 +454,7 @@ function saveRoute() {
                 });
                 $.ajax({
                     contentType: "application/json",
-                    url: "/routeController/"+(isUpdate===0?"addRoute":"updateRouteById"),
+                    url: "/routeController/"+(method===0?"addRoute":"updateRouteById"),
                     type: "post",
                     data: JSON.stringify(addRoute),
                     dataType: "json",

@@ -13,6 +13,7 @@ public class AdminChatJson extends HashMap implements Map {
         AdminInf adminInf = (AdminInf) session.getAttribute("adminInf");
         mine.put("username",adminInf.getAccount());
         mine.put("id",adminInf.getAdminId());
+        mine.put("avatar",adminInf.getAvatar());
         mine.put("sign","HelloWorld!!!");
         mine.put("status", "online");
         put("code", 0);

@@ -79,4 +79,33 @@
       drivName = #{drivname,jdbcType=VARCHAR}
     where drivId = #{drivid,jdbcType=INTEGER}
   </update>
+  <select id="selectByLogin" parameterType="com.cykj.bean.Driver" resultType="com.cykj.bean.Driver">
+    select * from t_driver
+    where drivAccount = #{drivAccount} and drivPassword = #{drivPassword}
+  </select>
+
+  <resultMap id="DrivSigns" type="com.cykj.bean.Driver" >
+    <result property="drivId" column="drivId"/>
+    <result property="drivAccount" column="drivAccount"/>
+    <result property="drivName" column="drivName"/>
+<!--    <result property="drivSigns" column="drivSigns"/>-->
+    <collection property="drivSigns" ofType="com.cykj.bean.DrivSign" column="drivSigns">
+      <result property="DSSign" column="dssign"/>
+      <result property="DSYear" column="DSYear"/>
+      <result property="DSMonth" column="DSMonth"/>
+    </collection>
+
+  </resultMap>
+
+  <select id="getSigns" parameterType="hashmap" resultMap="DrivSigns">
+    select d.*,ds.* from t_driver d,t_drivSign ds
+    where d.drivId = ds.drivId and d.drivId = #{drivId} and ds.dsyear = #{DSYear} and dsmonth = #{DSMonth}
+  </select>
+
+  <insert id="newMonth" parameterType="hashmap">
+    insert into t_drivSign (dsyear,dsmonth,drivId,dssign) values (#{DSYear},#{DSMonth},#{drivId},#{DSSign})
+  </insert>
+  <update id="do_clock" parameterType="hashmap">
+    update t_drivSign set dssign = #{signs} where dsyear = #{DSYear} and dsmonth = #{DSMonth} and drivId = #{drivId}
+  </update>
 </mapper>

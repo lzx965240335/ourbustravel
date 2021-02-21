@@ -43,4 +43,9 @@ public interface RouteMapper {
 
    int updateRoute(Map map);
 
+   //查找所有线路（包含时刻表）
+   List<Route> selectRouteAll();
+
+   //根据id查找线路，包含时刻表
+   Route selectRouteTimeById(int routeId);
 }
